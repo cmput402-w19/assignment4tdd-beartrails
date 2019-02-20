@@ -1,6 +1,14 @@
 package cmput402.beartrails;
 
+import java.sql.DriverManager;
+import java.io.File;
+import java.io.IOException;
+import java.sql.Connection;
+
 public class ConnectionManager {
+	
+	
+	private final String DEFAULT_DB_URL = "db/beartrails.db";
 	
 	public ConnectionManager() {
 		
@@ -23,7 +31,7 @@ public class ConnectionManager {
 	 * 
 	 */
 	public Boolean openConnection() {
-		return null;
+		  return this.openConnection(this.DEFAULT_DB_URL);      
 	}
 	
 	/**
@@ -34,7 +42,14 @@ public class ConnectionManager {
 	 * @param dbPath
 	 */
 	public Boolean openConnection(String dbPath) {
-		return null;
+		File db = new File(dbPath);
+		try {
+			db.createNewFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 	
 	/**
