@@ -4,6 +4,13 @@ import java.util.List;
 
 public class UserManager {
 
+    private ConnectionManager connectionManager;
+
+    public UserManager(ConnectionManager connectionManager)
+    {
+        this.connectionManager = connectionManager;
+    }
+
     public User login(String username)
     {
         return null;

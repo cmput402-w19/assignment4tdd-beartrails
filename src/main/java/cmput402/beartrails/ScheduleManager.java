@@ -4,6 +4,13 @@ import java.util.List;
 
 public class ScheduleManager {
 
+    private ConnectionManager connectionManager;
+
+    public ScheduleManager(ConnectionManager connectionManager)
+    {
+        this.connectionManager = connectionManager;
+    }
+
     public List<Course> getStudentSchedule(String studentUsername)
     {
         return null;
