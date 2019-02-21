@@ -28,7 +28,12 @@ public class GradeManager {
     public ArrayList<CourseGrade> getStudentGrades(String studentUsername)
     {
         ArrayList<CourseGrade> studentGrades = new ArrayList<CourseGrade>();
-        List<List<Object>> queryResult = connectionManager.query("");
+
+        // Get list of courses and grades from DB
+        String sqlQuery = "SELECT subject, number, days, time, duration, location, professor, grade" +
+                          "FROM enrollments NATURAL JOIN courses" +
+                          "WHERE student=\"" + studentUsername + "\"";
+        List<List<Object>> queryResult = connectionManager.query(sqlQuery);
 
         // Get course and grade list from response
         Iterator<List<Object>> courseGradeIterator = queryResult.iterator();
