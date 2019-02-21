@@ -27,7 +27,33 @@ public class GradeManager {
 
     public ArrayList<CourseGrade> getStudentGrades(String studentUsername)
     {
-        return null;
+        ArrayList<CourseGrade> studentGrades = new ArrayList<CourseGrade>();
+        List<List<Object>> queryResult = connectionManager.query("");
+
+        // Get course and grade list from response
+        Iterator<List<Object>> courseGradeIterator = queryResult.iterator();
+
+        // Add all courses and grades to hashmap
+        while(courseGradeIterator.hasNext())
+        {
+            List<Object> currentCourseGrade = courseGradeIterator.next();
+            Course currentCourse = new Course();
+            currentCourse.courseSubject = currentCourseGrade.get(0).toString();
+            currentCourse.courseNumber = currentCourseGrade.get(1).toString();
+            currentCourse.courseDays =  Course.DaysOfWeek.valueOf(currentCourseGrade.get(2).toString());
+            currentCourse.startTime = (Integer) currentCourseGrade.get(3);
+            currentCourse.duration = (Integer) currentCourseGrade.get(4);
+            currentCourse.location = currentCourseGrade.get(5).toString();
+            currentCourse.professor = currentCourseGrade.get(6).toString();
+
+            CourseGrade courseGrade = new CourseGrade();
+            courseGrade.course = currentCourse;
+            courseGrade.grade = (Double)currentCourseGrade.get(7);
+
+            studentGrades.add(courseGrade);
+        }
+
+        return studentGrades;
     }
 
     public Double getStudentGPA(String studentUsername)

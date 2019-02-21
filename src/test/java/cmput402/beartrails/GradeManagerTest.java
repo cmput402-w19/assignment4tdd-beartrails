@@ -163,7 +163,7 @@ public class GradeManagerTest extends TestCase {
 
         Course firstCourse = result.get(0).course;
 
-        Assert.assertEquals(result.get(0).grade, 3.2d);
+        Assert.assertEquals(result.get(0).grade, 3.5d);
         Assert.assertTrue(firstCourse.courseSubject.equals(course.courseSubject));
         Assert.assertTrue(firstCourse.courseDays.equals(course.courseDays));
         Assert.assertTrue(firstCourse.startTime.equals(course.startTime));
