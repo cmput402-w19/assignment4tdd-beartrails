@@ -30,4 +30,37 @@ public class GradeManagerTest extends TestCase {
         verify(mockConnectionManager, times(1)).query(anyString());
         Assert.assertEquals(result, 3.40f);
     }
+
+    public void testgetCourseAverage()
+    {
+        ConnectionManager mockConnectionManager = mock(ConnectionManager.class);
+
+        List<List<Object>> fakeGrades = new ArrayList<List<Object>>();
+        List<Object> fakeGradesList = new ArrayList<Object>();
+
+        List<String> fakeUsersList = null;
+        List<Float> fakeUserGradeList = null;
+
+        fakeUsersList.add("benedict");
+        fakeUserGradeList.add(4.0f);
+
+        fakeUsersList.add("smith");
+        fakeUserGradeList.add(2.7f);
+
+        fakeUsersList.add("molly");
+        fakeUserGradeList.add(3.7f);
+
+        fakeUsersList.add("james");
+        fakeUserGradeList.add(2.0f);
+
+        fakeGradesList.add(fakeUsersList);
+        fakeGradesList.add(fakeUserGradeList);
+        fakeGrades.add(fakeGradesList);
+
+        when(mockConnectionManager.query(anyString())).thenReturn(fakeGrades);
+
+        GradeManager gradeManager = new GradeManager(mockConnectionManager);
+        Float result = gradeManager.getCourseAverage("CMPUT", "402");
+        Assert.assertEquals(result, 3.10f);
+    }
 }
