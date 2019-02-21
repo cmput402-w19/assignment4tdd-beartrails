@@ -1,8 +1,10 @@
 package cmput402.beartrails;
 
+import junit.framework.Assert;
 import junit.framework.TestCase;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 
@@ -10,28 +12,22 @@ import static org.mockito.Mockito.*;
 public class GradeManagerTest extends TestCase {
 
     public void testgetStudentGPA() {
-        GradeManager mockGradeManager = mock(GradeManager.class);
-        User student = new User("repka", "Repka", "Derek", User.Type.Student);
-        Course fakeCourse = new Course();
-        fakeCourse.courseNumber = "402";
-        fakeCourse.courseSubject = "CMPUT";
+        ConnectionManager mockConnectionManager = mock(ConnectionManager.class);
 
-        Course fakeCourse2 = new Course();
-        fakeCourse.courseNumber = "300";
-        fakeCourse.courseSubject = "CMPUT";
+        List<List<Object>> fakeGrades = new ArrayList<List<Object>>();
+        List<Object> fakeGradesList = new ArrayList<Object>();
 
-        Course fakeCourse3 = new Course();
-        fakeCourse.courseNumber = "201";
-        fakeCourse.courseSubject = "CMPUT";
+        fakeGradesList.add(3.5f);
+        fakeGradesList.add(3.0f);
+        fakeGradesList.add(3.7f);
 
-        HashMap<Course, Float> fakeGrades = new HashMap<Course, Float>();
-        fakeGrades.put(fakeCourse, 3.5f);
-        fakeGrades.put(fakeCourse2, 3.0f);
-        fakeGrades.put(fakeCourse3, 3.7f);
+        fakeGrades.add(fakeGradesList);
+        when(mockConnectionManager.query(anyString())).thenReturn(fakeGrades);
 
-        when(mockGradeManager.getStudentGrades(student.username)).thenReturn(fakeGrades);
+        GradeManager gradeManager = new GradeManager(mockConnectionManager);
 
-        Float result = mockGradeManager.getStudentGPA(student.username);
-        assertTrue(result == 3.4f);
+        Float result = gradeManager.getStudentGPA("repka");
+        verify(mockConnectionManager, times(1)).query(anyString());
+        Assert.assertEquals(result, 3.40f);
     }
 }
