@@ -7,4 +7,11 @@ public class User {
     public String lastName;
     public String firstName;
     public Type userType;
+
+    User(String username, String lastName, String firstName, Type userType) {
+        this.username = username;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.userType = userType;
+    }
 }
