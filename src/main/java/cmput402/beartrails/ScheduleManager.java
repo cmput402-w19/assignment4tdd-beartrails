@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ScheduleManager {
 
-    private ConnectionManager connectionManager;
+    public ConnectionManager connectionManager;
 
     public ScheduleManager(ConnectionManager connectionManager)
     {

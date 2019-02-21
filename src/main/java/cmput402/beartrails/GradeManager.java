@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class GradeManager {
 
-    private ConnectionManager connectionManager;
+    public ConnectionManager connectionManager;
 
     public GradeManager(ConnectionManager connectionManager)
     {

@@ -4,7 +4,7 @@ import java.util.List;
 
 public class CourseManager {
 
-    private ConnectionManager connectionManager;
+    public ConnectionManager connectionManager;
 
     public CourseManager(ConnectionManager connectionManager)
     {

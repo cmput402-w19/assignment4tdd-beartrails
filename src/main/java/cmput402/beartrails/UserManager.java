@@ -4,7 +4,7 @@ import java.util.List;
 
 public class UserManager {
 
-    private ConnectionManager connectionManager;
+    public ConnectionManager connectionManager;
 
     public UserManager(ConnectionManager connectionManager)
     {
