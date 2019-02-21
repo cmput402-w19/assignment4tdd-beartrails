@@ -1,6 +1,7 @@
 package cmput402.beartrails;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -62,6 +63,20 @@ public class GradeManager {
 
     public Float getCourseAverage(String subject, String number)
     {
-        return null;
+        Float totalGPA = 0.0f;
+
+        List<List<Object>> queryResult = connectionManager.query("");
+
+        List<Object> gradeUsersList = queryResult.get(0);
+        List<Float> gradeList = (ArrayList) gradeUsersList.get(1);
+
+        for(Float grade : gradeList) {
+            totalGPA += grade;
+        }
+
+        Float courseAverage = totalGPA / gradeList.size();
+        BigDecimal bd = new BigDecimal(courseAverage);
+        bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
+        return bd.floatValue();
     }
 }
