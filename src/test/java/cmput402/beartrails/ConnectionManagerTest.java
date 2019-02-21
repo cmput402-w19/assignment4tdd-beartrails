@@ -48,6 +48,18 @@ public class ConnectionManagerTest extends TestCase {
 		rv = cm.openConnection();
 		assertFalse(rv);
 	}
+	
+	public void testCloseConnection() {
+		ConnectionManager cm = new ConnectionManager();
+		cm.openConnection();
+		
+		Boolean rv = cm.closeConnection();
+		assertTrue(rv);
+		
+		rv = cm.closeConnection();
+		assertFalse(rv);
+		
+	}
 
 
 }
