@@ -83,7 +83,7 @@ public class ConnectionManagerTest extends TestCase {
 		cm.openConnection(this.dbTestFile);
 		
 		//Insert single row into users table
-		String sql = "INSERT INTO users" +
+		String sql = "INSERT INTO users " +
 		             "VALUES ('huntc', 'Corey', 'Hunt', 2);";
 		Boolean rv = cm.execute(sql);
 		assertTrue(rv);
@@ -144,7 +144,9 @@ public class ConnectionManagerTest extends TestCase {
 		
 		cm.execute(sql);
 		
-		sql = "SELECT grade FROM enrollments WHERE student = \"huntc\"";
+		sql = "SELECT grade FROM enrollments " +
+		      "WHERE student = \"huntc\" " +
+		      "ORDER BY grade DESC";
 		List<List<Object>> results = cm.query(sql);
 		
 		//3 rows
@@ -152,16 +154,17 @@ public class ConnectionManagerTest extends TestCase {
 		//1 column
 		assert(1 == results.get(0).size());
 		
-		List<Float> grades = new ArrayList<Float>();
-		for(List<Object> row : results) {
-			Object grade = row.get(0);
-			assertTrue(grade instanceof Float);
-			grades.add((Float) grade);
-		}
+		Object grade1 = results.get(0).get(0);
+		Object grade2 = results.get(1).get(0);
+		Object grade3 = results.get(2).get(0);
 		
-		assert(3.7f == grades.get(0));
-		assert(3.3f == grades.get(1));
-		assert(3.0f == grades.get(2));
+		assert(grade1 instanceof Double);
+		assert(grade2 instanceof Double);
+		assert(grade3 instanceof Double);
+		
+		assert(3.7 == (Double) grade1);
+		assert(3.3 == (Double) grade2);
+		assert(3.0 == (Double) grade3);
 		
 		cm.closeConnection();
 		
@@ -202,7 +205,7 @@ public class ConnectionManagerTest extends TestCase {
 		
 		String sql = "INSERT INTO users VALUES (\"huntc\", \"Corey\", \"Hunt\", 2);\n" + 
 				"INSERT INTO courses VALUES (\"cmput\", \"402\", \"TueThur\", 13, 1, \"CAB\", null);\n" + 
-				"INSERT INTO enrollments VALUES (\"huntc\", \"cmput\", \"402\", \"3.7\");\n";
+				"INSERT INTO enrollments VALUES (\"huntc\", \"cmput\", \"402\", 3.7);\n";
 		
 		Boolean rv = cm.execute(sql);
 		assertTrue(rv);
@@ -210,7 +213,9 @@ public class ConnectionManagerTest extends TestCase {
 		sql = "SELECT grade FROM enrollments";
 		List<List<Object>> results = cm.query(sql);
 		
-		assert(3.7f == (Float) results.get(0).get(0));
+		assert(1 == results.size());
+		assert(1 == results.get(0).size());
+		assert(3.7 == (Double) results.get(0).get(0));
 		
 		sql = "UPDATE enrollments SET grade = 3.0\n" +
 		      "WHERE student = 'huntc' and subject = 'cmput' and number = '402';";
@@ -225,7 +230,7 @@ public class ConnectionManagerTest extends TestCase {
 		//1 column
 		assert(1 == results.get(0).size());
 		//New grade value
-		assert(3.7f == (Float) results.get(0).get(0));
+		assert(3.0 == (Double) results.get(0).get(0));
 		
 		cm.closeConnection();
 	}

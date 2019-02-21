@@ -1,8 +1,11 @@
 package cmput402.beartrails;
 
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.io.File;
 import java.sql.Connection;
@@ -129,23 +132,47 @@ public class ConnectionManager {
 	/**
 	 * Execute an operation on the database.
 	 * 
-	 * @param sql the parameterized query to execute.
-	 * @param params the parameters to plug into sql string.
+	 * @param sql the query to execute.
 	 * @return the true if the operation was successful, false otherwise.
 	 */
-	public Boolean execute(String sql, List<Object> params) {
-		return null;
+	public Boolean execute(String sql) {
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
+			stmt.close();
+			return true;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
 	}
 	
 	/**
 	 * Query the database, and return the result.
 	 * 
-	 * @param sql the parameterized query to execute.
-	 * @param params the parameters to plug into the sql string.
+	 * @param sql the query to execute.
 	 * @return a 2d list of results.
 	 */
-	public List<List<Object>> query(String sql, List<Object> params) {
-		return null;
+	public List<List<Object>> query(String sql) {
+		Statement stmt;
+		try {
+			stmt = conn.createStatement();
+			ResultSet resultSet = stmt.executeQuery(sql);
+			ResultSetMetaData metaData = resultSet.getMetaData();	
+			int ncols = metaData.getColumnCount();
+		    List<List<Object>> results = new ArrayList<List<Object>>();
+		    
+			while(resultSet.next()) {
+				List<Object> row = new ArrayList<Object>();
+				for(int i = 1; i <= ncols; i++) {
+					row.add(resultSet.getObject(i));
+				}
+				results.add(row);
+			}
+			return results;
+		} catch (SQLException e) {
+			return null;
+		}
 	}
 	
 }
