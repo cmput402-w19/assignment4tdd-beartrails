@@ -3,8 +3,8 @@ package cmput402.beartrails;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.io.File;
-import java.io.IOException;
 import java.sql.Connection;
 
 public class ConnectionManager {
@@ -132,7 +132,7 @@ public class ConnectionManager {
 	 * @param sql the query to execute.
 	 * @return the result of the query.
 	 */
-	public Object query(String sql) {
+	public Object query(String sql, List<Object> params) {
 		return null;
 	}
 	
