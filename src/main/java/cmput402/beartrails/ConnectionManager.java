@@ -72,7 +72,17 @@ public class ConnectionManager {
 	 * This is part of the proper cleanup process.
 	 */
 	public Boolean closeConnection() {
-		return null;
+		if(this.conn == null) {
+			return false;
+		}
+		
+		try {
+			this.conn.close();
+			this.conn = null;
+		} catch (SQLException e) {
+			return false;
+		}
+		return true;
 	}
 	
 	/**
