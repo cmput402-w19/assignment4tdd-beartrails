@@ -41,11 +41,11 @@ public class ConnectionManagerTest extends TestCase {
 		db.delete();
 		
 		ConnectionManager cm = new ConnectionManager();
-		Boolean rv = cm.openConnection();
+		Boolean rv = cm.openConnection(this.dbTestFile);
 		assertTrue(rv);
 		
 		// Should refuse to open connection again.
-		rv = cm.openConnection();
+		rv = cm.openConnection(this.dbTestFile);
 		assertFalse(rv);
 	}
 	
