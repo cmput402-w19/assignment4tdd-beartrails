@@ -127,12 +127,24 @@ public class ConnectionManager {
 	}
 	
 	/**
-	 * Query the database.
+	 * Execute an operation on the database.
 	 * 
-	 * @param sql the query to execute.
-	 * @return the result of the query.
+	 * @param sql the parameterized query to execute.
+	 * @param params the parameters to plug into sql string.
+	 * @return the true if the operation was successful, false otherwise.
 	 */
-	public Object query(String sql, List<Object> params) {
+	public Boolean execute(String sql, List<Object> params) {
+		return null;
+	}
+	
+	/**
+	 * Query the database, and return the result.
+	 * 
+	 * @param sql the parameterized query to execute.
+	 * @param params the parameters to plug into the sql string.
+	 * @return a 2d list of results.
+	 */
+	public List<List<Object>> query(String sql, List<Object> params) {
 		return null;
 	}
 	
