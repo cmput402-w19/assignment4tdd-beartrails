@@ -43,6 +43,14 @@ public class ConnectionManager {
 	 */
 	public Boolean openConnection(String dbPath) {
 		File db = new File(dbPath);
+		
+		// Create parent directory, if applicable
+		File parentDir = db.getParentFile();
+		if(parentDir != null) {
+			parentDir.mkdirs();
+		}
+
+		System.out.println(db.getParent());
 		try {
 			db.createNewFile();
 		} catch (IOException e) {
