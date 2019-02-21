@@ -114,6 +114,7 @@ public class ConnectionManager {
 	/**
 	 * Close the connection with the database.
 	 * This is part of the proper cleanup process.
+	 *
 	 */
 	public Boolean closeConnection() {
 		if(this.conn == null) {
@@ -150,8 +151,13 @@ public class ConnectionManager {
 	/**
 	 * Query the database, and return the result.
 	 * 
+	 * Uses JDBC's default mapping of data types:
+	 * REAL -> Double
+	 * INTEGER -> Integer
+	 * TEXT -> String
+	 * 
 	 * @param sql the query to execute.
-	 * @return a 2d list of results.
+	 * @return a 2D List of results.  
 	 */
 	public List<List<Object>> query(String sql) {
 		Statement stmt;
@@ -162,6 +168,7 @@ public class ConnectionManager {
 			int ncols = metaData.getColumnCount();
 		    List<List<Object>> results = new ArrayList<List<Object>>();
 		    
+		    //Loop over rows of the result, constructing 2D List
 			while(resultSet.next()) {
 				List<Object> row = new ArrayList<Object>();
 				for(int i = 1; i <= ncols; i++) {
@@ -173,6 +180,5 @@ public class ConnectionManager {
 		} catch (SQLException e) {
 			return null;
 		}
-	}
-	
+	}	
 }
