@@ -58,7 +58,25 @@ public class GradeManager {
 
     public HashMap<String, Float> getCourseMarks(String subject, String number)
     {
-        return null;
+        HashMap<String, Float> courseMarks = new HashMap<String, Float>();
+
+        // Get list of students and grades from DB
+        List<List<Object>> queryResult = connectionManager.query("");
+
+        // Get grade list and student list from response
+        List<Object> userList = (ArrayList) queryResult.get(0).get(0);
+        List<Object> gradeList = (ArrayList) queryResult.get(0).get(1);
+
+        Iterator<Object> userIterator = userList.iterator();
+        Iterator<Object> gradeIterator = gradeList.iterator();
+
+        // Add all students and grades to hashmap
+        while(gradeIterator.hasNext() && userIterator.hasNext())
+        {
+            courseMarks.put(userIterator.next().toString(), (Float)gradeIterator.next());
+        }
+
+        return courseMarks;
     }
 
     public Float getCourseAverage(String subject, String number)
