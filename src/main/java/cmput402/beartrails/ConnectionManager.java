@@ -12,8 +12,10 @@ public class ConnectionManager {
 	private final String DEFAULT_DB_URL = "db/beartrails.db";
 	private final String URI_PREFIX = "jdbc:sqlite:";
 	
+	private Connection conn = null;
+	
 	public ConnectionManager() {
-		
+	
 	}
 	
 	/**
@@ -44,6 +46,11 @@ public class ConnectionManager {
 	 * @param dbPath
 	 */
 	public Boolean openConnection(String dbPath) {
+		
+		if(this.conn != null) {
+			return false;
+		}
+		
 		// Create parent directory, if applicable
 		File parentDir = new File(dbPath).getParentFile();
 		if(parentDir != null) {
@@ -53,7 +60,7 @@ public class ConnectionManager {
 		String uri = this.URI_PREFIX + dbPath;
 
 		try {
-			Connection conn = DriverManager.getConnection(uri);
+			this.conn = DriverManager.getConnection(uri);
 		} catch (SQLException e) {
 			return false;
 		}
