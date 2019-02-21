@@ -2,6 +2,7 @@ package cmput402.beartrails;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 public class GradeManager {
@@ -32,16 +33,23 @@ public class GradeManager {
     {
         Float totalGPA = 0.0f;
 
-        List<List<Object>> queryResult = connectionManager.query("");
+        // Get list of grades from DB
+        String sqlQuery = "SELECT grade FROM enrollments " +
+                          "WHERE student = \"" + studentUsername + "\"";
+        List<List<Object>> queryResult = connectionManager.query(sqlQuery);
 
-        for(List<Object> grades : queryResult)
+        // Get grade list from response
+        List<Object> gradeList = queryResult.get(0);
+        Iterator<Object> gradeIterator = gradeList.iterator();
+
+        // Add up all grades
+        while(gradeIterator.hasNext())
         {
-            for(Object grade : grades) {
-                totalGPA += (Float)grade;
-            }
+            totalGPA += (Float)gradeIterator.next();
         }
 
-        Float studentGPA = totalGPA / queryResult.get(0).size();
+        // Calculate average and round to 2 decimal places.
+        Float studentGPA = totalGPA / gradeList.size();
         BigDecimal bd = new BigDecimal(studentGPA);
         bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
         return bd.floatValue();
