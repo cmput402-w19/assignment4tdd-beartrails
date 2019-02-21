@@ -35,5 +35,19 @@ public class ConnectionManagerTest extends TestCase {
 		assertTrue(db.exists());
 	
 	}
+	
+	public void testOpenDuplicateConnect() {
+		File db = new File(this.dbTestFile);
+		db.delete();
+		
+		ConnectionManager cm = new ConnectionManager();
+		Boolean rv = cm.openConnection();
+		assertTrue(rv);
+		
+		// Should refuse to open connection again.
+		rv = cm.openConnection();
+		assertFalse(rv);
+	}
+
 
 }
