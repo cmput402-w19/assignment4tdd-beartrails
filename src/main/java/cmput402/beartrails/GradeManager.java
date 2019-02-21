@@ -1,6 +1,8 @@
 package cmput402.beartrails;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 
 public class GradeManager {
 
@@ -28,7 +30,21 @@ public class GradeManager {
 
     public Float getStudentGPA(String studentUsername)
     {
-        return null;
+        Float totalGPA = 0.0f;
+
+        List<List<Object>> queryResult = connectionManager.query("");
+
+        for(List<Object> grades : queryResult)
+        {
+            for(Object grade : grades) {
+                totalGPA += (Float)grade;
+            }
+        }
+
+        Float studentGPA = totalGPA / queryResult.get(0).size();
+        BigDecimal bd = new BigDecimal(studentGPA);
+        bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
+        return bd.floatValue();
     }
 
     public HashMap<String, Float> getCourseMarks(String subject, String number)

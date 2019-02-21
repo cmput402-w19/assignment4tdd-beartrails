@@ -1,5 +1,7 @@
 package cmput402.beartrails;
 
+import java.util.List;
+
 public class ConnectionManager {
 	
 	public ConnectionManager() {
@@ -51,7 +53,7 @@ public class ConnectionManager {
 	 * @param sql the query to execute.
 	 * @return the result of the query.
 	 */
-	public Object query(String sql) {
+	public List<List<Object>> query(String sql) {
 		return null;
 	}
 	
