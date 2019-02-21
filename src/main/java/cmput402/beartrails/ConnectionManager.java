@@ -1,6 +1,7 @@
 package cmput402.beartrails;
 
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
@@ -9,6 +10,7 @@ public class ConnectionManager {
 	
 	
 	private final String DEFAULT_DB_URL = "db/beartrails.db";
+	private final String URI_PREFIX = "jdbc:sqlite:";
 	
 	public ConnectionManager() {
 		
@@ -42,20 +44,18 @@ public class ConnectionManager {
 	 * @param dbPath
 	 */
 	public Boolean openConnection(String dbPath) {
-		File db = new File(dbPath);
-		
 		// Create parent directory, if applicable
-		File parentDir = db.getParentFile();
+		File parentDir = new File(dbPath).getParentFile();
 		if(parentDir != null) {
 			parentDir.mkdirs();
 		}
+		
+		String uri = this.URI_PREFIX + dbPath;
 
-		System.out.println(db.getParent());
 		try {
-			db.createNewFile();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Connection conn = DriverManager.getConnection(uri);
+		} catch (SQLException e) {
+			return false;
 		}
 		return true;
 	}
