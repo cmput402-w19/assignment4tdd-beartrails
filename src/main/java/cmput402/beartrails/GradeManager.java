@@ -1,6 +1,7 @@
 package cmput402.beartrails;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -24,7 +25,7 @@ public class GradeManager {
         return null;
     }
 
-    public HashMap<Course, Double> getStudentGrades(String studentUsername)
+    public ArrayList<CourseGrade> getStudentGrades(String studentUsername)
     {
         return null;
     }

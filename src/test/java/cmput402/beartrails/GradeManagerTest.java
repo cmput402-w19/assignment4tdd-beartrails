@@ -148,7 +148,7 @@ public class GradeManagerTest extends TestCase {
         when(mockConnectionManager.query(anyString())).thenReturn(fakeGrades);
 
         GradeManager gradeManager = new GradeManager(mockConnectionManager);
-        HashMap<Course, Double> result = gradeManager.getStudentGrades("repka");
+        ArrayList<CourseGrade> result = gradeManager.getStudentGrades("repka");
 
         assertNotNull(result);
         assertTrue(result.size() == 3);
@@ -161,9 +161,9 @@ public class GradeManagerTest extends TestCase {
         course.professor = "snadi";
         course.location = "CAB";
 
-        Course firstCourse = (Course)result.keySet().toArray()[0];
+        Course firstCourse = result.get(0).course;
 
-        Assert.assertEquals(result.get(firstCourse), 3.5d);
+        Assert.assertEquals(result.get(0).grade, 3.2d);
         Assert.assertTrue(firstCourse.courseSubject.equals(course.courseSubject));
         Assert.assertTrue(firstCourse.courseDays.equals(course.courseDays));
         Assert.assertTrue(firstCourse.startTime.equals(course.startTime));
