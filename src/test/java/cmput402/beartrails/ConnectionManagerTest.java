@@ -33,6 +33,8 @@ public class ConnectionManagerTest extends TestCase {
 		ConnectionManager cm = new ConnectionManager();
 		cm.openConnection(this.dbTestFile);
 		assertTrue(db.exists());
+		
+		cm.closeConnection();
 	
 	}
 	
@@ -47,6 +49,8 @@ public class ConnectionManagerTest extends TestCase {
 		// Should refuse to open connection again.
 		rv = cm.openConnection(this.dbTestFile);
 		assertFalse(rv);
+		
+		cm.closeConnection();
 	}
 	
 	public void testCloseConnection() {
@@ -60,6 +64,7 @@ public class ConnectionManagerTest extends TestCase {
 		assertFalse(rv);
 		
 	}
+
 
 
 }
