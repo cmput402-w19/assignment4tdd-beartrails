@@ -65,15 +65,23 @@ public class GradeManager {
     {
         Float totalGPA = 0.0f;
 
-        List<List<Object>> queryResult = connectionManager.query("");
+        // Get list of student and grades from DB
+        String sqlQuery = "SELECT student, grade FROM enrollments " +
+                "WHERE subject = \"" + subject + "\"" +
+                "AND number = \"" + number + "\"";
+        List<List<Object>> queryResult = connectionManager.query(sqlQuery);
 
+        // Get grade list from response
         List<Object> gradeUsersList = queryResult.get(0);
         List<Float> gradeList = (ArrayList) gradeUsersList.get(1);
+        Iterator<Float> gradeIterator = gradeList.iterator();
 
-        for(Float grade : gradeList) {
-            totalGPA += grade;
+        // Add up all grades in the course
+        while (gradeIterator.hasNext()) {
+            totalGPA += gradeIterator.next();
         }
 
+        // Calcualte course average and round to 2 decimal places.
         Float courseAverage = totalGPA / gradeList.size();
         BigDecimal bd = new BigDecimal(courseAverage);
         bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
