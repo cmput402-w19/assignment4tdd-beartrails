@@ -1,7 +1,6 @@
 package cmput402.beartrails;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -39,6 +38,10 @@ public class ConnectionManagerTest extends TestCase {
 	
 	}
 	
+	/*
+	 * Test that the ConnectionManager refuses to 
+	 * connect to a database a second time.
+	 */
 	public void testOpenDuplicateConnect() {
 		File db = new File(this.dbTestFile);
 		db.delete();
@@ -54,6 +57,11 @@ public class ConnectionManagerTest extends TestCase {
 		cm.closeConnection();
 	}
 	
+	/*
+	 * Test that the ConnectionManager returns true when
+	 * closing an open connection, and false if the connection
+	 * has already been closed.
+	 */
 	public void testCloseConnection() {
 		ConnectionManager cm = new ConnectionManager();
 		cm.openConnection();
@@ -213,7 +221,9 @@ public class ConnectionManagerTest extends TestCase {
 		sql = "SELECT grade FROM enrollments";
 		List<List<Object>> results = cm.query(sql);
 		
+		//1 row
 		assert(1 == results.size());
+		//1 column
 		assert(1 == results.get(0).size());
 		assert(3.7 == (Double) results.get(0).get(0));
 		
@@ -250,9 +260,9 @@ public class ConnectionManagerTest extends TestCase {
 				"INSERT INTO courses VALUES (\"cmput\", \"402\", \"TueThur\", 13, 1, \"CAB\", null);\n" + 
 				"INSERT INTO courses VALUES (\"cmput\", \"300\", \"MonWedFri\", 12, 1, \"CSC\", null);\n" +
 				"INSERT INTO courses VALUES (\"cmput\", \"340\", \"TueThur\", 15, 1, \"ETLC\", null);\n" +
-				//String representation of float
+				//String representation of double
 				"INSERT INTO enrollments VALUES (\"huntc\", \"cmput\", \"402\", \"3.7\");\n" + 
-				//Unquoted float
+				//Unquoted double
 				"INSERT INTO enrollments VALUES (\"huntc\", \"cmput\", \"300\", 3.3);\n" +
 				//Unquoted integer
 				"INSERT INTO enrollments VALUES (\"huntc\", \"cmput\", \"340\", 3)";
