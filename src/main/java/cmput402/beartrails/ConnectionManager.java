@@ -2,6 +2,7 @@ package cmput402.beartrails;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
@@ -19,13 +20,52 @@ public class ConnectionManager {
 	}
 	
 	/**
-	 * Initialize the database.  Will only proceed if the DB file
-	 * does not yet exist, otherwise will do nothing.
+	 * Initialize the database, by creating the necessary tables
+	 * if they don't yet exist.
 	 * 
-	 * @return true if the database was created, false otherwise.
+	 * @return true if the database was initialized successfully, false otherwise.
 	 */
 	private Boolean initializeDB() {
-		return null;
+		String createTableSql = "CREATE TABLE IF NOT EXISTS users (" + 
+				"    user_name  TEXT PRIMARY KEY, " + 
+				"    first_name TEXT, " + 
+				"    last_name  TEXT, " + 
+				"    type       INTEGER" + 
+				");" + 
+				"" + 
+				"CREATE TABLE IF NOT EXISTS courses (" + 
+				"    subject    TEXT," + 
+				"    number     TEXT," + 
+				"    days       TEXT," + 
+				"    time       INTEGER," + 
+				"    duration   INTEGER," + 
+				"    location   TEXT," + 
+				"    professor  TEXT," + 
+				"    PRIMARY KEY (subject, number)," + 
+				"    FOREIGN KEY (professor) references users(user_name) ON DELETE CASCADE" + 
+				");" + 
+				"" + 
+				"CREATE TABLE IF NOT EXISTS enrollments (" + 
+				"    student        TEXT," + 
+				"    subject        TEXT," + 
+				"    number         TEXT," + 
+				"    grade          REAL," + 
+				"    PRIMARY KEY (student, subject, number)," + 
+				"    FOREIGN KEY (student) references users(user_name) ON DELETE CASCADE," + 
+				"    FOREIGN KEY (subject, number) " + 
+				"                   references courses(subject, number) ON DELETE CASCADE" + 
+				");";
+		
+		Statement stmt;
+		try {
+			stmt = this.conn.createStatement();
+			stmt.executeUpdate(createTableSql);
+			stmt.close();
+		} catch (SQLException e) {
+			return false;
+		}
+		
+		return true;
 	}
 	
 	/**
@@ -46,7 +86,8 @@ public class ConnectionManager {
 	 * @param dbPath
 	 */
 	public Boolean openConnection(String dbPath) {
-		
+		String uri = this.URI_PREFIX + dbPath;
+
 		if(this.conn != null) {
 			return false;
 		}
@@ -57,14 +98,14 @@ public class ConnectionManager {
 			parentDir.mkdirs();
 		}
 		
-		String uri = this.URI_PREFIX + dbPath;
-
+		// Open connection and initialize Database if necessary
 		try {
 			this.conn = DriverManager.getConnection(uri);
+			Boolean rv = this.initializeDB();
+			return rv;
 		} catch (SQLException e) {
 			return false;
 		}
-		return true;
 	}
 	
 	/**
