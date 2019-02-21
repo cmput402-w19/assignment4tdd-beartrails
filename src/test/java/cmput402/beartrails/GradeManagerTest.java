@@ -38,8 +38,8 @@ public class GradeManagerTest extends TestCase {
         List<List<Object>> fakeGrades = new ArrayList<List<Object>>();
         List<Object> fakeGradesList = new ArrayList<Object>();
 
-        List<String> fakeUsersList = null;
-        List<Float> fakeUserGradeList = null;
+        List<String> fakeUsersList = new ArrayList<String>();
+        List<Float> fakeUserGradeList = new ArrayList<Float>();
 
         fakeUsersList.add("benedict");
         fakeUserGradeList.add(4.0f);
