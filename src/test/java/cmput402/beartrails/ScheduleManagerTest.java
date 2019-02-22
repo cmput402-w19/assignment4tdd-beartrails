@@ -299,4 +299,19 @@ public class ScheduleManagerTest extends TestCase {
 
         assertFalse(scheduleManager.addCourse(newCourse.courseSubject, newCourse.courseNumber));
     }
+
+    public void testRemoveCourse() {
+
+        User student = new User("zred", "Redfern", "Zach", User.Type.Student);
+
+        Course newCourse = new Course("math", "201", Course.DaysOfWeek.TueThu,
+                12, 1, "CAB");
+
+        ConnectionManager mockConnectionManager = mock(ConnectionManager.class);
+        ScheduleManager scheduleManager = new ScheduleManager(mockConnectionManager, student);
+
+        when(mockConnectionManager.execute(Mockito.anyString())).thenReturn(true);
+
+        assertTrue(scheduleManager.removeCourse(newCourse.courseSubject, newCourse.courseNumber));
+    }
 }
