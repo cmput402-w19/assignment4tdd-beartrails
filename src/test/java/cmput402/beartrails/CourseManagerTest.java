@@ -131,4 +131,23 @@ public class CourseManagerTest extends TestCase {
 
         verify(mockConnectionManager, times(1)).query(anyString());
     }
+
+    public void testremoveCourse()
+    {
+        ConnectionManager mockConnectionManager = mock(ConnectionManager.class);
+        when(mockConnectionManager.execute(anyString())).thenReturn(true).thenReturn(false);
+
+        CourseManager courseManager = new CourseManager(mockConnectionManager);
+
+        Boolean result = courseManager.removeCourse("cmput", "402");
+        assertNotNull(result);
+        Assert.assertTrue(result);
+
+        result = courseManager.removeCourse(null, null);
+        assertNotNull(result);
+        Assert.assertFalse(result);
+
+        // Execute should only be called once, since createCourse will reject empty or null subject/number
+        verify(mockConnectionManager, times(2)).execute(anyString());
+    }
 }
