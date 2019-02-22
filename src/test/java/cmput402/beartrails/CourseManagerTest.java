@@ -181,7 +181,7 @@ public class CourseManagerTest extends TestCase {
         assertNotNull(result);
         Assert.assertTrue(result);
 
-        result = courseManager.assignTeacher(null, null, null);
+        result = courseManager.unassignTeacher(null, null);
         assertNotNull(result);
         Assert.assertFalse(result);
 

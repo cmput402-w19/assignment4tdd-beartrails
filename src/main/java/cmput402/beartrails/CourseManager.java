@@ -105,7 +105,7 @@ public class CourseManager {
         return courseList;
     }
 
-    public boolean removeCourse(String subject, String number)
+    public Boolean removeCourse(String subject, String number)
     {
         String sub = (subject == "" || subject == null)
                 ? null
@@ -123,14 +123,40 @@ public class CourseManager {
         return connectionManager.execute(sqlQuery);
     }
 
-    public boolean assignTeacher(String teacherUsername, String subject, String number)
+    public Boolean assignTeacher(String teacherUsername, String subject, String number)
     {
-        return false;
+        String sub = (subject == "" || subject == null)
+                ? null
+                : "\"" + subject + "\"";
+        String num = (number == "" || number == null)
+                ? null
+                : "\"" + number + "\"";
+        String prof = (teacherUsername == "" || teacherUsername == null)
+                ? null
+                : "\"" + teacherUsername + "\"";
+
+        if(sub == null || num == null || prof == null)
+        {
+            return false;
+        }
+
+        return connectionManager.execute("");
     }
 
-    public boolean unassignTeacher(String subject, String number)
+    public Boolean unassignTeacher(String subject, String number)
     {
-        return false;
-    }
+        String sub = (subject == "" || subject == null)
+                ? null
+                : "\"" + subject + "\"";
+        String num = (number == "" || number == null)
+                ? null
+                : "\"" + number + "\"";
 
+        if(sub == null || num == null)
+        {
+            return false;
+        }
+
+        return connectionManager.execute("");
+    }
 }
