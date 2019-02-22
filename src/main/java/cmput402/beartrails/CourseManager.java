@@ -107,7 +107,14 @@ public class CourseManager {
 
     public boolean removeCourse(String subject, String number)
     {
-        return false;
+        String sub = (subject == null)
+                ? null
+                : "\"" + subject + "\"";
+        String num = (number == null)
+                ? null
+                : "\"" + number + "\"";
+
+        return connectionManager.execute("");
     }
 
     public boolean assignTeacher(String teacherUsername, String subject, String number)
