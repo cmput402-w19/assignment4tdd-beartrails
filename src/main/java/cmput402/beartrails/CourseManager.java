@@ -16,8 +16,8 @@ public class CourseManager {
     public Boolean createCourse(Course course)
     {
         String sub = (course.courseSubject.isEmpty() || course.courseSubject == null)
-                     ? null
-                     : "\"" + course.courseSubject + "\"";
+                ? null
+                : "\"" + course.courseSubject + "\"";
         String num = (course.courseNumber.isEmpty() || course.courseNumber == null)
                 ? null
                 : "\"" + course.courseNumber + "\"";
@@ -33,6 +33,11 @@ public class CourseManager {
         Integer start = course.startTime;
         Integer duration = course.duration;
 
+        if(sub == null || num == null)
+        {
+            return false;
+        }
+
         String sqlQuery = "INSERT INTO courses VALUES (" + sub + ", " + num + ", " +
                           days + ", " + start + ", " + duration + ", " + loc + ", " +
                           prof + ");";
@@ -45,7 +50,11 @@ public class CourseManager {
         ArrayList<User> courseStudents = new ArrayList<User>();
 
         // Get list of students from DB
-        List<List<Object>> queryResult = connectionManager.query("");
+        String sqlQuery = "SELECT user_name, first_name, last_name, type" +
+                " FROM enrollments NATURAL JOIN users" +
+                " WHERE subject = \"" + subject + "\"" +
+                " AND number = \"" + number + "\";";
+        List<List<Object>> queryResult = connectionManager.query(sqlQuery);
 
         // Get student list from response
         Iterator<List<Object>> studentIterator = queryResult.iterator();
