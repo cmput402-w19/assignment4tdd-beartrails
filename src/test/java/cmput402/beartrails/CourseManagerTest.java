@@ -90,4 +90,45 @@ public class CourseManagerTest extends TestCase {
 
         verify(mockConnectionManager, times(1)).query(anyString());
     }
+
+    public void testgetAllCourses()
+    {
+        ConnectionManager mockConnectionManager = mock(ConnectionManager.class);
+        List<List<Object>> fakeResponse = new ArrayList<List<Object>>();
+
+        List<Object> fakeCourse = new ArrayList<Object>();
+        fakeCourse.add("cmput");
+        fakeCourse.add("402");
+        fakeCourse.add(Course.DaysOfWeek.TueThu.name());
+        fakeCourse.add(15);
+        fakeCourse.add(1);
+        fakeCourse.add("CAB");
+        fakeCourse.add("snadi");
+        fakeResponse.add(fakeCourse);
+
+        fakeCourse = new ArrayList<Object>();
+        fakeCourse.add("cmput");
+        fakeCourse.add("300");
+        fakeCourse.add(Course.DaysOfWeek.MonWedFri.name());
+        fakeCourse.add(17);
+        fakeCourse.add(1);
+        fakeCourse.add("CSC");
+        fakeCourse.add("yang");
+        fakeResponse.add(fakeCourse);
+
+        when(mockConnectionManager.query(anyString())).thenReturn(fakeResponse);
+        CourseManager courseManager = new CourseManager(mockConnectionManager);
+        List<Course> result = courseManager.getAllCourses();
+        assertNotNull(result);
+        Assert.assertTrue(result.size() == 2);
+        Assert.assertTrue(result.get(0).courseSubject.equals("cmput"));
+        Assert.assertTrue(result.get(1).courseNumber.equals("300"));
+        Assert.assertTrue(result.get(0).courseDays.equals(Course.DaysOfWeek.TueThu));
+        Assert.assertTrue(result.get(1).location.equals("CSC"));
+        Assert.assertTrue(result.get(0).duration.equals(1));
+        Assert.assertTrue(result.get(1).startTime.equals(17));
+        Assert.assertTrue(result.get(0).professor.equals("snadi"));
+
+        verify(mockConnectionManager, times(1)).query(anyString());
+    }
 }
