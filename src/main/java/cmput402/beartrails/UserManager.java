@@ -61,8 +61,22 @@ public class UserManager {
         return studentList;
     }
 
-    public List<User> getTeachers()
-    {
-        return null;
+    public List<User> getTeachers() {
+
+        Object[] params = new Object[]{User.Type.Professor};
+        String query = MessageFormat.format("SELECT * FROM users WHERE type = {0} ORDER BY last_name;", params);
+        List<List<Object>> rs = connectionManager.query(query);
+
+        // Extract attributes from rows of the result set
+        List<User> professorList = new ArrayList<User>();
+        for (List<Object> row : rs) {
+            String userName = (String) row.get(0);
+            String firstName = (String) row.get(1);
+            String lastName = (String) row.get(2);
+            User.Type userType = (User.Type) row.get(3);
+            professorList.add(new User(userName, lastName, firstName, userType));
+        }
+
+        return professorList;
     }
 }
