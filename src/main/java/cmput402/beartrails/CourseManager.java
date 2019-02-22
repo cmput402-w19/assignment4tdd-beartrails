@@ -15,16 +15,16 @@ public class CourseManager {
 
     public Boolean createCourse(Course course)
     {
-        String sub = (course.courseSubject.isEmpty() || course.courseSubject == null)
-                ? null
-                : "\"" + course.courseSubject + "\"";
-        String num = (course.courseNumber.isEmpty() || course.courseNumber == null)
+        String sub = (course.courseSubject == "" || course.courseSubject == null)
+                     ? null
+                     : "\"" + course.courseSubject + "\"";
+        String num = (course.courseSubject == "" || course.courseNumber == null)
                 ? null
                 : "\"" + course.courseNumber + "\"";
-        String loc = (course.location.isEmpty() || course.location == null)
+        String loc = (course.courseSubject == "" || course.location == null)
                 ? null
                 : "\"" + course.location + "\"";
-        String prof = (course.professor.isEmpty() || course.professor == null)
+        String prof = (course.courseSubject == "" || course.professor == null)
                 ? null
                 : "\"" + course.professor + "\"";
         String days = (course.courseDays == null)
