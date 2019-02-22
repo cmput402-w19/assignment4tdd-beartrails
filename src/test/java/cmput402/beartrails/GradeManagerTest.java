@@ -171,4 +171,22 @@ public class GradeManagerTest extends TestCase {
         Assert.assertTrue(firstCourse.professor.equals(course.professor));
 
     }
+
+    public void testassignGrade()
+    {
+        ConnectionManager mockConnectionManager = mock(ConnectionManager.class);
+        when(mockConnectionManager.execute(anyString())).thenReturn(true).thenReturn(false).thenReturn(false);
+
+        GradeManager gradeManager = new GradeManager(mockConnectionManager);
+        boolean result = gradeManager.assignGrade(3.5d, "repka", "CMPUT", "402");
+        Assert.assertTrue(result);
+
+        result = gradeManager.assignGrade(4.8d, "repka", "CMPUT", "402");
+        Assert.assertTrue(result);
+
+        result = gradeManager.assignGrade(-0.5d, "repka", "CMPUT", "402");
+        Assert.assertTrue(result);
+
+        verify(mockConnectionManager, times(3)).execute(anyString());
+    }
 }
