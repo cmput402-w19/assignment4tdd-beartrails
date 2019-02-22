@@ -12,7 +12,7 @@ public class Course {
         this.duration = duration;
         this.location = location;
     }
-    
+
     public String courseSubject;
     public String courseNumber;
     public DaysOfWeek courseDays;

@@ -65,13 +65,13 @@ public class GradeManager {
         while(courseGradeIterator.hasNext())
         {
             List<Object> currentCourseGrade = courseGradeIterator.next();
-            Course currentCourse = new Course();
-            currentCourse.courseSubject = currentCourseGrade.get(0).toString();
-            currentCourse.courseNumber = currentCourseGrade.get(1).toString();
-            currentCourse.courseDays =  Course.DaysOfWeek.valueOf(currentCourseGrade.get(2).toString());
-            currentCourse.startTime = (Integer) currentCourseGrade.get(3);
-            currentCourse.duration = (Integer) currentCourseGrade.get(4);
-            currentCourse.location = currentCourseGrade.get(5).toString();
+            String subject = currentCourseGrade.get(0).toString();
+            String number = currentCourseGrade.get(1).toString();
+            Course.DaysOfWeek days =  Course.DaysOfWeek.valueOf(currentCourseGrade.get(2).toString());
+            Integer startTime = (Integer) currentCourseGrade.get(3);
+            Integer duration = (Integer) currentCourseGrade.get(4);
+            String location = currentCourseGrade.get(5).toString();
+            Course currentCourse = new Course(subject, number, days, startTime, duration, location);
             currentCourse.professor = currentCourseGrade.get(6).toString();
 
             CourseGrade courseGrade = new CourseGrade();

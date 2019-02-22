@@ -18,27 +18,16 @@ public class CourseManagerTest extends TestCase {
         when(mockConnectionManager.execute(anyString())).thenReturn(true).thenReturn(false);
 
         CourseManager courseManager = new CourseManager(mockConnectionManager);
-        Course newCourse = new Course();
+        Course newCourse = new Course("CMPUT", "402", Course.DaysOfWeek.TueThu,
+                                       15, 1, "CAB");
 
-        newCourse.courseSubject = "CMPUT";
-        newCourse.courseNumber = "402";
-        newCourse.startTime = 15;
-        newCourse.location = "CAB";
-        newCourse.duration = 1;
-        newCourse.courseDays = Course.DaysOfWeek.TueThu;
         newCourse.professor = "snadi";
 
         Boolean result = courseManager.createCourse(newCourse);
         assertNotNull(result);
         Assert.assertTrue(result);
 
-        newCourse = new Course();
-        newCourse.courseSubject = null;
-        newCourse.courseNumber = null;
-        newCourse.startTime = null;
-        newCourse.location = null;
-        newCourse.duration = null;
-        newCourse.courseDays = null;
+        newCourse = new Course(null, null, null, null, null, null);
         newCourse.professor = null;
 
         result = courseManager.createCourse(newCourse);

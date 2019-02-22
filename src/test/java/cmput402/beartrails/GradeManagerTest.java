@@ -152,14 +152,9 @@ public class GradeManagerTest extends TestCase {
 
         assertNotNull(result);
         assertTrue(result.size() == 3);
-        Course course = new Course();
-        course.courseSubject = "cmput";
-        course.courseNumber = "402";
-        course.courseDays = Course.DaysOfWeek.TueThu;
-        course.startTime = 13;
-        course.duration = 1;
+        Course course = new Course("CMPUT", "402", Course.DaysOfWeek.TueThu,
+                                    13, 1, "CAB");
         course.professor = "snadi";
-        course.location = "CAB";
 
         Course firstCourse = result.get(0).course;
 
