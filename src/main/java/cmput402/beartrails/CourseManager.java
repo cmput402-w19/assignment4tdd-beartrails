@@ -80,7 +80,8 @@ public class CourseManager {
         ArrayList<Course> courseList = new ArrayList<Course>();
 
         // Get list of courses from DB
-        List<List<Object>> queryResult = connectionManager.query("");
+        String sqlQuery = "SELECT * FROM courses;";
+        List<List<Object>> queryResult = connectionManager.query(sqlQuery);
 
         // Get student list from response
         Iterator<List<Object>> studentIterator = queryResult.iterator();
