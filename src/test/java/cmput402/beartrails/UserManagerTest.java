@@ -96,4 +96,16 @@ public class UserManagerTest extends TestCase {
         assert(admin.userType.equals(loggedInUser.userType));
     }
 
+    public void testLoginInvalid() {
+
+        ConnectionManager mockConnectionManager = mock(ConnectionManager.class);
+        UserManager userManager = new UserManager(mockConnectionManager);
+        List<List<Object>> queryList = new ArrayList<List<Object>>();
+        List<Object> row = new ArrayList<Object>();
+
+        when(mockConnectionManager.query(Mockito.anyString())).thenReturn(queryList);
+
+        assert(null == userManager.login("badUserName"));
+    }
+
 }
