@@ -35,10 +35,14 @@ public class GradeManager {
     {
         Double courseMark = 0.0d;
 
-        // Get list of students and grades from DB
-        List<List<Object>> queryResult = connectionManager.query("");
+        // Get grade from DB
+        String sqlQuery = "SELECT grade FROM enrollments" +
+                " WHERE student = \"" + studentUsername + "\"" +
+                " AND course_subject = \"" + subject + "\"" +
+                " AND course_number = \"" + number + "\";";
+        List<List<Object>> queryResult = connectionManager.query(sqlQuery);
 
-        // Get grade list and student list from response
+        // Get grade from response
         courseMark = (Double)queryResult.get(0).get(0);
 
         return courseMark;
