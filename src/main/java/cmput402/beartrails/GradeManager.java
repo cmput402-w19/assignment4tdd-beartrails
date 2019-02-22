@@ -27,7 +27,7 @@ public class GradeManager {
                           " WHERE student = \"" + studentUsername + "\"" +
                           " AND course_subject = \"" + subject + "\"" +
                           " AND course_number = \"" + number + "\";";
-        System.out.print(sqlQuery);
+
         return connectionManager.execute(sqlQuery);
     }
 

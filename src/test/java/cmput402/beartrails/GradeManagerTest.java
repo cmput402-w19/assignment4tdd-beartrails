@@ -178,7 +178,7 @@ public class GradeManagerTest extends TestCase {
         when(mockConnectionManager.execute(anyString())).thenReturn(true).thenReturn(false).thenReturn(false);
 
         GradeManager gradeManager = new GradeManager(mockConnectionManager);
-        boolean result = gradeManager.assignGrade(3.5d, "repka", "CMPUT", "402");
+        Boolean result = gradeManager.assignGrade(3.5d, "repka", "CMPUT", "402");
         Assert.assertTrue(result);
 
         result = gradeManager.assignGrade(4.8d, "repka", "CMPUT", "402");
@@ -189,5 +189,21 @@ public class GradeManagerTest extends TestCase {
 
         // Execute should only be called once, since function should reject grades over 4.0 and below 0.
         verify(mockConnectionManager, times(1)).execute(anyString());
+    }
+
+    public void testgetStudentGrade()
+    {
+        ConnectionManager mockConnectionManager = mock(ConnectionManager.class);
+
+        List<List<Object>> fakeGrade = new ArrayList<List<Object>>();
+
+        List<Object> fakeUserGrade = new ArrayList<Object>();
+        fakeUserGrade.add(3.5d);
+        fakeGrade.add(fakeUserGrade);
+        when(mockConnectionManager.query(anyString())).thenReturn(fakeGrade);
+
+        GradeManager gradeManager = new GradeManager(mockConnectionManager);
+        Double result = gradeManager.getStudentGrade("repka", "CMPUT", "402");
+        Assert.assertEquals(result, 3.5d);
     }
 }
