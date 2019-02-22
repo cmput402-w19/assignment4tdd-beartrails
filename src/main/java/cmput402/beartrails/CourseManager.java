@@ -1,5 +1,7 @@
 package cmput402.beartrails;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class CourseManager {
@@ -34,14 +36,34 @@ public class CourseManager {
         String sqlQuery = "INSERT INTO courses VALUES (" + sub + ", " + num + ", " +
                           days + ", " + start + ", " + duration + ", " + loc + ", " +
                           prof + ");";
-        System.out.print(sqlQuery);
 
         return connectionManager.execute(sqlQuery);
     }
 
     public List<User> getStudentsInCourse(String subject, String number)
     {
-        return null;
+        ArrayList<User> courseStudents = new ArrayList<User>();
+
+        // Get list of students from DB
+        List<List<Object>> queryResult = connectionManager.query("");
+
+        // Get student list from response
+        Iterator<List<Object>> studentIterator = queryResult.iterator();
+
+        // Add all students to list as users
+        while(studentIterator.hasNext())
+        {
+            List<Object> currentStudent = studentIterator.next();
+            String username = currentStudent.get(0).toString();
+            String firstName = currentStudent.get(1).toString();
+            String lastName = currentStudent.get(2).toString();
+            User.Type userType = User.Type.values()[(Integer)currentStudent.get(3)];
+
+            User courseStudent = new User(username, firstName, lastName, userType);
+            courseStudents.add(courseStudent);
+        }
+
+        return courseStudents;
     }
 
     public List<Course> getAllCourses()
