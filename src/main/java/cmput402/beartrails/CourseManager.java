@@ -11,9 +11,17 @@ public class CourseManager {
         this.connectionManager = connectionManager;
     }
 
-    public boolean createCourse(Course course)
+    public Boolean createCourse(Course course)
     {
-        return false;
+        String sub = course.courseSubject;
+        String num = course.courseNumber;
+        String loc = course.location;
+        String prof = course.professor;
+        String days = course.courseDays.name();
+        Integer start = course.startTime;
+        Integer duration = course.duration;
+
+        return connectionManager.execute("");
     }
 
     public List<User> getStudentsInCourse(String subject, String number)
