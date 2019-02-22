@@ -77,7 +77,31 @@ public class CourseManager {
 
     public List<Course> getAllCourses()
     {
-        return null;
+        ArrayList<Course> courseList = new ArrayList<Course>();
+
+        // Get list of courses from DB
+        List<List<Object>> queryResult = connectionManager.query("");
+
+        // Get student list from response
+        Iterator<List<Object>> studentIterator = queryResult.iterator();
+
+        // Add all students to list as users
+        while(studentIterator.hasNext())
+        {
+            List<Object> currentCourse = studentIterator.next();
+            Course course = new Course();
+            course.courseSubject = currentCourse.get(0).toString();
+            course.courseNumber = currentCourse.get(1).toString();
+            course.courseDays =  Course.DaysOfWeek.valueOf(currentCourse.get(2).toString());
+            course.startTime = (Integer) currentCourse.get(3);
+            course.duration = (Integer) currentCourse.get(4);
+            course.location = currentCourse.get(5).toString();
+            course.professor = currentCourse.get(6).toString();
+
+            courseList.add(course);
+        }
+
+        return courseList;
     }
 
     public boolean removeCourse(String subject, String number)
