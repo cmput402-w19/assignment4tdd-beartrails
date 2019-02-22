@@ -31,7 +31,7 @@ public class UserManager {
         String lastName = (String) rs.get(0).get(2);
         User.Type userType = (User.Type)rs.get(0).get(3);
 
-        return new User(userName, lastName, firstName, userType);
+        return new User(userName, firstName, lastName, userType);
     }
 
     public boolean registerUser(User user) {
@@ -55,7 +55,7 @@ public class UserManager {
             String firstName = (String) row.get(1);
             String lastName = (String) row.get(2);
             User.Type userType = (User.Type) row.get(3);
-            studentList.add(new User(userName, lastName, firstName, userType));
+            studentList.add(new User(userName, firstName, lastName, userType));
         }
 
         return studentList;
@@ -74,7 +74,7 @@ public class UserManager {
             String firstName = (String) row.get(1);
             String lastName = (String) row.get(2);
             User.Type userType = (User.Type) row.get(3);
-            professorList.add(new User(userName, lastName, firstName, userType));
+            professorList.add(new User(userName, firstName, lastName, userType));
         }
 
         return professorList;

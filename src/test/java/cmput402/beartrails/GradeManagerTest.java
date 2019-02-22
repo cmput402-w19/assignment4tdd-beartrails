@@ -152,7 +152,7 @@ public class GradeManagerTest extends TestCase {
 
         assertNotNull(result);
         assertTrue(result.size() == 3);
-        Course course = new Course("CMPUT", "402", Course.DaysOfWeek.TueThu,
+        Course course = new Course("cmput", "402", Course.DaysOfWeek.TueThu,
                                     13, 1, "CAB");
         course.professor = "snadi";
 

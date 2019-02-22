@@ -1,17 +1,13 @@
 package cmput402.beartrails;
 
+import junit.framework.TestCase;
 import org.mockito.Mockito;
-import static org.mockito.Mock.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.Test;
-import junit.framework.Assert;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class UserManagerTest extends TestCase {
 
@@ -31,7 +27,7 @@ public class UserManagerTest extends TestCase {
         when(mockConnectionManager.query(Mockito.anyString())).thenReturn(queryList);
 
         // Student who is logging in
-        User student = new User("zred", "Redfern", "Zach", User.Type.Student);
+        User student = new User("zred", "Zach", "Redfern", User.Type.Student);
 
         // User returned by the login process
         User loggedInUser = userManager.login(student.username);
@@ -58,7 +54,7 @@ public class UserManagerTest extends TestCase {
         when(mockConnectionManager.query(Mockito.anyString())).thenReturn(queryList);
 
         // Professor who is logging in
-        User professor = new User("zred", "Redfern", "Zach", User.Type.Professor);
+        User professor = new User("zred", "Zach", "Redfern", User.Type.Professor);
 
         // User returned by the login process
         User loggedInUser = userManager.login(professor.username);
@@ -85,7 +81,7 @@ public class UserManagerTest extends TestCase {
         when(mockConnectionManager.query(Mockito.anyString())).thenReturn(queryList);
 
         // Admin who is logging in
-        User admin = new User("zred", "Redfern", "Zach", User.Type.Admin);
+        User admin = new User("zred", "Zach", "Redfern", User.Type.Admin);
 
         // User returned by the login process
         User loggedInUser = userManager.login(admin.username);
@@ -114,16 +110,16 @@ public class UserManagerTest extends TestCase {
 
         when(mockConnectionManager.execute(Mockito.anyString())).thenReturn(true);
 
-        User student = new User("zred", "Redfern", "Zach", User.Type.Student);
+        User student = new User("zred", "Zach", "Redfern", User.Type.Student);
 
         assertTrue(userManager.registerUser(student));
     }
 
     public void testGetStudents() {
 
-        User student1 = new User("dhall", "Hall", "Derek", User.Type.Student);
-        User student2 = new User("bmontina", "Montina", "Brandon", User.Type.Student);
-        User student3 = new User("cpanda", "Pandachuck", "Cole", User.Type.Student);
+        User student1 = new User("dhall", "Derek", "Hall", User.Type.Student);
+        User student2 = new User("bmontina", "Brandon", "Montina", User.Type.Student);
+        User student3 = new User("cpanda", "Cole", "Pandachuck", User.Type.Student);
 
         ConnectionManager mockConnectionManager = mock(ConnectionManager.class);
         UserManager userManager = new UserManager(mockConnectionManager);
@@ -157,6 +153,9 @@ public class UserManagerTest extends TestCase {
 
         assert(studentList.size() == 3);
 
+        System.out.print(student1.lastName);
+        System.out.print(studentList.get(0).lastName);
+
         assert(studentList.get(0).username.equals(student1.username));
         assert(studentList.get(0).lastName.equals(student1.lastName));
         assert(studentList.get(0).firstName.equals(student1.firstName));
@@ -175,9 +174,9 @@ public class UserManagerTest extends TestCase {
 
     public void testGetTeachers() {
 
-        User professor1 = new User("dhall", "Hall", "Derek", User.Type.Professor);
-        User professor2 = new User("bmontina", "Montina", "Brandon", User.Type.Professor);
-        User professor3 = new User("cpanda", "Pandachuck", "Cole", User.Type.Professor);
+        User professor1 = new User("dhall", "Derek", "Hall", User.Type.Professor);
+        User professor2 = new User("bmontina", "Brandon", "Monita", User.Type.Professor);
+        User professor3 = new User("cpanda", "Cole", "Pandachuck", User.Type.Professor);
 
         ConnectionManager mockConnectionManager = mock(ConnectionManager.class);
         UserManager userManager = new UserManager(mockConnectionManager);
@@ -210,6 +209,9 @@ public class UserManagerTest extends TestCase {
         List<User> professorList = userManager.getTeachers();
 
         assert(professorList.size() == 3);
+
+        System.out.print(professor1.lastName);
+        System.out.print(professorList.get(0).lastName);
 
         assert(professorList.get(0).username.equals(professor1.username));
         assert(professorList.get(0).lastName.equals(professor1.lastName));

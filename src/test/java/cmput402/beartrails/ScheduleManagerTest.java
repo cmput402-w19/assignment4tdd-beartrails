@@ -1,25 +1,19 @@
 package cmput402.beartrails;
 
-import static org.mockito.Mock.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.anyString;
+import junit.framework.TestCase;
+import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.Test;
-import junit.framework.Assert;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
-import org.mockito.Mockito;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class ScheduleManagerTest extends TestCase {
 
     public void testGetStudentSchedule() {
 
-        User student = new User("zred", "Redfern", "Zach", User.Type.Student);
+        User student = new User("zred", "Zach", "Redfern", User.Type.Student);
 
         Course course1 = new Course("cmput", "404", Course.DaysOfWeek.MonWedFri,
                 8, 1, "CSC");
@@ -90,7 +84,7 @@ public class ScheduleManagerTest extends TestCase {
 
     public void testGetTeacherSchedule() {
 
-        User professor = new User("zred", "Redfern", "Zach", User.Type.Professor);
+        User professor = new User("zred", "Zach", "Redfern", User.Type.Professor);
 
         Course course1 = new Course("cmput", "404", Course.DaysOfWeek.MonWedFri,
                 8, 1, "CSC");
@@ -161,7 +155,7 @@ public class ScheduleManagerTest extends TestCase {
 
     public void testAddCourse() {
 
-        User student = new User("zred", "Redfern", "Zach", User.Type.Student);
+        User student = new User("zred", "Zach", "Redfern", User.Type.Student);
 
         Course course1 = new Course("cmput", "404", Course.DaysOfWeek.MonWedFri,
                 8, 1, "CSC");
@@ -222,7 +216,7 @@ public class ScheduleManagerTest extends TestCase {
 
     public void testAddCourseDoesNotExist() {
 
-        User student = new User("zred", "Redfern", "Zach", User.Type.Professor);
+        User student = new User("zred", "Zach", "Redfern", User.Type.Professor);
 
         Course newCourse = new Course("fake", "999", Course.DaysOfWeek.TueThu,
                 12, 1, "CAB");
@@ -240,7 +234,7 @@ public class ScheduleManagerTest extends TestCase {
 
     public void testAddCourseConflict() {
 
-        User student = new User("zred", "Redfern", "Zach", User.Type.Professor);
+        User student = new User("zred", "Zach", "Redfern", User.Type.Professor);
 
         Course course1 = new Course("cmput", "404", Course.DaysOfWeek.MonWedFri,
                 8, 1, "CSC");
@@ -302,7 +296,7 @@ public class ScheduleManagerTest extends TestCase {
 
     public void testRemoveCourse() {
 
-        User student = new User("zred", "Redfern", "Zach", User.Type.Student);
+        User student = new User("zred", "Zach", "Redfern", User.Type.Student);
 
         Course newCourse = new Course("math", "201", Course.DaysOfWeek.TueThu,
                 12, 1, "CAB");
