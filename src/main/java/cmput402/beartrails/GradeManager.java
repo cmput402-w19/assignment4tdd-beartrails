@@ -33,7 +33,15 @@ public class GradeManager {
 
     public Double getStudentGrade(String studentUsername, String subject, String number)
     {
-        return null;
+        Double courseMark = 0.0d;
+
+        // Get list of students and grades from DB
+        List<List<Object>> queryResult = connectionManager.query("");
+
+        // Get grade list and student list from response
+        courseMark = (Double)queryResult.get(0).get(0);
+
+        return courseMark;
     }
 
     public ArrayList<CourseGrade> getStudentGrades(String studentUsername)
