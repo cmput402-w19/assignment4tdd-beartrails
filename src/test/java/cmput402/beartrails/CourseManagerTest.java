@@ -150,4 +150,30 @@ public class CourseManagerTest extends TestCase {
         // Execute should only be called once, since removeCourse will reject empty or null subject/number
         verify(mockConnectionManager, times(1)).execute(anyString());
     }
+
+    public void testassignTeacher()
+    {
+        ConnectionManager mockConnectionManager = mock(ConnectionManager.class);
+        when(mockConnectionManager.execute(anyString())).thenReturn(true);
+
+        CourseManager courseManager = new CourseManager(mockConnectionManager);
+
+        Boolean result = courseManager.assignTeacher("snadi", "cmput", "402");
+        assertNotNull(result);
+        Assert.assertTrue(result);
+        verify(mockConnectionManager, times(1)).execute(anyString());
+    }
+
+    public void testunassignTeacher()
+    {
+        ConnectionManager mockConnectionManager = mock(ConnectionManager.class);
+        when(mockConnectionManager.execute(anyString())).thenReturn(true);
+
+        CourseManager courseManager = new CourseManager(mockConnectionManager);
+
+        Boolean result = courseManager.unassignTeacher("cmput", "402");
+        assertNotNull(result);
+        Assert.assertTrue(result);
+        verify(mockConnectionManager, times(1)).execute(anyString());
+    }
 }
