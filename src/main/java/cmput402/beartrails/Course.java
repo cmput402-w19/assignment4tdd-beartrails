@@ -19,4 +19,5 @@ public class Course {
     public Integer startTime;
     public Integer duration;
     public String location;
+    public String professor;
 }
