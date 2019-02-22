@@ -173,4 +173,58 @@ public class UserManagerTest extends TestCase {
         assert(studentList.get(2).userType.equals(student3.userType));
     }
 
+    public void testGetTeachers() {
+
+        User professor1 = new User("dhall", "Hall", "Derek", User.Type.Professor);
+        User professor2 = new User("bmontina", "Montina", "Brandon", User.Type.Professor);
+        User professor3 = new User("cpanda", "Pandachuck", "Cole", User.Type.Professor);
+
+        ConnectionManager mockConnectionManager = mock(ConnectionManager.class);
+        UserManager userManager = new UserManager(mockConnectionManager);
+        List<List<Object>> queryList = new ArrayList<List<Object>>();
+        List<Object> row1 = new ArrayList<Object>();
+        List<Object> row2 = new ArrayList<Object>();
+        List<Object> row3 = new ArrayList<Object>();
+
+        row1.add(professor1.username);
+        row1.add(professor1.firstName);
+        row1.add(professor1.lastName);
+        row1.add(professor1.userType);
+
+        row2.add(professor2.username);
+        row2.add(professor2.firstName);
+        row2.add(professor2.lastName);
+        row2.add(professor2.userType);
+
+        row3.add(professor3.username);
+        row3.add(professor3.firstName);
+        row3.add(professor3.lastName);
+        row3.add(professor3.userType);
+
+        queryList.add(row1);
+        queryList.add(row2);
+        queryList.add(row3);
+
+        when(mockConnectionManager.query(Mockito.anyString())).thenReturn(queryList);
+
+        List<User> professorList = userManager.getTeachers();
+
+        assert(professorList.size() == 3);
+
+        assert(professorList.get(0).username.equals(professor1.username));
+        assert(professorList.get(0).lastName.equals(professor1.lastName));
+        assert(professorList.get(0).firstName.equals(professor1.firstName));
+        assert(professorList.get(0).userType.equals(professor1.userType));
+
+        assert(professorList.get(1).username.equals(professor2.username));
+        assert(professorList.get(1).lastName.equals(professor2.lastName));
+        assert(professorList.get(1).firstName.equals(professor2.firstName));
+        assert(professorList.get(1).userType.equals(professor2.userType));
+
+        assert(professorList.get(2).username.equals(professor3.username));
+        assert(professorList.get(2).lastName.equals(professor3.lastName));
+        assert(professorList.get(2).firstName.equals(professor3.firstName));
+        assert(professorList.get(2).userType.equals(professor3.userType));
+    }
+
 }
