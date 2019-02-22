@@ -18,13 +18,13 @@ public class CourseManager {
         String sub = (course.courseSubject == "" || course.courseSubject == null)
                      ? null
                      : "\"" + course.courseSubject + "\"";
-        String num = (course.courseSubject == "" || course.courseNumber == null)
+        String num = (course.courseNumber == "" || course.courseNumber == null)
                 ? null
                 : "\"" + course.courseNumber + "\"";
-        String loc = (course.courseSubject == "" || course.location == null)
+        String loc = (course.location == "" || course.location == null)
                 ? null
                 : "\"" + course.location + "\"";
-        String prof = (course.courseSubject == "" || course.professor == null)
+        String prof = (course.professor == "" || course.professor == null)
                 ? null
                 : "\"" + course.professor + "\"";
         String days = (course.courseDays == null)
@@ -107,14 +107,20 @@ public class CourseManager {
 
     public boolean removeCourse(String subject, String number)
     {
-        String sub = (subject == null)
+        String sub = (subject == "" || subject == null)
                 ? null
                 : "\"" + subject + "\"";
-        String num = (number == null)
+        String num = (number == "" || number == null)
                 ? null
                 : "\"" + number + "\"";
 
-        return connectionManager.execute("");
+        if(sub == null || num == null)
+        {
+            return false;
+        }
+
+        String sqlQuery = "DELETE FROM courses WHERE course_subject = " + sub + " AND course_number = " + num +";";
+        return connectionManager.execute(sqlQuery);
     }
 
     public boolean assignTeacher(String teacherUsername, String subject, String number)

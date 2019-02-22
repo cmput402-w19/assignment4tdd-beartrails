@@ -147,7 +147,7 @@ public class CourseManagerTest extends TestCase {
         assertNotNull(result);
         Assert.assertFalse(result);
 
-        // Execute should only be called once, since createCourse will reject empty or null subject/number
-        verify(mockConnectionManager, times(2)).execute(anyString());
+        // Execute should only be called once, since removeCourse will reject empty or null subject/number
+        verify(mockConnectionManager, times(1)).execute(anyString());
     }
 }
