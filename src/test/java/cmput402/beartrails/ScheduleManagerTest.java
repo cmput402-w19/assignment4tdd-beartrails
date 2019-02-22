@@ -158,4 +158,145 @@ public class ScheduleManagerTest extends TestCase {
         assert(courseList.get(2).duration.equals(course3.duration));
         assert(courseList.get(2).location.equals(course3.location));
     }
+
+    public void testAddCourse() {
+
+        User student = new User("zred", "Redfern", "Zach", User.Type.Student);
+
+        Course course1 = new Course("cmput", "404", Course.DaysOfWeek.MonWedFri,
+                8, 1, "CSC");
+        Course course2 = new Course("stat", "252", Course.DaysOfWeek.MonWedFri,
+                9, 1, "ETLC");
+        Course course3 = new Course("cmput", "402", Course.DaysOfWeek.TueThu,
+                11, 1, "CSC");
+
+        Course newCourse = new Course("math", "222", Course.DaysOfWeek.TueThu,
+                12, 1, "CAB");
+
+        ConnectionManager mockConnectionManager = mock(ConnectionManager.class);
+        ScheduleManager scheduleManager = new ScheduleManager(mockConnectionManager, student);
+
+        // The day and time of the course the student is trying to add
+        List<List<Object>> courseList = new ArrayList<List<Object>>();
+        List<Object> row = new ArrayList<Object>();
+        row.add(newCourse.courseDays);
+        row.add(newCourse.startTime);
+        courseList.add(row);
+
+        List<List<Object>> scheduleList = new ArrayList<List<Object>>();
+        List<Object> row1 = new ArrayList<Object>();
+        List<Object> row2 = new ArrayList<Object>();
+        List<Object> row3 = new ArrayList<Object>();
+
+        row1.add(course1.courseSubject);
+        row1.add(course1.courseNumber);
+        row1.add(course1.courseDays);
+        row1.add(course1.startTime);
+        row1.add(course1.duration);
+        row1.add(course1.location);
+
+        row2.add(course2.courseSubject);
+        row2.add(course2.courseNumber);
+        row2.add(course2.courseDays);
+        row2.add(course2.startTime);
+        row2.add(course2.duration);
+        row2.add(course2.location);
+
+        row3.add(course3.courseSubject);
+        row3.add(course3.courseNumber);
+        row3.add(course3.courseDays);
+        row3.add(course3.startTime);
+        row3.add(course3.duration);
+        row3.add(course3.location);
+
+        scheduleList.add(row1);
+        scheduleList.add(row2);
+        scheduleList.add(row3);
+
+        when(mockConnectionManager.query(Mockito.anyString())).thenReturn(courseList).thenReturn(scheduleList);
+
+        when(mockConnectionManager.execute(Mockito.anyString())).thenReturn(true);
+
+        assertTrue(scheduleManager.addCourse(newCourse.courseSubject, newCourse.courseNumber));
+    }
+
+    public void testAddCourseDoesNotExist() {
+
+        User student = new User("zred", "Redfern", "Zach", User.Type.Student);
+
+        Course newCourse = new Course("fake", "999", Course.DaysOfWeek.TueThu,
+                12, 1, "CAB");
+
+        ConnectionManager mockConnectionManager = mock(ConnectionManager.class);
+        ScheduleManager scheduleManager = new ScheduleManager(mockConnectionManager, student);
+
+        // An empty list since the query should return no results (as the course doesn't exist)
+        List<List<Object>> courseList = new ArrayList<List<Object>>();
+
+        when(mockConnectionManager.query(Mockito.anyString())).thenReturn(courseList);
+
+        assertFalse(scheduleManager.addCourse(newCourse.courseSubject, newCourse.courseNumber));
+    }
+
+    public void testAddCourseConflict() {
+
+        User student = new User("zred", "Redfern", "Zach", User.Type.Student);
+
+        Course course1 = new Course("cmput", "404", Course.DaysOfWeek.MonWedFri,
+                8, 1, "CSC");
+        Course course2 = new Course("stat", "252", Course.DaysOfWeek.MonWedFri,
+                9, 1, "ETLC");
+        Course course3 = new Course("cmput", "402", Course.DaysOfWeek.TueThu,
+                11, 1, "CSC");
+
+        // This new course conflicts with course3 since they are at the same time
+        Course newCourse = new Course("math", "222", Course.DaysOfWeek.TueThu,
+                11, 1, "CAB");
+
+        ConnectionManager mockConnectionManager = mock(ConnectionManager.class);
+        ScheduleManager scheduleManager = new ScheduleManager(mockConnectionManager, student);
+
+        // The day and time of the course the student is trying to add
+        List<List<Object>> courseList = new ArrayList<List<Object>>();
+        List<Object> row = new ArrayList<Object>();
+        row.add(newCourse.courseDays);
+        row.add(newCourse.startTime);
+        courseList.add(row);
+
+        List<List<Object>> scheduleList = new ArrayList<List<Object>>();
+        List<Object> row1 = new ArrayList<Object>();
+        List<Object> row2 = new ArrayList<Object>();
+        List<Object> row3 = new ArrayList<Object>();
+
+        row1.add(course1.courseSubject);
+        row1.add(course1.courseNumber);
+        row1.add(course1.courseDays);
+        row1.add(course1.startTime);
+        row1.add(course1.duration);
+        row1.add(course1.location);
+
+        row2.add(course2.courseSubject);
+        row2.add(course2.courseNumber);
+        row2.add(course2.courseDays);
+        row2.add(course2.startTime);
+        row2.add(course2.duration);
+        row2.add(course2.location);
+
+        row3.add(course3.courseSubject);
+        row3.add(course3.courseNumber);
+        row3.add(course3.courseDays);
+        row3.add(course3.startTime);
+        row3.add(course3.duration);
+        row3.add(course3.location);
+
+        scheduleList.add(row1);
+        scheduleList.add(row2);
+        scheduleList.add(row3);
+
+        when(mockConnectionManager.query(Mockito.anyString())).thenReturn(courseList).thenReturn(scheduleList);
+
+        when(mockConnectionManager.execute(Mockito.anyString())).thenReturn(true);
+
+        assertFalse(scheduleManager.addCourse(newCourse.courseSubject, newCourse.courseNumber));
+    }
 }
