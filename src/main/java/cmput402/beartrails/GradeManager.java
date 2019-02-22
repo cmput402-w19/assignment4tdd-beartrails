@@ -17,7 +17,12 @@ public class GradeManager {
 
     public boolean assignGrade(Double grade, String studentUsername, String subject, String number)
     {
-        return false;
+        if(grade > 4.0d || grade < 0.0d)
+        {
+            return false;
+        }
+
+        return connectionManager.execute("");
     }
 
     public Double getStudentGrade(String studentUsername, String subject, String number)
