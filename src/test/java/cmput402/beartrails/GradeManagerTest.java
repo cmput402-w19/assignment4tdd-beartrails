@@ -182,11 +182,12 @@ public class GradeManagerTest extends TestCase {
         Assert.assertTrue(result);
 
         result = gradeManager.assignGrade(4.8d, "repka", "CMPUT", "402");
-        Assert.assertTrue(result);
+        Assert.assertFalse(result);
 
         result = gradeManager.assignGrade(-0.5d, "repka", "CMPUT", "402");
-        Assert.assertTrue(result);
+        Assert.assertFalse(result);
 
-        verify(mockConnectionManager, times(3)).execute(anyString());
+        // Execute should only be called once, since function should reject grades over 4.0 and below 0.
+        verify(mockConnectionManager, times(1)).execute(anyString());
     }
 }
