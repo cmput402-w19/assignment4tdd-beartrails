@@ -15,16 +15,16 @@ public class CourseManager {
 
     public Boolean createCourse(Course course)
     {
-        String sub = (course.courseSubject == "" || course.courseSubject == null)
+        String sub = (course.courseSubject == null)
                      ? null
                      : "\"" + course.courseSubject + "\"";
-        String num = (course.courseNumber == "" || course.courseNumber == null)
+        String num = (course.courseNumber == null)
                 ? null
                 : "\"" + course.courseNumber + "\"";
-        String loc = (course.location == "" || course.location == null)
+        String loc = (course.location == null)
                 ? null
                 : "\"" + course.location + "\"";
-        String prof = (course.professor == "" || course.professor == null)
+        String prof = (course.professor == null)
                 ? null
                 : "\"" + course.professor + "\"";
         String days = (course.courseDays == null)
@@ -107,10 +107,10 @@ public class CourseManager {
 
     public Boolean removeCourse(String subject, String number)
     {
-        String sub = (subject == "" || subject == null)
+        String sub = (subject == null)
                 ? null
                 : "\"" + subject + "\"";
-        String num = (number == "" || number == null)
+        String num = (number == null)
                 ? null
                 : "\"" + number + "\"";
 
@@ -125,13 +125,13 @@ public class CourseManager {
 
     public Boolean assignTeacher(String teacherUsername, String subject, String number)
     {
-        String sub = (subject == "" || subject == null)
+        String sub = (subject == null)
                 ? null
                 : "\"" + subject + "\"";
-        String num = (number == "" || number == null)
+        String num = (number == null)
                 ? null
                 : "\"" + number + "\"";
-        String prof = (teacherUsername == "" || teacherUsername == null)
+        String prof = (teacherUsername == null)
                 ? null
                 : "\"" + teacherUsername + "\"";
 
@@ -140,15 +140,18 @@ public class CourseManager {
             return false;
         }
 
-        return connectionManager.execute("");
+        String sqlQuery = "UPDATE courses SET professor = " + prof +
+                " WHERE course_subject = \"" + sub + "\"" +
+                " AND course_number = \"" + num + "\";";
+        return connectionManager.execute(sqlQuery);
     }
 
     public Boolean unassignTeacher(String subject, String number)
     {
-        String sub = (subject == "" || subject == null)
+        String sub = (subject == null)
                 ? null
                 : "\"" + subject + "\"";
-        String num = (number == "" || number == null)
+        String num = (number == null)
                 ? null
                 : "\"" + number + "\"";
 
@@ -157,6 +160,9 @@ public class CourseManager {
             return false;
         }
 
-        return connectionManager.execute("");
+        String sqlQuery = "UPDATE courses SET professor = null" +
+                " WHERE course_subject = \"" + sub + "\"" +
+                " AND course_number = \"" + num + "\";";
+        return connectionManager.execute(sqlQuery);
     }
 }
