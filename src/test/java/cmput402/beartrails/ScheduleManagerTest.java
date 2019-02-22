@@ -222,7 +222,7 @@ public class ScheduleManagerTest extends TestCase {
 
     public void testAddCourseDoesNotExist() {
 
-        User student = new User("zred", "Redfern", "Zach", User.Type.Student);
+        User student = new User("zred", "Redfern", "Zach", User.Type.Professor);
 
         Course newCourse = new Course("fake", "999", Course.DaysOfWeek.TueThu,
                 12, 1, "CAB");
@@ -240,7 +240,7 @@ public class ScheduleManagerTest extends TestCase {
 
     public void testAddCourseConflict() {
 
-        User student = new User("zred", "Redfern", "Zach", User.Type.Student);
+        User student = new User("zred", "Redfern", "Zach", User.Type.Professor);
 
         Course course1 = new Course("cmput", "404", Course.DaysOfWeek.MonWedFri,
                 8, 1, "CSC");
