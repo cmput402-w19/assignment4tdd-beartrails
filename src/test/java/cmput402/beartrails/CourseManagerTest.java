@@ -15,7 +15,7 @@ public class CourseManagerTest extends TestCase {
     public void testcreateCourse()
     {
         ConnectionManager mockConnectionManager = mock(ConnectionManager.class);
-        when(mockConnectionManager.execute(anyString())).thenReturn(true);
+        when(mockConnectionManager.execute(anyString())).thenReturn(true).thenReturn(false);
 
         CourseManager courseManager = new CourseManager(mockConnectionManager);
         Course newCourse = new Course();
@@ -32,6 +32,20 @@ public class CourseManagerTest extends TestCase {
         assertNotNull(result);
         Assert.assertTrue(result);
 
+        newCourse = new Course();
+        newCourse.courseSubject = null;
+        newCourse.courseNumber = null;
+        newCourse.startTime = null;
+        newCourse.location = null;
+        newCourse.duration = null;
+        newCourse.courseDays = null;
+        newCourse.professor = null;
+
+        result = courseManager.createCourse(newCourse);
+        assertNotNull(result);
+        Assert.assertFalse(result);
+
+        // Execute should only be called once, since createCourse will reject empty or null subject/number
         verify(mockConnectionManager, times(1)).execute(anyString());
     }
 
