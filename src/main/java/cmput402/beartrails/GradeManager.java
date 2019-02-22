@@ -24,9 +24,10 @@ public class GradeManager {
         }
 
         String sqlQuery = "UPDATE enrollments SET grade = " + grade +
-                          "WHERE student = \"" + studentUsername + "\"" +
-                          "AND course_subject = \"" + subject + "\"" +
-                          "AND course_number = \"" + number + "\";";
+                          " WHERE student = \"" + studentUsername + "\"" +
+                          " AND course_subject = \"" + subject + "\"" +
+                          " AND course_number = \"" + number + "\";";
+        System.out.print(sqlQuery);
         return connectionManager.execute(sqlQuery);
     }
 
@@ -41,8 +42,8 @@ public class GradeManager {
 
         // Get list of courses and grades from DB
         String sqlQuery = "SELECT subject, number, days, time, duration, location, professor, grade" +
-                          "FROM enrollments NATURAL JOIN courses" +
-                          "WHERE student=\"" + studentUsername + "\";";
+                          " FROM enrollments NATURAL JOIN courses" +
+                          " WHERE student=\"" + studentUsername + "\";";
         List<List<Object>> queryResult = connectionManager.query(sqlQuery);
 
         // Get course and grade list from response
@@ -103,7 +104,7 @@ public class GradeManager {
         // Get list of students and grades from DB
         String sqlQuery = "SELECT student, grade FROM enrollments " +
                 "WHERE subject = \"" + subject + "\"" +
-                "AND number = \"" + number + "\";";
+                " AND number = \"" + number + "\";";
         List<List<Object>> queryResult = connectionManager.query(sqlQuery);
 
         // Get grade list and student list from response
@@ -126,7 +127,7 @@ public class GradeManager {
         // Get list of student and grades from DB
         String sqlQuery = "SELECT grade FROM enrollments " +
                 "WHERE subject = \"" + subject + "\"" +
-                "AND number = \"" + number + "\";";
+                " AND number = \"" + number + "\";";
         List<List<Object>> queryResult = connectionManager.query(sqlQuery);
 
         // Get grade list from response
