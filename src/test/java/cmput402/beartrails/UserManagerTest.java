@@ -108,4 +108,15 @@ public class UserManagerTest extends TestCase {
         assert(null == userManager.login("badUserName"));
     }
 
+    public void testRegisterUser() {
+        ConnectionManager mockConnectionManager = mock(ConnectionManager.class);
+        UserManager userManager = new UserManager(mockConnectionManager);
+
+        when(mockConnectionManager.execute(Mockito.anyString())).thenReturn(true);
+
+        User student = new User("zred", "Redfern", "Zach", User.Type.Student);
+
+        assertTrue(userManager.registerUser(student));
+    }
+
 }
