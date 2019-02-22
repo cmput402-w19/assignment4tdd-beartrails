@@ -1,6 +1,7 @@
 package cmput402.beartrails;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import java.text.MessageFormat;
 
@@ -41,9 +42,23 @@ public class UserManager {
         return(connectionManager.execute(query));
     }
 
-    public List<User> getStudents()
-    {
-        return null;
+    public List<User> getStudents() {
+
+        Object[] params = new Object[]{User.Type.Student};
+        String query = MessageFormat.format("SELECT * FROM users WHERE type = {0} ORDER BY last_name;", params);
+        List<List<Object>> rs = connectionManager.query(query);
+
+        // Extract attributes from rows of the result set
+        List<User> studentList = new ArrayList<User>();
+        for (List<Object> row : rs) {
+            String userName = (String) row.get(0);
+            String firstName = (String) row.get(1);
+            String lastName = (String) row.get(2);
+            User.Type userType = (User.Type) row.get(3);
+            studentList.add(new User(userName, lastName, firstName, userType));
+        }
+
+        return studentList;
     }
 
     public List<User> getTeachers()
