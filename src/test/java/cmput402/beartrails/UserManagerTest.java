@@ -119,4 +119,58 @@ public class UserManagerTest extends TestCase {
         assertTrue(userManager.registerUser(student));
     }
 
+    public void testGetStudents() {
+
+        User student1 = new User("dhall", "Hall", "Derek", User.Type.Student);
+        User student2 = new User("bmontina", "Montina", "Brandon", User.Type.Student);
+        User student3 = new User("cpanda", "Pandachuck", "Cole", User.Type.Student);
+
+        ConnectionManager mockConnectionManager = mock(ConnectionManager.class);
+        UserManager userManager = new UserManager(mockConnectionManager);
+        List<List<Object>> queryList = new ArrayList<List<Object>>();
+        List<Object> row1 = new ArrayList<Object>();
+        List<Object> row2 = new ArrayList<Object>();
+        List<Object> row3 = new ArrayList<Object>();
+
+        row1.add(student1.username);
+        row1.add(student1.firstName);
+        row1.add(student1.lastName);
+        row1.add(student1.userType);
+
+        row2.add(student2.username);
+        row2.add(student2.firstName);
+        row2.add(student2.lastName);
+        row2.add(student2.userType);
+
+        row3.add(student3.username);
+        row3.add(student3.firstName);
+        row3.add(student3.lastName);
+        row3.add(student3.userType);
+
+        queryList.add(row1);
+        queryList.add(row2);
+        queryList.add(row3);
+
+        when(mockConnectionManager.query(Mockito.anyString())).thenReturn(queryList);
+
+        List<User> studentList = userManager.getStudents();
+
+        assert(studentList.size() == 3);
+
+        assert(studentList.get(0).username.equals(student1.username));
+        assert(studentList.get(0).lastName.equals(student1.lastName));
+        assert(studentList.get(0).firstName.equals(student1.firstName));
+        assert(studentList.get(0).userType.equals(student1.userType));
+
+        assert(studentList.get(1).username.equals(student2.username));
+        assert(studentList.get(1).lastName.equals(student2.lastName));
+        assert(studentList.get(1).firstName.equals(student2.firstName));
+        assert(studentList.get(1).userType.equals(student2.userType));
+
+        assert(studentList.get(2).username.equals(student3.username));
+        assert(studentList.get(2).lastName.equals(student3.lastName));
+        assert(studentList.get(2).firstName.equals(student3.firstName));
+        assert(studentList.get(2).userType.equals(student3.userType));
+    }
+
 }
