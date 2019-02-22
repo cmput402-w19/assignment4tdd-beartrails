@@ -96,9 +96,15 @@ public class ScheduleManager {
         return(connectionManager.execute(insertQuery));
     }
 
-    public Boolean removeCourse(String courseSubject, String courseNumber)
-    {
-        return null;
+    public Boolean removeCourse(String courseSubject, String courseNumber) {
+
+        Object[] params = new Object[]{user.username, courseSubject, courseNumber};
+        String query = MessageFormat.format("DELETE FROM enrollments" +
+                " WHERE student=\"{0}\"" +
+                " AND course_subject=\"{1}\"" +
+                " AND course_number=\"{2}\";", params);
+
+        return(connectionManager.execute(query));
     }
 
 
