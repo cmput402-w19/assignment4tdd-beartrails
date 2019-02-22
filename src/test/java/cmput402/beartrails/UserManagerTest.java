@@ -1,9 +1,8 @@
 package cmput402.beartrails;
 
+import org.mockito.Mockito;
 import static org.mockito.Mock.*;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -14,22 +13,22 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import cmput402.beartrails.User;
-import cmput402.beartrails.UserManager;
-
 public class UserManagerTest extends TestCase {
 
-    UserManager userManager;
-
-    public void setUp() throws Exception {
-        System.out.println("Setting up UserManagerTest ...");
-    }
-
-    public void tearDown() throws Exception {
-        System.out.println("Tearing down up UserManagerTest ...");
-    }
-
     public void testLoginStudent() {
+
+        ConnectionManager mockConnectionManager = mock(ConnectionManager.class);
+        UserManager userManager = new UserManager(mockConnectionManager);
+        List<List<Object>> queryList = new ArrayList<List<Object>>();
+        List<Object> row = new ArrayList<Object>();
+
+        row.add("zred");
+        row.add("Zach");
+        row.add("Redfern");
+        row.add(User.Type.Student);
+        queryList.add(row);
+
+        when(mockConnectionManager.query(Mockito.anyString())).thenReturn(queryList);
 
         // Student who is logging in
         User student = new User("zred", "Redfern", "Zach", User.Type.Student);
@@ -45,8 +44,21 @@ public class UserManagerTest extends TestCase {
 
     public void testLoginProfessor() {
 
+        ConnectionManager mockConnectionManager = mock(ConnectionManager.class);
+        UserManager userManager = new UserManager(mockConnectionManager);
+        List<List<Object>> queryList = new ArrayList<List<Object>>();
+        List<Object> row = new ArrayList<Object>();
+
+        row.add("zred");
+        row.add("Zach");
+        row.add("Redfern");
+        row.add(User.Type.Professor);
+        queryList.add(row);
+
+        when(mockConnectionManager.query(Mockito.anyString())).thenReturn(queryList);
+
         // Professor who is logging in
-        User professor = new User("drepka", "Repka", "Derek", User.Type.Professor);
+        User professor = new User("zred", "Redfern", "Zach", User.Type.Professor);
 
         // User returned by the login process
         User loggedInUser = userManager.login(professor.username);
@@ -59,8 +71,21 @@ public class UserManagerTest extends TestCase {
 
     public void testLoginAdmin() {
 
+        ConnectionManager mockConnectionManager = mock(ConnectionManager.class);
+        UserManager userManager = new UserManager(mockConnectionManager);
+        List<List<Object>> queryList = new ArrayList<List<Object>>();
+        List<Object> row = new ArrayList<Object>();
+
+        row.add("zred");
+        row.add("Zach");
+        row.add("Redfern");
+        row.add(User.Type.Admin);
+        queryList.add(row);
+
+        when(mockConnectionManager.query(Mockito.anyString())).thenReturn(queryList);
+
         // Admin who is logging in
-        User admin = new User("corey", "Hunt", "Corey", User.Type.Admin);
+        User admin = new User("zred", "Redfern", "Zach", User.Type.Admin);
 
         // User returned by the login process
         User loggedInUser = userManager.login(admin.username);
