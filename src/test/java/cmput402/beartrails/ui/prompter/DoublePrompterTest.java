@@ -60,7 +60,7 @@ public class DoublePrompterTest extends TestCase {
         assertFalse(dp.inputWasGoBack());
         assertFalse(dp.inputWasInvalid());
         assert(getOutput().contentEquals(this.promptText));
-        assert(rv.contentEquals(input));
+        assert(rv.contentEquals(input.trim()));
     }
     
     public void testHighestValidInput() {
@@ -72,7 +72,7 @@ public class DoublePrompterTest extends TestCase {
     	assertFalse(dp.inputWasGoBack());
     	assertFalse(dp.inputWasInvalid());
     	assert(getOutput().contentEquals(this.promptText));
-    	assert(rv.contentEquals(input));
+    	assert(rv.contentEquals(input.trim()));
     }
     
     public void testTooLowValue() {
@@ -90,7 +90,7 @@ public class DoublePrompterTest extends TestCase {
     public void testTooHighValue() {
     	String input = "4.1\n";
     	provideInput(input);
-    	
+    	    	
     	String rv = dp.promptUser();
     	
     	assertFalse(dp.inputWasGoBack());
@@ -132,7 +132,7 @@ public class DoublePrompterTest extends TestCase {
     	assertFalse(dp.inputWasGoBack());
     	assertFalse(dp.inputWasInvalid());
     	assert(getOutput().contentEquals(this.promptText));
-    	assert(rv.contentEquals(input));
+    	assert(rv.contentEquals(input.trim()));
     }
     
     public void testSpace() {

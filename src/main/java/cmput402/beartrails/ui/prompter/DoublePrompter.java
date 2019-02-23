@@ -12,11 +12,25 @@ public class DoublePrompter extends AbstractPrompter {
 					      Double minAllowable, 
 			              Double maxAllowable) {
 		super(promptText);
+		this.minAllowable = minAllowable;
+		this.maxAllowable = maxAllowable;
 	}
 
 	@Override
 	protected Boolean isValid(String userInput) {
-		return false;
+		Double parsedDouble;
+		try {
+			parsedDouble = Double.valueOf(userInput);
+		} catch (NumberFormatException e) {
+			return false;
+		}
+		
+		if((this.minAllowable != null) && (parsedDouble < this.minAllowable) 
+			|| (this.maxAllowable != null) && (parsedDouble > this.maxAllowable)) {
+			return false;
+		}
+			
+	    return true;
 	}
 
 }

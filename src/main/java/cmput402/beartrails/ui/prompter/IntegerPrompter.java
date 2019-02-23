@@ -12,10 +12,24 @@ public class IntegerPrompter extends AbstractPrompter {
 			               Integer minAllowable, 
 			               Integer maxAllowable) {
 		super(promptText);
+		this.minAllowable = minAllowable;
+		this.maxAllowable = maxAllowable;
 	}
 
 	@Override
 	protected Boolean isValid(String userInput) {
-		return false;
+		Integer parsedInt;
+		try {
+			parsedInt = Integer.parseInt(userInput);
+		} catch (NumberFormatException e) {
+			return false;
+		}
+		
+		if((this.minAllowable != null) && (parsedInt < this.minAllowable) 
+				|| (this.maxAllowable != null) && (parsedInt > this.maxAllowable)) {
+			return false;
+		}
+		
+		return true;
 	}
 }

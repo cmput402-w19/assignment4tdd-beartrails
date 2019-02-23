@@ -61,7 +61,7 @@ public class IntegerPrompterTest extends TestCase {
         assertFalse(ip.inputWasGoBack());
         assertFalse(ip.inputWasInvalid());
         assert(getOutput().contentEquals(this.promptText));
-        assert(rv.contentEquals(input));
+        assert(rv.contentEquals(input.trim()));
     }
     
     public void testHighestValidInput() {
@@ -73,7 +73,7 @@ public class IntegerPrompterTest extends TestCase {
     	assertFalse(ip.inputWasGoBack());
     	assertFalse(ip.inputWasInvalid());
     	assert(getOutput().contentEquals(this.promptText));
-    	assert(rv.contentEquals(input));
+    	assert(rv.contentEquals(input.trim()));
     }
     
     public void testTooLowValue() {

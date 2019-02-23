@@ -71,7 +71,7 @@ public class StringPrompterTest extends TestCase {
     	assertFalse(sp.inputWasGoBack());
     	assertFalse(sp.inputWasInvalid());
     	assert(getOutput().contentEquals(this.promptText));
-    	assert(rv.contentEquals(input));
+    	assert(rv.contentEquals(input.trim()));
     }
     
     public void testSpace() {
@@ -83,11 +83,35 @@ public class StringPrompterTest extends TestCase {
     	assertFalse(sp.inputWasGoBack());
     	assertFalse(sp.inputWasInvalid());
     	assert(getOutput().contentEquals(this.promptText));
-    	assert(rv.contentEquals(" huntc"));
+    	assert(rv.contentEquals("huntc"));
     }
     
     public void testTwoWords() {
     	String input = "Corey Hunt\n";
+    	provideInput(input);
+    	
+    	String rv = sp.promptUser();
+    	
+    	assertFalse(sp.inputWasGoBack());
+    	assertTrue(sp.inputWasInvalid());
+    	assert(getOutput().contentEquals(this.promptText));
+    	assert(rv.contentEquals(""));
+    }
+    
+    public void testSpecialCharacter() {
+    	String input = "Corey?Hunt\n";
+    	provideInput(input);
+    	
+    	String rv = sp.promptUser();
+    	
+    	assertFalse(sp.inputWasGoBack());
+    	assertTrue(sp.inputWasInvalid());
+    	assert(getOutput().contentEquals(this.promptText));
+    	assert(rv.contentEquals(""));
+    }
+    
+    public void testNumber() {
+    	String input = "Corey5Hunt\n";
     	provideInput(input);
     	
     	String rv = sp.promptUser();
