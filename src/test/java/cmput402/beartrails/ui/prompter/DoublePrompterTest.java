@@ -147,6 +147,20 @@ public class DoublePrompterTest extends TestCase {
     	assert(rv.contentEquals("3"));
     }
     
+    public void testTwoInputs() {
+    	String input = "a"; //invalid
+    	provideInput(input);
+    	
+    	String rv = dp.promptUser();
+    	assertTrue(dp.inputWasInvalid());
+    	
+    	input = "5.0";   //valid
+    	provideInput(input);
+    	
+    	rv = dp.promptUser();	
+    	assertFalse(dp.inputWasInvalid());
+    }
+    
     public void testGoBack() {
     	String input = dp.getGoBackChar() + "\n";
     	provideInput(input);
