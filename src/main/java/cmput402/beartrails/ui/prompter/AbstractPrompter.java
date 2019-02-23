@@ -10,11 +10,19 @@ public abstract class AbstractPrompter {
 		
 	}
 	
+	public String getGoBackChar() {
+		return this.goBackChar;
+	}
+	
 	public String promptUser() {
 		return "";
 	}
 	
-	public Boolean getGoBack() {
+	public Boolean inputWasGoBack() {
+		return false;
+	}
+	
+	public Boolean inputWasInvalid() {
 		return false;
 	}
 	

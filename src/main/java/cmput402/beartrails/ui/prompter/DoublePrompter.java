@@ -1,6 +1,6 @@
 package cmput402.beartrails.ui.prompter;
 
-public abstract class DoublePrompter extends AbstractPrompter {
+public class DoublePrompter extends AbstractPrompter {
 	private Double minAllowable;
 	private Double maxAllowable;
 	
