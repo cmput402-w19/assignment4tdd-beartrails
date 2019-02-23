@@ -148,13 +148,13 @@ public class DoublePrompterTest extends TestCase {
     }
     
     public void testTwoInputs() {
-    	String input = "a"; //invalid
+    	String input = "a\n"; //invalid
     	provideInput(input);
     	
     	String rv = dp.promptUser();
     	assertTrue(dp.inputWasInvalid());
     	
-    	input = "5.0";   //valid
+    	input = "4.0\n";   //valid
     	provideInput(input);
     	
     	rv = dp.promptUser();	

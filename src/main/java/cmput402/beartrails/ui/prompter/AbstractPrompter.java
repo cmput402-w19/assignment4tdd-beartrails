@@ -21,10 +21,15 @@ public abstract class AbstractPrompter {
 		if(input.contentEquals(this.goBackChar)) {
 			this.goBack = true;
 			return "";
-		} else if(input.contentEquals("") || !isValid(input)) {
+		} else {
+			this.goBack = false;
+		}
+		
+		if(input.contentEquals("") || !isValid(input)) {
 			this.invalidInput = true;
 			return "";
 		} else {
+			this.invalidInput = false;
 			return input;
 		}
 	}
