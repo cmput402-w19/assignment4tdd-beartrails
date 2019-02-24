@@ -16,6 +16,7 @@ public class ListCoursesMenuAction extends AbstractMenuAction {
 		
 		if(courseList.size() == 0) {
 			System.out.println("\nSorry, there are currently no courses entered into the system");
+			return true;
 		}
 		System.out.println();
 		//https://stackoverflow.com/a/18672745/2038127
