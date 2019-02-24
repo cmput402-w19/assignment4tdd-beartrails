@@ -113,7 +113,7 @@ public class ViewTeacherScheduleMenuActionTest extends TestCase {
     	
     	//Keep it abstract, so we can change the wording 
     	//without failing the test
-    	assert(output.contains("in any courses"));
+    	assert(output.contains("any courses"));
     	verify(mockScheduleManager).getTeacherSchedule(username);
     }
     
