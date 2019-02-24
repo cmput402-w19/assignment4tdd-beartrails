@@ -84,6 +84,8 @@ public class ViewGPAMenuActionTest extends TestCase {
     	when(mockGradeManager.getStudentGPA(anyString()))
     		.thenReturn(Double.parseDouble("3.65"));
     	
+    	viewGPAMenuAction.execute();
+    	
     	String output = getOutput();
     	
     	assert(output.contains("3.65"));
