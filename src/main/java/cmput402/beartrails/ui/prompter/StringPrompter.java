@@ -1,5 +1,7 @@
 package cmput402.beartrails.ui.prompter;
 
+import java.util.Scanner;
+
 public class StringPrompter extends AbstractPrompter {
 
 	@Override

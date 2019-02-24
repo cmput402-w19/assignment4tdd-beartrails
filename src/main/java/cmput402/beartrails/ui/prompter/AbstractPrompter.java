@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public abstract class AbstractPrompter {
 	private final String goBackChar = "b";
+	private final String tryAgainText = "Something went wrong, please try again.";
+	
 	protected Boolean goBack = false;
 	protected Boolean invalidInput = false;
 	protected String promptText;
@@ -35,6 +37,9 @@ public abstract class AbstractPrompter {
 	
 	protected abstract Boolean isValid(String userInput);
 	
+	public void printTryAgain() {
+		System.out.println(tryAgainText);
+	}
 	
 	
 	public String getGoBackChar() {

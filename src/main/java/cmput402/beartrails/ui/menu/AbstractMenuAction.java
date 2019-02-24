@@ -11,16 +11,16 @@ import cmput402.beartrails.ui.prompter.StringPrompter;
 
 public abstract class AbstractMenuAction {
 	
-	private User loggedInUser;
-	private CourseManager courseManager;
-	private GradeManager gradeManager;
-	private ScheduleManager scheduleManager;
+	protected User loggedInUser;
+	protected CourseManager courseManager;
+	protected GradeManager gradeManager;
+	protected ScheduleManager scheduleManager;
 	
-	private DoublePrompter doublePrompter;
-	private IntegerPrompter integerPrompter;
-	private StringPrompter stringPrompter;
+	protected DoublePrompter doublePrompter;
+	protected IntegerPrompter integerPrompter;
+	protected StringPrompter stringPrompter;
 	
-	private UserManager userManager;
+	protected UserManager userManager;
 	
 	AbstractMenuAction() {
 	}
@@ -31,36 +31,36 @@ public abstract class AbstractMenuAction {
 	 * Pavel suggests using 'withXYZ' in contexts similar to this
 	 * https://stackoverflow.com/a/26236963/2038127
 	 */
-	public AbstractMenuAction withUser(User loggedInUser) {
-		return null;
+	public void setUser(User loggedInUser) {
+		this.loggedInUser = loggedInUser;
 	}
 	
-	public AbstractMenuAction withCourseManager(CourseManager cm) {
-		return null;
+	public void setCourseManager(CourseManager cm) {
+		this.courseManager = cm;
 	}
 	
-	public AbstractMenuAction withGradeManager(GradeManager gm) {
-		return null;
+	public void setGradeManager(GradeManager gm) {
+		this.gradeManager = gm;
 	}
 	
-	public AbstractMenuAction withScheduleManager(ScheduleManager sm) {
-		return null;
+	public void setScheduleManager(ScheduleManager sm) {
+		this.scheduleManager = sm;
 	}
 	
-	public AbstractMenuAction withUserManager(UserManager um) {
-		return null;
+	public void setUserManager(UserManager um) {
+		this.userManager = um;
 	}
 	
-	public AbstractMenuAction withDoublePrompter(DoublePrompter db) {
-		return null;
+	public void setDoublePrompter(DoublePrompter db) {
+		this.doublePrompter = db;
 	}
 	
-	public AbstractMenuAction withIntegerPrompter(IntegerPrompter ip) {
-		return null;
+	public void setIntegerPrompter(IntegerPrompter ip) {
+		this.integerPrompter = ip;
 	}
 	
-	public AbstractMenuAction withStringPrompter(StringPrompter sp) {
-		return null;
+	public void setStringPrompter(StringPrompter sp) {
+		this.stringPrompter = sp;
 	}
 	
 
