@@ -8,12 +8,11 @@ public abstract class AbstractPrompter {
 	protected Boolean invalidInput = false;
 	protected String promptText;
 	
-	AbstractPrompter(String promptText) {
-		this.promptText = promptText;
+	AbstractPrompter() {
 	}
 		
-	public String promptUser() {
-		System.out.print(this.promptText);
+	public String promptUser(String promptText) {
+		System.out.print(promptText);
 		
 		Scanner scanner = new Scanner(System.in);
 		String input = scanner.nextLine().trim();
@@ -35,6 +34,8 @@ public abstract class AbstractPrompter {
 	}
 	
 	protected abstract Boolean isValid(String userInput);
+	
+	
 	
 	public String getGoBackChar() {
 		return this.goBackChar;

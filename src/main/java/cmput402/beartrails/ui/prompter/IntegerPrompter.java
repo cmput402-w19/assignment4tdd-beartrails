@@ -4,16 +4,18 @@ public class IntegerPrompter extends AbstractPrompter {
 	private Integer minAllowable;
 	private Integer maxAllowable;
 	
-	public IntegerPrompter(String promptText) {
-		super(promptText);
+	public String promptUser(String promptText) {
+		this.minAllowable = null;
+		this.maxAllowable = null;
+		return super.promptUser(promptText);
 	}
 	
-	public IntegerPrompter(String promptText, 
-			               Integer minAllowable, 
-			               Integer maxAllowable) {
-		super(promptText);
+	public String promptUser(String promptText, 
+						     Integer minAllowable, 
+						     Integer maxAllowable) {
 		this.minAllowable = minAllowable;
 		this.maxAllowable = maxAllowable;
+		return super.promptUser(promptText);
 	}
 
 	@Override

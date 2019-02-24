@@ -4,16 +4,18 @@ public class DoublePrompter extends AbstractPrompter {
 	private Double minAllowable;
 	private Double maxAllowable;
 	
-	public DoublePrompter(String promptText) {
-		super(promptText);
+	public String promptUser(String promptText) {
+		this.minAllowable = null;
+		this.maxAllowable = null;
+		return super.promptUser(promptText);
 	}
 	
-	public DoublePrompter(String promptText, 
-					      Double minAllowable, 
-			              Double maxAllowable) {
-		super(promptText);
+	public String promptUser(String promptText, 
+						     Double minAllowable, 
+						     Double maxAllowable) {
 		this.minAllowable = minAllowable;
 		this.maxAllowable = maxAllowable;
+		return super.promptUser(promptText);
 	}
 
 	@Override
