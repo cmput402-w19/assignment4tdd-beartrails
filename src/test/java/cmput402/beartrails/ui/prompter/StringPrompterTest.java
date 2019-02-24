@@ -29,7 +29,7 @@ public class StringPrompterTest extends TestCase {
         testOut = new ByteArrayOutputStream();
         System.setOut(new PrintStream(testOut));
         
-        this.sp = new StringPrompter(this.promptText);
+        this.sp = new StringPrompter();
     }
     
     //Restore stdout and stdin
@@ -54,7 +54,7 @@ public class StringPrompterTest extends TestCase {
     	String input = "\n";
     	provideInput(input);
     	
-    	String rv = sp.promptUser();
+    	String rv = sp.promptUser(this.promptText);
     	
     	assertFalse(sp.inputWasGoBack());
     	assertTrue(sp.inputWasInvalid());
@@ -66,7 +66,7 @@ public class StringPrompterTest extends TestCase {
     	String input = "huntc\n";
     	provideInput(input);
     	
-    	String rv = sp.promptUser();
+    	String rv = sp.promptUser(this.promptText);
     	
     	assertFalse(sp.inputWasGoBack());
     	assertFalse(sp.inputWasInvalid());
@@ -78,7 +78,7 @@ public class StringPrompterTest extends TestCase {
     	String input = " huntc\n";
     	provideInput(input);
     	
-    	String rv = sp.promptUser();
+    	String rv = sp.promptUser(this.promptText);
     	
     	assertFalse(sp.inputWasGoBack());
     	assertFalse(sp.inputWasInvalid());
@@ -90,7 +90,7 @@ public class StringPrompterTest extends TestCase {
     	String input = "Corey Hunt\n";
     	provideInput(input);
     	
-    	String rv = sp.promptUser();
+    	String rv = sp.promptUser(this.promptText);
     	
     	assertFalse(sp.inputWasGoBack());
     	assertTrue(sp.inputWasInvalid());
@@ -102,7 +102,7 @@ public class StringPrompterTest extends TestCase {
     	String input = "Corey?Hunt\n";
     	provideInput(input);
     	
-    	String rv = sp.promptUser();
+    	String rv = sp.promptUser(this.promptText);
     	
     	assertFalse(sp.inputWasGoBack());
     	assertTrue(sp.inputWasInvalid());
@@ -114,7 +114,7 @@ public class StringPrompterTest extends TestCase {
     	String input = "Corey5Hunt\n";
     	provideInput(input);
     	
-    	String rv = sp.promptUser();
+    	String rv = sp.promptUser(this.promptText);
     	
     	assertFalse(sp.inputWasGoBack());
     	assertTrue(sp.inputWasInvalid());
@@ -126,7 +126,7 @@ public class StringPrompterTest extends TestCase {
     	String input = sp.getGoBackChar() + "\n";
     	provideInput(input);
     	
-    	String rv = sp.promptUser();
+    	String rv = sp.promptUser(this.promptText);
     	
     	assertTrue(sp.inputWasGoBack());
     	assertFalse(sp.inputWasInvalid());

@@ -29,9 +29,7 @@ public class IntegerPrompterTest extends TestCase {
         testOut = new ByteArrayOutputStream();
         System.setOut(new PrintStream(testOut));
         
-        this.ip = new IntegerPrompter(this.promptText,
-        		                                   this.minAllowable,
-        		                                   this.maxAllowable);
+        this.ip = new IntegerPrompter();
     }
     
     //Restore stdout and stdin
@@ -56,7 +54,9 @@ public class IntegerPrompterTest extends TestCase {
        	String input = "1\n";
     	provideInput(input);
     	
-        String rv = ip.promptUser();
+        String rv = ip.promptUser(this.promptText,
+                				  this.minAllowable,
+                				  this.maxAllowable);
         
         assertFalse(ip.inputWasGoBack());
         assertFalse(ip.inputWasInvalid());
@@ -68,7 +68,9 @@ public class IntegerPrompterTest extends TestCase {
     	String input = "10\n";
     	provideInput(input);
     	
-    	String rv = ip.promptUser();
+    	String rv = ip.promptUser(this.promptText,
+                				  this.minAllowable,
+                				  this.maxAllowable);
     	
     	assertFalse(ip.inputWasGoBack());
     	assertFalse(ip.inputWasInvalid());
@@ -80,7 +82,9 @@ public class IntegerPrompterTest extends TestCase {
     	String input = "0\n";
     	provideInput(input);
     	
-    	String rv = ip.promptUser();
+    	String rv = ip.promptUser(this.promptText,
+    							  this.minAllowable,
+    							  this.maxAllowable);
     	
     	assertFalse(ip.inputWasGoBack());
     	assertTrue(ip.inputWasInvalid());
@@ -92,7 +96,9 @@ public class IntegerPrompterTest extends TestCase {
     	String input = "11\n";
     	provideInput(input);
     	
-    	String rv = ip.promptUser();
+    	String rv = ip.promptUser(this.promptText,
+    							  this.minAllowable,
+    							  this.maxAllowable);
     	
     	assertFalse(ip.inputWasGoBack());
     	assertTrue(ip.inputWasInvalid());
@@ -104,7 +110,9 @@ public class IntegerPrompterTest extends TestCase {
     	String input = "\n";
     	provideInput(input);
     	
-    	String rv = ip.promptUser();
+    	String rv = ip.promptUser(this.promptText,
+    						      this.minAllowable,
+    						      this.maxAllowable);
     	
     	assertFalse(ip.inputWasGoBack());
     	assertTrue(ip.inputWasInvalid());
@@ -116,7 +124,7 @@ public class IntegerPrompterTest extends TestCase {
     	String input = "5k\n";
     	provideInput(input);
     	
-    	String rv = ip.promptUser();
+    	String rv = ip.promptUser(this.promptText);
     	
     	assertFalse(ip.inputWasGoBack());
     	assertTrue(ip.inputWasInvalid());
@@ -128,7 +136,7 @@ public class IntegerPrompterTest extends TestCase {
     	String input = "3.0\n";
     	provideInput(input);
     	
-    	String rv = ip.promptUser();
+    	String rv = ip.promptUser(this.promptText);
     	
     	assertFalse(ip.inputWasGoBack());
     	assertTrue(ip.inputWasInvalid());
@@ -140,7 +148,7 @@ public class IntegerPrompterTest extends TestCase {
     	String input = " 3\n";
     	provideInput(input);
     	
-    	String rv = ip.promptUser();
+    	String rv = ip.promptUser(this.promptText);
     	
     	assertFalse(ip.inputWasGoBack());
     	assertFalse(ip.inputWasInvalid());
@@ -152,7 +160,7 @@ public class IntegerPrompterTest extends TestCase {
     	String input = ip.getGoBackChar() + "\n";
     	provideInput(input);
     	
-    	String rv = ip.promptUser();
+    	String rv = ip.promptUser(this.promptText);
     	
     	assertTrue(ip.inputWasGoBack());
     	assertFalse(ip.inputWasInvalid());

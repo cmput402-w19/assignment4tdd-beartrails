@@ -29,9 +29,7 @@ public class DoublePrompterTest extends TestCase {
         testOut = new ByteArrayOutputStream();
         System.setOut(new PrintStream(testOut));
         
-        this.dp = new DoublePrompter(this.promptText,
-        		                     this.minAllowable,
-        		                     this.maxAllowable);
+        this.dp = new DoublePrompter();
     }
     
     //Restore stdout and stdin
@@ -55,7 +53,9 @@ public class DoublePrompterTest extends TestCase {
        	String input = "0\n";
     	provideInput(input);
     	
-        String rv = dp.promptUser();
+        String rv = dp.promptUser(this.promptText,
+        						  this.minAllowable,
+        						  this.maxAllowable);
         
         assertFalse(dp.inputWasGoBack());
         assertFalse(dp.inputWasInvalid());
@@ -67,7 +67,9 @@ public class DoublePrompterTest extends TestCase {
     	String input = "4\n";
     	provideInput(input);
     	
-    	String rv = dp.promptUser();
+    	String rv = dp.promptUser(this.promptText,
+    							  this.minAllowable,
+    							  this.maxAllowable);
     	
     	assertFalse(dp.inputWasGoBack());
     	assertFalse(dp.inputWasInvalid());
@@ -79,7 +81,9 @@ public class DoublePrompterTest extends TestCase {
     	String input = "-1\n";
     	provideInput(input);
     	
-    	String rv = dp.promptUser();
+    	String rv = dp.promptUser(this.promptText,
+    							  this.minAllowable,
+    							  this.maxAllowable);
     	
     	assertFalse(dp.inputWasGoBack());
     	assertTrue(dp.inputWasInvalid());
@@ -91,7 +95,9 @@ public class DoublePrompterTest extends TestCase {
     	String input = "4.1\n";
     	provideInput(input);
     	    	
-    	String rv = dp.promptUser();
+    	String rv = dp.promptUser(this.promptText,
+    							  this.minAllowable,
+    							  this.maxAllowable);
     	
     	assertFalse(dp.inputWasGoBack());
     	assertTrue(dp.inputWasInvalid());
@@ -103,7 +109,7 @@ public class DoublePrompterTest extends TestCase {
     	String input = "\n";
     	provideInput(input);
     	
-    	String rv = dp.promptUser();
+    	String rv = dp.promptUser(this.promptText);
     	
     	assertFalse(dp.inputWasGoBack());
     	assertTrue(dp.inputWasInvalid());
@@ -115,7 +121,7 @@ public class DoublePrompterTest extends TestCase {
     	String input = "5k\n";
     	provideInput(input);
     	
-    	String rv = dp.promptUser();
+    	String rv = dp.promptUser(this.promptText);
     	
     	assertFalse(dp.inputWasGoBack());
     	assertTrue(dp.inputWasInvalid());
@@ -127,7 +133,7 @@ public class DoublePrompterTest extends TestCase {
     	String input = "3.0\n";
     	provideInput(input);
     	
-    	String rv = dp.promptUser();
+    	String rv = dp.promptUser(this.promptText);
     	
     	assertFalse(dp.inputWasGoBack());
     	assertFalse(dp.inputWasInvalid());
@@ -139,7 +145,7 @@ public class DoublePrompterTest extends TestCase {
     	String input = " 3\n";
     	provideInput(input);
     	
-    	String rv = dp.promptUser();
+    	String rv = dp.promptUser(this.promptText);
     	
     	assertFalse(dp.inputWasGoBack());
     	assertFalse(dp.inputWasInvalid());
@@ -151,13 +157,13 @@ public class DoublePrompterTest extends TestCase {
     	String input = "a\n"; //invalid
     	provideInput(input);
     	
-    	String rv = dp.promptUser();
+    	String rv = dp.promptUser(this.promptText);
     	assertTrue(dp.inputWasInvalid());
     	
     	input = "4.0\n";   //valid
     	provideInput(input);
     	
-    	rv = dp.promptUser();	
+    	rv = dp.promptUser(this.promptText);	
     	assertFalse(dp.inputWasInvalid());
     }
     
@@ -165,7 +171,7 @@ public class DoublePrompterTest extends TestCase {
     	String input = dp.getGoBackChar() + "\n";
     	provideInput(input);
     	
-    	String rv = dp.promptUser();
+    	String rv = dp.promptUser(this.promptText);
     	
     	assertTrue(dp.inputWasGoBack());
     	assertFalse(dp.inputWasInvalid());
