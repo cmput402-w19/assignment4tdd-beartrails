@@ -86,7 +86,7 @@ public class AddUserMenuActionTest extends TestCase {
     	when(mockIntegerPrompter.promptUser(anyString()))
     		.thenReturn(userType);
     	
-    	when(mockUserManager.registerUser(any()))
+    	when(mockUserManager.registerUser(any(User.class)))
     		.thenReturn(true);
         
         addUserMenuAction.execute();
@@ -113,13 +113,13 @@ public class AddUserMenuActionTest extends TestCase {
     		.thenReturn(userType);
 	
     	//This is where we introduce the "error" the first time
-    	when(mockUserManager.registerUser(any()))
+    	when(mockUserManager.registerUser(any(User.class)))
     		.thenReturn(false)
     		.thenReturn(true);
     
     	addUserMenuAction.execute();
     
-    	verify(mockUserManager, times(2)).registerUser(any());
+    	verify(mockUserManager, times(2)).registerUser(any(User.class));
     }
     
     /*
@@ -140,14 +140,14 @@ public class AddUserMenuActionTest extends TestCase {
     		.thenReturn(true)
     		.thenReturn(false);
     	
-    	when(mockUserManager.registerUser(any()))
+    	when(mockUserManager.registerUser(any(User.class)))
     		.thenReturn(true);
 
     	addUserMenuAction.execute();
 
-    	verify(mockStringPrompter, times(4)).promptUser(any());
-    	verify(mockIntegerPrompter, times(1)).promptUser(any());
-    	verify(mockUserManager).registerUser(any());
+    	verify(mockStringPrompter, times(4)).promptUser(anyString());
+    	verify(mockIntegerPrompter, times(1)).promptUser(anyString());
+    	verify(mockUserManager).registerUser(any(User.class));
     }
     
     /*
@@ -169,14 +169,14 @@ public class AddUserMenuActionTest extends TestCase {
     		.thenReturn(true)
     		.thenReturn(false);
     	
-    	when(mockUserManager.registerUser(any()))
+    	when(mockUserManager.registerUser(any(User.class)))
 			.thenReturn(true);
 
     	addUserMenuAction.execute();
 
-    	verify(mockStringPrompter, times(4)).promptUser(any());
-    	verify(mockIntegerPrompter, times(1)).promptUser(any());
-    	verify(mockUserManager).registerUser(any());
+    	verify(mockStringPrompter, times(4)).promptUser(anyString());
+    	verify(mockIntegerPrompter, times(1)).promptUser(anyString());
+    	verify(mockUserManager).registerUser(any(User.class));
     }
     
     /*
@@ -199,14 +199,14 @@ public class AddUserMenuActionTest extends TestCase {
     		.thenReturn(true)
     		.thenReturn(false);
     	
-    	when(mockUserManager.registerUser(any()))
+    	when(mockUserManager.registerUser(any(User.class)))
 			.thenReturn(true);
 
     	addUserMenuAction.execute();
 
-    	verify(mockStringPrompter, times(4)).promptUser(any());
-    	verify(mockIntegerPrompter, times(1)).promptUser(any());
-    	verify(mockUserManager).registerUser(any());
+    	verify(mockStringPrompter, times(4)).promptUser(anyString());
+    	verify(mockIntegerPrompter, times(1)).promptUser(anyString());
+    	verify(mockUserManager).registerUser(any(User.class));
     }
     
     /*
@@ -230,14 +230,14 @@ public class AddUserMenuActionTest extends TestCase {
     		.thenReturn(true)
     		.thenReturn(false);
     	
-    	when(mockUserManager.registerUser(any()))
+    	when(mockUserManager.registerUser(any(User.class)))
 			.thenReturn(true);
 
     	addUserMenuAction.execute();
 
-    	verify(mockStringPrompter, times(3)).promptUser(any());
-    	verify(mockIntegerPrompter, times(2)).promptUser(any());
-    	verify(mockUserManager).registerUser(any());
+    	verify(mockStringPrompter, times(3)).promptUser(anyString());
+    	verify(mockIntegerPrompter, times(2)).promptUser(anyString());
+    	verify(mockUserManager).registerUser(any(User.class));
     }
     
     /*
@@ -252,8 +252,8 @@ public class AddUserMenuActionTest extends TestCase {
     	
     	addUserMenuAction.execute();
     	
-    	verify(mockStringPrompter, times(1)).promptUser(any());
-    	verify(mockUserManager, never()).registerUser(any());
+    	verify(mockStringPrompter, times(1)).promptUser(anyString());
+    	verify(mockUserManager, never()).registerUser(any(User.class));
     }
     
     /*
@@ -270,8 +270,8 @@ public class AddUserMenuActionTest extends TestCase {
     	
     	addUserMenuAction.execute();
     	
-    	verify(mockStringPrompter, times(2)).promptUser(any());
-    	verify(mockUserManager, never()).registerUser(any());
+    	verify(mockStringPrompter, times(2)).promptUser(anyString());
+    	verify(mockUserManager, never()).registerUser(any(User.class));
     }
     
     /*
@@ -290,9 +290,9 @@ public class AddUserMenuActionTest extends TestCase {
     	
     	addUserMenuAction.execute();
     	
-    	verify(mockStringPrompter, times(3)).promptUser(any());
-    	verify(mockIntegerPrompter, never()).promptUser(any());
-    	verify(mockUserManager, never()).registerUser(any());
+    	verify(mockStringPrompter, times(3)).promptUser(anyString());
+    	verify(mockIntegerPrompter, never()).promptUser(anyString());
+    	verify(mockUserManager, never()).registerUser(any(User.class));
     }
     
     /*
@@ -313,9 +313,9 @@ public class AddUserMenuActionTest extends TestCase {
     	
     	addUserMenuAction.execute();
     	
-    	verify(mockStringPrompter, times(3)).promptUser(any());
-    	verify(mockIntegerPrompter, times(1)).promptUser(any());
-    	verify(mockUserManager, never()).registerUser(any());
+    	verify(mockStringPrompter, times(3)).promptUser(anyString());
+    	verify(mockIntegerPrompter, times(1)).promptUser(anyString());
+    	verify(mockUserManager, never()).registerUser(any(User.class));
     }
 
 }
