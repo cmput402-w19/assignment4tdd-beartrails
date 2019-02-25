@@ -143,7 +143,6 @@ public class ConnectionManager {
 			stmt.close();
 			return true;
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 			return false;
 		}
 	}
