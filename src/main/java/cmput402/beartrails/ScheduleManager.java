@@ -28,7 +28,7 @@ public class ScheduleManager {
         for (List<Object> row : rs) {
             String courseSubject = (String) row.get(0);
             String courseNumber = (String) row.get(1);
-            Course.DaysOfWeek courseDays = Course.DaysOfWeek.valueOf((String) row.get(2));
+            Course.DaysOfWeek courseDays = Course.DaysOfWeek.valueOf(row.get(2).toString());
             Integer startTime = (Integer) row.get(3);
             Integer duration = (Integer) row.get(4);
             String location = (String) row.get(5);
@@ -49,7 +49,7 @@ public class ScheduleManager {
         for (List<Object> row : rs) {
             String courseSubject = (String) row.get(0);
             String courseNumber = (String) row.get(1);
-            Course.DaysOfWeek courseDays = (Course.DaysOfWeek) row.get(2);
+            Course.DaysOfWeek courseDays = Course.DaysOfWeek.valueOf(row.get(2).toString());
             Integer startTime = (Integer) row.get(3);
             Integer duration = (Integer) row.get(4);
             String location = (String) row.get(5);
@@ -71,7 +71,7 @@ public class ScheduleManager {
             return false;
         }
 
-        Course.DaysOfWeek day = Course.DaysOfWeek.valueOf((String) courseList.get(0).get(0));
+        Course.DaysOfWeek day = Course.DaysOfWeek.valueOf(courseList.get(0).get(0).toString());
         Integer time = (Integer) courseList.get(0).get(1);
 
         // Get the users current schedule

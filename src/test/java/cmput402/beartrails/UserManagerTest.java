@@ -153,9 +153,6 @@ public class UserManagerTest extends TestCase {
 
         assert(studentList.size() == 3);
 
-        System.out.print(student1.lastName);
-        System.out.print(studentList.get(0).lastName);
-
         assert(studentList.get(0).username.equals(student1.username));
         assert(studentList.get(0).lastName.equals(student1.lastName));
         assert(studentList.get(0).firstName.equals(student1.firstName));
@@ -209,9 +206,6 @@ public class UserManagerTest extends TestCase {
         List<User> professorList = userManager.getTeachers();
 
         assert(professorList.size() == 3);
-
-        System.out.print(professor1.lastName);
-        System.out.print(professorList.get(0).lastName);
 
         assert(professorList.get(0).username.equals(professor1.username));
         assert(professorList.get(0).lastName.equals(professor1.lastName));

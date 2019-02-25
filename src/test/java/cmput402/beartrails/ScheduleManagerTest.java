@@ -31,21 +31,21 @@ public class ScheduleManagerTest extends TestCase {
 
         row1.add(course1.courseSubject);
         row1.add(course1.courseNumber);
-        row1.add(course1.courseDays);
+        row1.add(course1.courseDays.name());
         row1.add(course1.startTime);
         row1.add(course1.duration);
         row1.add(course1.location);
 
         row2.add(course2.courseSubject);
         row2.add(course2.courseNumber);
-        row2.add(course2.courseDays);
+        row2.add(course2.courseDays.name());
         row2.add(course2.startTime);
         row2.add(course2.duration);
         row2.add(course2.location);
 
         row3.add(course3.courseSubject);
         row3.add(course3.courseNumber);
-        row3.add(course3.courseDays);
+        row3.add(course3.courseDays.name());
         row3.add(course3.startTime);
         row3.add(course3.duration);
         row3.add(course3.location);
@@ -102,21 +102,21 @@ public class ScheduleManagerTest extends TestCase {
 
         row1.add(course1.courseSubject);
         row1.add(course1.courseNumber);
-        row1.add(course1.courseDays);
+        row1.add(course1.courseDays.name());
         row1.add(course1.startTime);
         row1.add(course1.duration);
         row1.add(course1.location);
 
         row2.add(course2.courseSubject);
         row2.add(course2.courseNumber);
-        row2.add(course2.courseDays);
+        row2.add(course2.courseDays.name());
         row2.add(course2.startTime);
         row2.add(course2.duration);
         row2.add(course2.location);
 
         row3.add(course3.courseSubject);
         row3.add(course3.courseNumber);
-        row3.add(course3.courseDays);
+        row3.add(course3.courseDays.name());
         row3.add(course3.startTime);
         row3.add(course3.duration);
         row3.add(course3.location);
@@ -184,21 +184,21 @@ public class ScheduleManagerTest extends TestCase {
 
         row1.add(course1.courseSubject);
         row1.add(course1.courseNumber);
-        row1.add(course1.courseDays);
+        row1.add(course1.courseDays.name());
         row1.add(course1.startTime);
         row1.add(course1.duration);
         row1.add(course1.location);
 
         row2.add(course2.courseSubject);
         row2.add(course2.courseNumber);
-        row2.add(course2.courseDays);
+        row2.add(course2.courseDays.name());
         row2.add(course2.startTime);
         row2.add(course2.duration);
         row2.add(course2.location);
 
         row3.add(course3.courseSubject);
         row3.add(course3.courseNumber);
-        row3.add(course3.courseDays);
+        row3.add(course3.courseDays.name());
         row3.add(course3.startTime);
         row3.add(course3.duration);
         row3.add(course3.location);
@@ -253,7 +253,7 @@ public class ScheduleManagerTest extends TestCase {
         // The day and time of the course the student is trying to add
         List<List<Object>> courseList = new ArrayList<List<Object>>();
         List<Object> row = new ArrayList<Object>();
-        row.add(newCourse.courseDays);
+        row.add(newCourse.courseDays.name());
         row.add(newCourse.startTime);
         courseList.add(row);
 
@@ -264,21 +264,21 @@ public class ScheduleManagerTest extends TestCase {
 
         row1.add(course1.courseSubject);
         row1.add(course1.courseNumber);
-        row1.add(course1.courseDays);
+        row1.add(course1.courseDays.name());
         row1.add(course1.startTime);
         row1.add(course1.duration);
         row1.add(course1.location);
 
         row2.add(course2.courseSubject);
         row2.add(course2.courseNumber);
-        row2.add(course2.courseDays);
+        row2.add(course2.courseDays.name());
         row2.add(course2.startTime);
         row2.add(course2.duration);
         row2.add(course2.location);
 
         row3.add(course3.courseSubject);
         row3.add(course3.courseNumber);
-        row3.add(course3.courseDays);
+        row3.add(course3.courseDays.name());
         row3.add(course3.startTime);
         row3.add(course3.duration);
         row3.add(course3.location);
