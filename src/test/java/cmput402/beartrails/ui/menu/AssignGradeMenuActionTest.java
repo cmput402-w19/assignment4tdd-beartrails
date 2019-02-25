@@ -27,7 +27,6 @@ import cmput402.beartrails.CourseManager;
 import cmput402.beartrails.GradeManager;
 import cmput402.beartrails.ScheduleManager;
 import cmput402.beartrails.User;
-import cmput402.beartrails.UserManager;
 import cmput402.beartrails.ui.prompter.DoublePrompter;
 import cmput402.beartrails.ui.prompter.IntegerPrompter;
 import cmput402.beartrails.ui.prompter.StringPrompter;
@@ -71,6 +70,12 @@ public class AssignGradeMenuActionTest extends TestCase {
 	String lastName2 = "Redfern";
 	User.Type userType2 = User.Type.Student;
 	
+	String username3 = "snadi";
+	String firstName3 = "Sarah";
+	String lastName3 = "Nadi";
+	User.Type userType3 = User.Type.Professor;
+
+	
 	User student1 = new User(username1, 
 			   				firstName1, 
 			   				lastName1, 
@@ -81,9 +86,13 @@ public class AssignGradeMenuActionTest extends TestCase {
 							lastName2, 
 							userType2);
 	
+	User professor = new User(username3,
+							  firstName3,
+							  lastName3,
+							  userType3);
+	
 	IntegerPrompter mockIntegerPrompter;
 	DoublePrompter mockDoublePrompter;
-	UserManager mockUserManager;
 	CourseManager mockCourseManager;
 	ScheduleManager mockScheduleManager;
 	GradeManager mockGradeManager;
@@ -101,9 +110,10 @@ public class AssignGradeMenuActionTest extends TestCase {
         System.setOut(new PrintStream(testOut));
         
         mockIntegerPrompter = mock(IntegerPrompter.class);
+        mockDoublePrompter = mock(DoublePrompter.class);
         mockScheduleManager = mock(ScheduleManager.class);
         mockGradeManager = mock(GradeManager.class);
-        mockUserManager = mock(UserManager.class);
+        mockCourseManager = mock(CourseManager.class);
     	
     	assignGradeMenuAction = new AssignGradeMenuAction();
     	assignGradeMenuAction.setIntegerPrompter(mockIntegerPrompter);
@@ -111,7 +121,7 @@ public class AssignGradeMenuActionTest extends TestCase {
         assignGradeMenuAction.setCourseManager(mockCourseManager);
         assignGradeMenuAction.setScheduleManager(mockScheduleManager);
         assignGradeMenuAction.setGradeManager(mockGradeManager);
-        assignGradeMenuAction.setUserManager(mockUserManager);
+        assignGradeMenuAction.setUser(professor);
     }
     
     //Restore stdout and stdin
