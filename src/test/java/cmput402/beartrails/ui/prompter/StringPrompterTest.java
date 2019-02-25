@@ -133,4 +133,17 @@ public class StringPrompterTest extends TestCase {
     	assert(getOutput().contentEquals(this.promptText));
     	assert(rv.contentEquals(""));
     }
+    
+    public void testExit() {
+    	String input = sp.getQuitChar() + "\n";
+    	provideInput(input);
+    	
+    	String rv = sp.promptUser(this.promptText);
+
+    	assertTrue(sp.inputWasGoBack());
+    	assertTrue(sp.inputWasQuit());
+    	assertFalse(sp.inputWasInvalid());
+    	assert(getOutput().contentEquals(this.promptText));
+    	assert(rv.contentEquals(""));
+    }
 }
