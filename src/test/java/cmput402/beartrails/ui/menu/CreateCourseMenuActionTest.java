@@ -81,7 +81,7 @@ public class CreateCourseMenuActionTest extends TestCase {
 		return testOut.toString();
 	}
 
-	private void testHappyPath() {
+	public void testHappyPath() {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn(subject)
 		.thenReturn(location);
@@ -128,7 +128,7 @@ public class CreateCourseMenuActionTest extends TestCase {
 	 * Error encountered when trying to create the course the first time
 	 * Successful second attempt.
 	 */
-	private void testDBError() {
+	public void testDBError() {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn(subject)
 		.thenReturn(location);
@@ -154,11 +154,11 @@ public class CreateCourseMenuActionTest extends TestCase {
 		String output = getOutput().toLowerCase();
 
 		//(attempt to) Create course exactly twice
-		verify(mockCourseManager, times(2)).createCourse(eq(newCourse));
+		verify(mockCourseManager, times(2)).createCourse(any(Course.class));
 		//Prompt for 4 strings
 		verify(mockStringPrompter, times(4)).promptUser(anyString());
 		//Prompt twice for Course number
-		verify(mockIntegerPrompter, times(1)).promptUser(anyString(), 
+		verify(mockIntegerPrompter, times(2)).promptUser(anyString(), 
 				eq(100), 
 				eq(699));
 		//Prompt twice for Days
@@ -175,7 +175,7 @@ public class CreateCourseMenuActionTest extends TestCase {
 				eq(3));
 	}
 
-	private void testInvalidInput1() {
+	public void testInvalidInput1() {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn("")
 		.thenReturn(subject)
@@ -223,7 +223,7 @@ public class CreateCourseMenuActionTest extends TestCase {
 				eq(3));
 	}
 
-	private void testInvalidInput2() {
+	public void testInvalidInput2() {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn(subject)
 		.thenReturn(location);
@@ -271,7 +271,7 @@ public class CreateCourseMenuActionTest extends TestCase {
 				eq(3));
 	}
 
-	private void testInvalidInput3() {
+	public void testInvalidInput3() {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn(subject)
 		.thenReturn(location);
@@ -320,7 +320,7 @@ public class CreateCourseMenuActionTest extends TestCase {
 				eq(3));
 	}
 
-	private void testInvalidInput4() {
+	public void testInvalidInput4() {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn(subject)
 		.thenReturn(location);
@@ -351,7 +351,7 @@ public class CreateCourseMenuActionTest extends TestCase {
 		//Create course exactly once
 		verify(mockCourseManager, times(1)).createCourse(eq(newCourse));
 		//Prompt for 3 string
-		verify(mockStringPrompter, times(3)).promptUser(anyString());
+		verify(mockStringPrompter, times(2)).promptUser(anyString());
 		//Course Number
 		verify(mockIntegerPrompter, times(1)).promptUser(anyString(), 
 				eq(100), 
@@ -370,7 +370,7 @@ public class CreateCourseMenuActionTest extends TestCase {
 				eq(3));
 	}
 
-	private void testInvalidInput5() {
+	public void testInvalidInput5() {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn(subject)
 		.thenReturn(location);
@@ -402,7 +402,7 @@ public class CreateCourseMenuActionTest extends TestCase {
 		//Create course exactly once
 		verify(mockCourseManager, times(1)).createCourse(eq(newCourse));
 		//Prompt for 3 string
-		verify(mockStringPrompter, times(3)).promptUser(anyString());
+		verify(mockStringPrompter, times(2)).promptUser(anyString());
 		//Course Number
 		verify(mockIntegerPrompter, times(1)).promptUser(anyString(), 
 				eq(100), 
@@ -421,7 +421,7 @@ public class CreateCourseMenuActionTest extends TestCase {
 				eq(3));
 	}
 
-	private void testInvalidInput6() {
+	public void testInvalidInput6() {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn(subject)
 		.thenReturn("")
@@ -451,7 +451,7 @@ public class CreateCourseMenuActionTest extends TestCase {
 		//Create course exactly once
 		verify(mockCourseManager, times(1)).createCourse(eq(newCourse));
 		//Prompt for 4 string
-		verify(mockStringPrompter, times(4)).promptUser(anyString());
+		verify(mockStringPrompter, times(3)).promptUser(anyString());
 		//Course Number
 		verify(mockIntegerPrompter, times(1)).promptUser(anyString(), 
 				eq(100), 
@@ -470,7 +470,7 @@ public class CreateCourseMenuActionTest extends TestCase {
 				eq(3));
 	}
 
-	private void testGoBack1() {
+	public void testGoBack1() {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn("")
 		.thenReturn(subject)
@@ -516,7 +516,7 @@ public class CreateCourseMenuActionTest extends TestCase {
 				eq(3));
 	}
 
-	private void testGoBack2() {
+	public void testGoBack2() {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn(subject)
 		.thenReturn(location);
@@ -563,7 +563,7 @@ public class CreateCourseMenuActionTest extends TestCase {
 				eq(3));
 	}
 
-	private void testGoBack3() {
+	public void testGoBack3() {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn(subject)
 		.thenReturn(location);
@@ -610,7 +610,7 @@ public class CreateCourseMenuActionTest extends TestCase {
 				eq(3));
 	}
 
-	private void testGoBack4() {
+	public void testGoBack4() {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn(subject)
 		.thenReturn(location);
@@ -658,7 +658,7 @@ public class CreateCourseMenuActionTest extends TestCase {
 				eq(3));
 	}
 
-	private void testGoBack5() {
+	public void testGoBack5() {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn(subject)
 		.thenReturn(location);
@@ -707,7 +707,7 @@ public class CreateCourseMenuActionTest extends TestCase {
 				eq(3));
 	}
 
-	private void testGoBack6() {
+	public void testGoBack6() {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn(subject)
 		.thenReturn("")
