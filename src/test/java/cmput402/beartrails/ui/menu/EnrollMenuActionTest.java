@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.eq;
@@ -86,6 +87,7 @@ public class EnrollMenuActionTest extends TestCase {
         
         mockIntegerPrompter = mock(IntegerPrompter.class);
         mockCourseManager = mock(CourseManager.class);
+        mockScheduleManager = mock(ScheduleManager.class);
     	
     	enrollMenuAction = new EnrollMenuAction();
     	enrollMenuAction.setIntegerPrompter(mockIntegerPrompter);
@@ -137,7 +139,7 @@ public class EnrollMenuActionTest extends TestCase {
     	when(mockCourseManager.getAllCourses())
 			.thenReturn(courseList);
     	
-    	when(mockIntegerPrompter.promptUser(anyString()))
+    	when(mockIntegerPrompter.promptUser(anyString(), anyInt(), anyInt()))
     		.thenReturn("1");
     	
     	when(mockScheduleManager.addCourse(anyString(), anyString()))
@@ -155,7 +157,7 @@ public class EnrollMenuActionTest extends TestCase {
     	//Prompt the user exactly once
     	//Should specify bounds for the input
     	verify(mockIntegerPrompter, times(1))
-    		.promptUser(anyString(), 1, 2);
+    		.promptUser(anyString(), eq(1), eq(2));
     }
 
     /*
@@ -170,7 +172,7 @@ public class EnrollMenuActionTest extends TestCase {
     	when(mockCourseManager.getAllCourses())
 			.thenReturn(courseList);
     	
-    	when(mockIntegerPrompter.promptUser(anyString()))
+    	when(mockIntegerPrompter.promptUser(anyString(), anyInt(), anyInt()))
     		.thenReturn("2") // Let's pretend course 2 conflicts
     		.thenReturn("1");
     	
@@ -194,7 +196,7 @@ public class EnrollMenuActionTest extends TestCase {
     	//Prompt the user exactly twice
     	//Should specify bounds for the input
     	verify(mockIntegerPrompter, times(2))
-    		.promptUser(anyString(), 1, 2);
+    		.promptUser(anyString(), eq(1), eq(2));
     }
     
     /*
@@ -208,7 +210,7 @@ public class EnrollMenuActionTest extends TestCase {
     	when(mockCourseManager.getAllCourses())
 			.thenReturn(courseList);
     	
-    	when(mockIntegerPrompter.promptUser(anyString()))
+    	when(mockIntegerPrompter.promptUser(anyString(), anyInt(), anyInt()))
     		.thenReturn("");
     	
     	//This is the line of interest for this test
@@ -223,7 +225,7 @@ public class EnrollMenuActionTest extends TestCase {
     	//Prompt the user exactly once
     	//Should specify bounds for the input
     	verify(mockIntegerPrompter, times(1))
-    		.promptUser(anyString(), 1, 2);
+    		.promptUser(anyString(), eq(1), eq(2));
     }
     
     /*
@@ -238,7 +240,7 @@ public class EnrollMenuActionTest extends TestCase {
     	when(mockCourseManager.getAllCourses())
 			.thenReturn(courseList);
     	
-    	when(mockIntegerPrompter.promptUser(anyString()))
+    	when(mockIntegerPrompter.promptUser(anyString(), anyInt(), anyInt()))
     		.thenReturn("")
     		.thenReturn("1");
     	
@@ -254,7 +256,6 @@ public class EnrollMenuActionTest extends TestCase {
     	String output = getOutput().toLowerCase();
 	
     	//Keep the test general; this isn't the full output
-    	assert(output.contains("again"));
     	assert(output.contains("successful"));
     	//Enroll exactly once in the course
     	verify(mockScheduleManager, times(1))
@@ -262,7 +263,7 @@ public class EnrollMenuActionTest extends TestCase {
     	//Prompt the user exactly twice
     	//Should specify bounds for the input
     	verify(mockIntegerPrompter, times(2))
-    		.promptUser(anyString(), 1, 2);
+    		.promptUser(anyString(), eq(1), eq(2));
     }
     
 }
