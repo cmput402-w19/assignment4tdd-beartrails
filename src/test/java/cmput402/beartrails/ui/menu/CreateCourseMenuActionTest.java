@@ -84,12 +84,12 @@ public class CreateCourseMenuActionTest extends TestCase {
 	private void testHappyPath() {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn(subject)
-		.thenReturn(number)
 		.thenReturn(location);
 
 		when(mockIntegerPrompter.promptUser(anyString(), 
 				anyInt(), 
 				anyInt()))
+		.thenReturn(number)
 		.thenReturn(days)
 		.thenReturn(startTime)
 		.thenReturn(duration);
@@ -105,7 +105,11 @@ public class CreateCourseMenuActionTest extends TestCase {
 		//Create course exactly once
 		verify(mockCourseManager, times(1)).createCourse(eq(newCourse));
 		//Prompt for 1 string
-		verify(mockStringPrompter, times(3)).promptUser(anyString());
+		verify(mockStringPrompter, times(2)).promptUser(anyString());
+		//Course number
+		verify(mockIntegerPrompter, times(1)).promptUser(anyString(), 
+				eq(100), 
+				eq(699));
 		//Prompt once for Days
 		verify(mockIntegerPrompter, times(1)).promptUser(anyString(), 
 				eq(1), 
@@ -127,15 +131,16 @@ public class CreateCourseMenuActionTest extends TestCase {
 	private void testDBError() {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn(subject)
-		.thenReturn(number)
 		.thenReturn(location);
 
 		when(mockIntegerPrompter.promptUser(anyString(), 
 				anyInt(), 
 				anyInt()))
+		.thenReturn(number)
 		.thenReturn(days)
 		.thenReturn(startTime)
 		.thenReturn(duration)
+		.thenReturn(number)
 		.thenReturn(days)
 		.thenReturn(startTime)
 		.thenReturn(duration);
@@ -150,8 +155,12 @@ public class CreateCourseMenuActionTest extends TestCase {
 
 		//(attempt to) Create course exactly twice
 		verify(mockCourseManager, times(2)).createCourse(eq(newCourse));
-		//Prompt for 6 strings
-		verify(mockStringPrompter, times(6)).promptUser(anyString());
+		//Prompt for 4 strings
+		verify(mockStringPrompter, times(4)).promptUser(anyString());
+		//Prompt twice for Course number
+		verify(mockIntegerPrompter, times(1)).promptUser(anyString(), 
+				eq(100), 
+				eq(699));
 		//Prompt twice for Days
 		verify(mockIntegerPrompter, times(2)).promptUser(anyString(), 
 				eq(1), 
@@ -170,7 +179,6 @@ public class CreateCourseMenuActionTest extends TestCase {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn("")
 		.thenReturn(subject)
-		.thenReturn(number)
 		.thenReturn(location);
 
 		when(mockStringPrompter.inputWasInvalid())
@@ -180,6 +188,7 @@ public class CreateCourseMenuActionTest extends TestCase {
 		when(mockIntegerPrompter.promptUser(anyString(), 
 				anyInt(), 
 				anyInt()))
+		.thenReturn(number)
 		.thenReturn(days)
 		.thenReturn(startTime)
 		.thenReturn(duration);
@@ -194,8 +203,12 @@ public class CreateCourseMenuActionTest extends TestCase {
 		assert(output.contains("success"));
 		//Create course exactly once
 		verify(mockCourseManager, times(1)).createCourse(eq(newCourse));
-		//Prompt for 4 string
-		verify(mockStringPrompter, times(4)).promptUser(anyString());
+		//Prompt for 3 string
+		verify(mockStringPrompter, times(3)).promptUser(anyString());
+		//Course number
+		verify(mockIntegerPrompter, times(1)).promptUser(anyString(), 
+				eq(100), 
+				eq(699));
 		//Prompt once for Days
 		verify(mockIntegerPrompter, times(1)).promptUser(anyString(), 
 				eq(1), 
@@ -213,22 +226,21 @@ public class CreateCourseMenuActionTest extends TestCase {
 	private void testInvalidInput2() {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn(subject)
-		.thenReturn("")
-		.thenReturn(number)
 		.thenReturn(location);
-
-		when(mockStringPrompter.inputWasInvalid())
-		.thenReturn(false)
-		.thenReturn(true)
-		.thenReturn(false);
 
 		when(mockIntegerPrompter.promptUser(anyString(), 
 				anyInt(), 
 				anyInt()))
+		.thenReturn("")
+		.thenReturn(number)
 		.thenReturn(days)
 		.thenReturn(startTime)
 		.thenReturn(duration);
-
+		
+		when(mockIntegerPrompter.inputWasInvalid())
+		.thenReturn(true)
+		.thenReturn(false);
+		
 		when(mockCourseManager.createCourse(any(Course.class)))
 		.thenReturn(true);
 
@@ -239,8 +251,12 @@ public class CreateCourseMenuActionTest extends TestCase {
 		assert(output.contains("success"));
 		//Create course exactly once
 		verify(mockCourseManager, times(1)).createCourse(eq(newCourse));
-		//Prompt for 4 string
-		verify(mockStringPrompter, times(4)).promptUser(anyString());
+		//Prompt for 2 string
+		verify(mockStringPrompter, times(2)).promptUser(anyString());
+		//Course Number
+		verify(mockIntegerPrompter, times(2)).promptUser(anyString(), 
+				eq(100), 
+				eq(699));
 		//Prompt once for Days
 		verify(mockIntegerPrompter, times(1)).promptUser(anyString(), 
 				eq(1), 
@@ -258,18 +274,19 @@ public class CreateCourseMenuActionTest extends TestCase {
 	private void testInvalidInput3() {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn(subject)
-		.thenReturn(number)
 		.thenReturn(location);
 
 		when(mockIntegerPrompter.promptUser(anyString(), 
 				anyInt(), 
 				anyInt()))
+		.thenReturn(number)
 		.thenReturn("")
 		.thenReturn(days)
 		.thenReturn(startTime)
 		.thenReturn(duration);
 		
 		when(mockIntegerPrompter.inputWasInvalid())
+		.thenReturn(false)
 		.thenReturn(true)
 		.thenReturn(false);
 
@@ -284,7 +301,11 @@ public class CreateCourseMenuActionTest extends TestCase {
 		//Create course exactly once
 		verify(mockCourseManager, times(1)).createCourse(eq(newCourse));
 		//Prompt for 3 string
-		verify(mockStringPrompter, times(3)).promptUser(anyString());
+		verify(mockStringPrompter, times(2)).promptUser(anyString());
+		//Course Number
+		verify(mockIntegerPrompter, times(1)).promptUser(anyString(), 
+				eq(100), 
+				eq(699));
 		//Prompt twice for Days
 		verify(mockIntegerPrompter, times(2)).promptUser(anyString(), 
 				eq(1), 
@@ -302,18 +323,19 @@ public class CreateCourseMenuActionTest extends TestCase {
 	private void testInvalidInput4() {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn(subject)
-		.thenReturn(number)
 		.thenReturn(location);
 
 		when(mockIntegerPrompter.promptUser(anyString(), 
 				anyInt(), 
 				anyInt()))
+		.thenReturn(number)
 		.thenReturn(days)
 		.thenReturn("")
 		.thenReturn(startTime)
 		.thenReturn(duration);
 		
 		when(mockIntegerPrompter.inputWasInvalid())
+		.thenReturn(false)
 		.thenReturn(false)
 		.thenReturn(true)
 		.thenReturn(false);
@@ -330,6 +352,10 @@ public class CreateCourseMenuActionTest extends TestCase {
 		verify(mockCourseManager, times(1)).createCourse(eq(newCourse));
 		//Prompt for 3 string
 		verify(mockStringPrompter, times(3)).promptUser(anyString());
+		//Course Number
+		verify(mockIntegerPrompter, times(1)).promptUser(anyString(), 
+				eq(100), 
+				eq(699));
 		//Prompt once for Days
 		verify(mockIntegerPrompter, times(1)).promptUser(anyString(), 
 				eq(1), 
@@ -347,18 +373,19 @@ public class CreateCourseMenuActionTest extends TestCase {
 	private void testInvalidInput5() {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn(subject)
-		.thenReturn(number)
 		.thenReturn(location);
 
 		when(mockIntegerPrompter.promptUser(anyString(), 
 				anyInt(), 
 				anyInt()))
+		.thenReturn(number)
 		.thenReturn(days)
 		.thenReturn(startTime)
 		.thenReturn("")
 		.thenReturn(duration);
 		
 		when(mockIntegerPrompter.inputWasInvalid())
+		.thenReturn(false)
 		.thenReturn(false)
 		.thenReturn(false)
 		.thenReturn(true)
@@ -376,6 +403,10 @@ public class CreateCourseMenuActionTest extends TestCase {
 		verify(mockCourseManager, times(1)).createCourse(eq(newCourse));
 		//Prompt for 3 string
 		verify(mockStringPrompter, times(3)).promptUser(anyString());
+		//Course Number
+		verify(mockIntegerPrompter, times(1)).promptUser(anyString(), 
+				eq(100), 
+				eq(699));
 		//Prompt once for Days
 		verify(mockIntegerPrompter, times(1)).promptUser(anyString(), 
 				eq(1), 
@@ -393,7 +424,6 @@ public class CreateCourseMenuActionTest extends TestCase {
 	private void testInvalidInput6() {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn(subject)
-		.thenReturn(number)
 		.thenReturn("")
 		.thenReturn(location);
 
@@ -405,6 +435,7 @@ public class CreateCourseMenuActionTest extends TestCase {
 		when(mockIntegerPrompter.promptUser(anyString(), 
 				anyInt(), 
 				anyInt()))
+		.thenReturn(number)
 		.thenReturn(days)
 		.thenReturn(startTime)
 		.thenReturn(duration);
@@ -421,6 +452,10 @@ public class CreateCourseMenuActionTest extends TestCase {
 		verify(mockCourseManager, times(1)).createCourse(eq(newCourse));
 		//Prompt for 4 string
 		verify(mockStringPrompter, times(4)).promptUser(anyString());
+		//Course Number
+		verify(mockIntegerPrompter, times(1)).promptUser(anyString(), 
+				eq(100), 
+				eq(699));
 		//Prompt once for Days
 		verify(mockIntegerPrompter, times(1)).promptUser(anyString(), 
 				eq(1), 
@@ -439,7 +474,6 @@ public class CreateCourseMenuActionTest extends TestCase {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn("")
 		.thenReturn(subject)
-		.thenReturn(number)
 		.thenReturn(location);
 
 		when(mockStringPrompter.inputWasGoBack())
@@ -448,6 +482,7 @@ public class CreateCourseMenuActionTest extends TestCase {
 		when(mockIntegerPrompter.promptUser(anyString(), 
 				anyInt(), 
 				anyInt()))
+		.thenReturn(number)
 		.thenReturn(days)
 		.thenReturn(startTime)
 		.thenReturn(duration);
@@ -463,6 +498,10 @@ public class CreateCourseMenuActionTest extends TestCase {
 		verify(mockCourseManager, times(0)).createCourse(eq(newCourse));
 		//String
 		verify(mockStringPrompter, times(1)).promptUser(anyString());
+		//Course Number
+		verify(mockIntegerPrompter, times(0)).promptUser(anyString(), 
+				eq(100), 
+				eq(699));
 		//Days
 		verify(mockIntegerPrompter, times(0)).promptUser(anyString(), 
 				eq(1), 
@@ -480,20 +519,20 @@ public class CreateCourseMenuActionTest extends TestCase {
 	private void testGoBack2() {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn(subject)
-		.thenReturn("")
-		.thenReturn(number)
 		.thenReturn(location);
 
-		when(mockStringPrompter.inputWasGoBack())
-		.thenReturn(false)
-		.thenReturn(true);
 
 		when(mockIntegerPrompter.promptUser(anyString(), 
 				anyInt(), 
 				anyInt()))
+		.thenReturn("")
+		.thenReturn(number)
 		.thenReturn(days)
 		.thenReturn(startTime)
 		.thenReturn(duration);
+		
+		when(mockIntegerPrompter.inputWasGoBack())
+		.thenReturn(true);
 
 		when(mockCourseManager.createCourse(any(Course.class)))
 		.thenReturn(true);
@@ -505,7 +544,11 @@ public class CreateCourseMenuActionTest extends TestCase {
 		//Do not create course		
 		verify(mockCourseManager, times(0)).createCourse(eq(newCourse));
 		//String
-		verify(mockStringPrompter, times(2)).promptUser(anyString());
+		verify(mockStringPrompter, times(1)).promptUser(anyString());
+		//Course Number
+		verify(mockIntegerPrompter, times(1)).promptUser(anyString(), 
+				eq(100), 
+				eq(699));
 		//Days
 		verify(mockIntegerPrompter, times(0)).promptUser(anyString(), 
 				eq(1), 
@@ -523,18 +566,19 @@ public class CreateCourseMenuActionTest extends TestCase {
 	private void testGoBack3() {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn(subject)
-		.thenReturn(number)
 		.thenReturn(location);
 
 		when(mockIntegerPrompter.promptUser(anyString(), 
 				anyInt(), 
 				anyInt()))
+		.thenReturn(number)
 		.thenReturn("")
 		.thenReturn(days)
 		.thenReturn(startTime)
 		.thenReturn(duration);
 		
 		when(mockIntegerPrompter.inputWasGoBack())
+		.thenReturn(false)
 		.thenReturn(true);
 
 		when(mockCourseManager.createCourse(any(Course.class)))
@@ -547,7 +591,11 @@ public class CreateCourseMenuActionTest extends TestCase {
 		//Do not create course		
 		verify(mockCourseManager, times(0)).createCourse(eq(newCourse));
 		//String
-		verify(mockStringPrompter, times(2)).promptUser(anyString());
+		verify(mockStringPrompter, times(1)).promptUser(anyString());
+		//Course Number
+		verify(mockIntegerPrompter, times(1)).promptUser(anyString(), 
+				eq(100), 
+				eq(699));
 		//Days
 		verify(mockIntegerPrompter, times(1)).promptUser(anyString(), 
 				eq(1), 
@@ -565,18 +613,19 @@ public class CreateCourseMenuActionTest extends TestCase {
 	private void testGoBack4() {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn(subject)
-		.thenReturn(number)
 		.thenReturn(location);
 
 		when(mockIntegerPrompter.promptUser(anyString(), 
 				anyInt(), 
 				anyInt()))
+		.thenReturn(number)
 		.thenReturn(days)
 		.thenReturn("")
 		.thenReturn(startTime)
 		.thenReturn(duration);
 		
 		when(mockIntegerPrompter.inputWasGoBack())
+		.thenReturn(false)
 		.thenReturn(false)
 		.thenReturn(true);
 
@@ -590,7 +639,11 @@ public class CreateCourseMenuActionTest extends TestCase {
 		//Do not create course		
 		verify(mockCourseManager, times(0)).createCourse(eq(newCourse));
 		//String
-		verify(mockStringPrompter, times(2)).promptUser(anyString());
+		verify(mockStringPrompter, times(1)).promptUser(anyString());
+		//Course Number
+		verify(mockIntegerPrompter, times(1)).promptUser(anyString(), 
+				eq(100), 
+				eq(699));
 		//Days
 		verify(mockIntegerPrompter, times(1)).promptUser(anyString(), 
 				eq(1), 
@@ -608,18 +661,19 @@ public class CreateCourseMenuActionTest extends TestCase {
 	private void testGoBack5() {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn(subject)
-		.thenReturn(number)
 		.thenReturn(location);
 
 		when(mockIntegerPrompter.promptUser(anyString(), 
 				anyInt(), 
 				anyInt()))
+		.thenReturn(number)
 		.thenReturn(days)
 		.thenReturn(startTime)
 		.thenReturn("")
 		.thenReturn(duration);
 		
 		when(mockIntegerPrompter.inputWasGoBack())
+		.thenReturn(false)
 		.thenReturn(false)
 		.thenReturn(false)
 		.thenReturn(true);
@@ -634,7 +688,11 @@ public class CreateCourseMenuActionTest extends TestCase {
 		//Do not create course		
 		verify(mockCourseManager, times(0)).createCourse(eq(newCourse));
 		//String
-		verify(mockStringPrompter, times(2)).promptUser(anyString());
+		verify(mockStringPrompter, times(1)).promptUser(anyString());
+		//Course Number
+		verify(mockIntegerPrompter, times(1)).promptUser(anyString(), 
+				eq(100), 
+				eq(699));
 		//Days
 		verify(mockIntegerPrompter, times(1)).promptUser(anyString(), 
 				eq(1), 
@@ -652,18 +710,17 @@ public class CreateCourseMenuActionTest extends TestCase {
 	private void testGoBack6() {
 		when(mockStringPrompter.promptUser(anyString()))
 		.thenReturn(subject)
-		.thenReturn(number)
 		.thenReturn("")
 		.thenReturn(location);
 		
 		when(mockStringPrompter.inputWasGoBack())
-		.thenReturn(false)
 		.thenReturn(false)
 		.thenReturn(true);
 
 		when(mockIntegerPrompter.promptUser(anyString(), 
 				anyInt(), 
 				anyInt()))
+		.thenReturn(number)
 		.thenReturn(days)
 		.thenReturn(startTime)
 		.thenReturn(duration);
@@ -680,6 +737,10 @@ public class CreateCourseMenuActionTest extends TestCase {
 		verify(mockCourseManager, times(0)).createCourse(eq(newCourse));
 		//String
 		verify(mockStringPrompter, times(2)).promptUser(anyString());
+		//Course Number
+		verify(mockIntegerPrompter, times(1)).promptUser(anyString(), 
+				eq(100), 
+				eq(699));
 		//Days
 		verify(mockIntegerPrompter, times(1)).promptUser(anyString(), 
 				eq(1), 
