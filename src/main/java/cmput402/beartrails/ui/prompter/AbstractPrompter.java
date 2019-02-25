@@ -5,7 +5,7 @@ import java.util.Scanner;
 public abstract class AbstractPrompter {
 	private final String goBackChar = "b";
 	private final String quitChar = "q";
-	private final String tryAgainText = "Something went wrong, please try again.";
+	private final String tryAgainText = "Invalid input. Please try again.";
 	
 	protected Boolean goBack = false;
 	protected Boolean quit = false;

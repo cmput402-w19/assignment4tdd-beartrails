@@ -28,7 +28,7 @@ public class App
     	stringPrompter = new StringPrompter();
     	
     	
-        System.out.println("Welcome to BearTrails!");
+        System.out.println("Welcome to BearTrails!  You can enter 'b' or 'q' to back out of any menu.");
         while(true) {
         	String username = stringPrompter.promptUser("Enter your username: ");
         	if(stringPrompter.inputWasInvalid()) {

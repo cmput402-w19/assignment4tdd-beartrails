@@ -92,7 +92,9 @@ public class AddUserMenuAction extends AbstractMenuAction {
 			
 			if(rv == true) {
 				return true;
-			} //Else try again
+			} else {
+				System.out.println("Something went wrong.  Please try again");
+			}
 		}
 
 	}

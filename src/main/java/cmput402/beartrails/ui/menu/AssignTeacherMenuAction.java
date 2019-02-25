@@ -119,7 +119,7 @@ public class AssignTeacherMenuAction extends AbstractMenuAction {
 				System.out.println("Teacher assigned successfully!");
 				return true;
 			} else {
-				System.out.println("There was a problem assigning that teacher" +
+				System.out.println("There was a problem assigning that teacher." +
 						" Please try again.");
 				//And loop again
 			}

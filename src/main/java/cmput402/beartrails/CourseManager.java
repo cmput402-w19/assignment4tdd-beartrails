@@ -142,8 +142,8 @@ public class CourseManager {
         }
 
         String sqlQuery = "UPDATE courses SET professor = " + prof +
-                " WHERE course_subject = \"" + sub + "\"" +
-                " AND course_number = \"" + num + "\";";
+                " WHERE subject = " + sub +
+                " AND number = " + num + ";";
         return connectionManager.execute(sqlQuery);
     }
 

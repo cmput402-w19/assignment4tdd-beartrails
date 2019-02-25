@@ -36,7 +36,7 @@ public class UserManager {
 
     public boolean registerUser(User user) {
 
-        Object[] params = new Object[]{user.username, user.firstName, user.lastName, user.userType};
+        Object[] params = new Object[]{user.username, user.firstName, user.lastName, user.userType.ordinal()};
         String query = MessageFormat.format( "INSERT INTO users VALUES (\"{0}\", \"{1}\", \"{2}\", {3});", params);
 
         return(connectionManager.execute(query));
