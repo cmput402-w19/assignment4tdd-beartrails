@@ -98,7 +98,7 @@ public class CourseManager {
             String location = currentCourse.get(5).toString();
 
             Course course = new Course(subject, number, days, startTime, duration, location);
-            course.professor = currentCourse.get(6).toString();
+            course.professor = String.valueOf(currentCourse.get(6));
 
             courseList.add(course);
         }
