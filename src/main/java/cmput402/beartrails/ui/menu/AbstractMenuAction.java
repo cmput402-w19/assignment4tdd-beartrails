@@ -23,6 +23,9 @@ public abstract class AbstractMenuAction {
 	protected UserManager userManager;
 	
 	AbstractMenuAction() {
+		stringPrompter = new StringPrompter();
+		integerPrompter = new IntegerPrompter();
+		doublePrompter = new DoublePrompter();
 	}
 	
 	abstract public Boolean execute();

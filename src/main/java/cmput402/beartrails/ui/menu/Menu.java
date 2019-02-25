@@ -58,6 +58,7 @@ public class Menu {
 			Integer i = 1;
 			for(AbstractMenuAction menuAction : this.menuActions) {
 				System.out.println(i + "\t" + menuAction.toString());
+				i++;
 			}
 
 			while(true) {
