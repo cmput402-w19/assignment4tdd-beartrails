@@ -28,7 +28,7 @@ public class ScheduleManager {
         for (List<Object> row : rs) {
             String courseSubject = (String) row.get(0);
             String courseNumber = (String) row.get(1);
-            Course.DaysOfWeek courseDays = (Course.DaysOfWeek) row.get(2);
+            Course.DaysOfWeek courseDays = Course.DaysOfWeek.valueOf((String) row.get(2));
             Integer startTime = (Integer) row.get(3);
             Integer duration = (Integer) row.get(4);
             String location = (String) row.get(5);
@@ -63,7 +63,7 @@ public class ScheduleManager {
 
         Object[] selectParams = new Object[]{courseSubject, courseNumber};
         String selectQuery = MessageFormat.format(
-                "SELECT days, time  FROM courses WHERE subject = {0} AND number = {1};", selectParams);
+                "SELECT days, time  FROM courses WHERE subject = \"{0}\" AND number = \"{1}\";", selectParams);
         List<List<Object>> courseList = connectionManager.query(selectQuery);
 
         // The course in question did not even exist
@@ -71,7 +71,7 @@ public class ScheduleManager {
             return false;
         }
 
-        Course.DaysOfWeek day = (Course.DaysOfWeek) courseList.get(0).get(0);
+        Course.DaysOfWeek day = Course.DaysOfWeek.valueOf((String) courseList.get(0).get(0));
         Integer time = (Integer) courseList.get(0).get(1);
 
         // Get the users current schedule

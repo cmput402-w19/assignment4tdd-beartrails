@@ -93,6 +93,10 @@ public class GradeManager {
                           "WHERE student = \"" + studentUsername + "\";";
         List<List<Object>> queryResult = connectionManager.query(sqlQuery);
 
+        if(queryResult.size() == 0) {
+        	return 0d;
+        }
+        
         // Get grade list from response
         Iterator<List<Object>> gradeIterator = queryResult.iterator();
 
