@@ -119,7 +119,7 @@ public class AssignTeacherMenuActionTest extends TestCase {
     }
     
     public void testToString() {
-    	assert(assignTeacherMenuAction.toString().contains("assign");
+    	assert(assignTeacherMenuAction.toString().toLowerCase().contains("assign"));
     }
     
     /*

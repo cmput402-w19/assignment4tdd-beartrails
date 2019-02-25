@@ -6,6 +6,10 @@ import cmput402.beartrails.Course;
 
 public class EnrollMenuAction extends AbstractMenuAction {
 
+	public String toString() {
+		return "Enroll in a class";
+	}
+	
 	@Override
 	public Boolean execute() {
 		if(this.courseManager == null || this.scheduleManager == null) {

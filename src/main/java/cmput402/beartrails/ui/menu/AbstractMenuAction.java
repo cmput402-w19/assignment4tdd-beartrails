@@ -27,6 +27,8 @@ public abstract class AbstractMenuAction {
 	
 	abstract public Boolean execute();
 	
+	abstract public String toString();
+	
 	/*
 	 * Pavel suggests using 'withXYZ' in contexts similar to this
 	 * https://stackoverflow.com/a/26236963/2038127

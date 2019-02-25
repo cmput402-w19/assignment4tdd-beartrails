@@ -7,6 +7,10 @@ import cmput402.beartrails.User;
 
 public class AssignTeacherMenuAction extends AbstractMenuAction {
 	
+	public String toString() {
+		return "Assign a teacher to a class";
+	}
+	
 	@Override
 	public Boolean execute() {
 		if(this.courseManager == null 

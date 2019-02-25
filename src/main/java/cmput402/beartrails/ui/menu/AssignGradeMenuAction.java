@@ -7,6 +7,10 @@ import cmput402.beartrails.User;
 
 public class AssignGradeMenuAction extends AbstractMenuAction {
 
+	public String toString() {
+		return "Assign a grade";
+	}
+	
 	@Override
 	public Boolean execute() {
 		if(this.scheduleManager == null 

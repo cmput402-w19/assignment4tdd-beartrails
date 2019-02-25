@@ -107,7 +107,7 @@ public class EnrollMenuActionTest extends TestCase {
     }
     
     public void testToString() {
-    	assert(enrollMenuAction.toString().contains("enroll");
+    	assert(enrollMenuAction.toString().toLowerCase().contains("enroll"));
     }
     
     /*

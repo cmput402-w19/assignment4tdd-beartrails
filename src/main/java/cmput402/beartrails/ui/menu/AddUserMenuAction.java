@@ -10,6 +10,10 @@ public class AddUserMenuAction extends AbstractMenuAction {
 		this.stringPrompter = new StringPrompter();
 		this.integerPrompter = new IntegerPrompter();
 	}
+	
+	public String toString() {
+		return "Add a new user";
+	}
 
 	/**
 	 * @return true unless there was an error.

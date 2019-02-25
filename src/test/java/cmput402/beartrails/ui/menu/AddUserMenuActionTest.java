@@ -77,7 +77,7 @@ public class AddUserMenuActionTest extends TestCase {
     }
     
     public void testToString() {
-    	assert(addUserMenuAction.toString().contains("new user");
+    	assert(addUserMenuAction.toString().contains("new user"));
     }
     
     public void testHappyPath() {

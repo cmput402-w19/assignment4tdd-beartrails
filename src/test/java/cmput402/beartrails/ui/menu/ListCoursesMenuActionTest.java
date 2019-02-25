@@ -88,7 +88,7 @@ public class ListCoursesMenuActionTest extends TestCase {
     }
     
     public void testToString() {
-    	assert(listCoursesMenuAction.toString().contains("courses");
+    	assert(listCoursesMenuAction.toString().contains("courses"));
     }
     
     /*

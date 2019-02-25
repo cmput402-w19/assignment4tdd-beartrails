@@ -100,7 +100,7 @@ public class ViewTeacherScheduleMenuActionTest extends TestCase {
     }
     
     public void testToString() {
-    	assert(viewTeacherScheduleMenuAction.toString().contains("schedule");
+    	assert(viewTeacherScheduleMenuAction.toString().contains("schedule"));
     }    
     
     /*

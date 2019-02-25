@@ -6,6 +6,10 @@ import cmput402.beartrails.Course;
 
 public class ListCoursesMenuAction extends AbstractMenuAction {
 
+	public String toString() {
+		return "List all courses";
+	}
+	
 	@Override
 	public Boolean execute() {
 		if(this.courseManager == null) {

@@ -80,7 +80,7 @@ public class ViewGPAMenuActionTest extends TestCase {
     }	
     
     public void testToString() {
-    	assert(viewGPAMenuAction.toString().contains("GPA");
+    	assert(viewGPAMenuAction.toString().contains("GPA"));
     }
     
     

@@ -2,6 +2,10 @@ package cmput402.beartrails.ui.menu;
 
 public class ViewGPAMenuAction extends AbstractMenuAction {
 
+	public String toString() {
+		return "View GPA";
+	}
+	
 	@Override
 	public Boolean execute() {
 		if(loggedInUser == null || gradeManager == null) {

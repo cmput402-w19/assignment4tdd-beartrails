@@ -135,7 +135,7 @@ public class AssignGradeMenuActionTest extends TestCase {
     }
     
     public void testToString() {
-    	assert(assignGradeMenuAction.toString().contains("grade");
+    	assert(assignGradeMenuAction.toString().contains("grade"));
     }
     
     /*

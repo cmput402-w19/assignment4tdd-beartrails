@@ -6,6 +6,10 @@ import cmput402.beartrails.Course;
 
 public class ViewStudentScheduleMenuAction extends AbstractMenuAction {
 
+	public String toString() {
+		return "View schedule";
+	}
+	
 	@Override
 	public Boolean execute() {
 		if(this.scheduleManager == null) {

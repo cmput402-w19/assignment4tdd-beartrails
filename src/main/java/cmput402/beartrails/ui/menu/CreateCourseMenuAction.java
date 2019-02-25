@@ -6,6 +6,10 @@ import cmput402.beartrails.Course.DaysOfWeek;
 
 public class CreateCourseMenuAction extends AbstractMenuAction {
 
+	public String toString() {
+		return "Create a new course";
+	}
+	
 	@Override
 	public Boolean execute() {
 		if(this.courseManager == null) {

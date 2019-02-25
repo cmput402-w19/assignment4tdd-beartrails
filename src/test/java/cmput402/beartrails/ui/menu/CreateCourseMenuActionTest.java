@@ -82,7 +82,7 @@ public class CreateCourseMenuActionTest extends TestCase {
 	}
 	
     public void testToString() {
-    	assert(createCourseMenuAction.toString().contains("new course");
+    	assert(createCourseMenuAction.toString().contains("new course"));
     }
 
 	public void testHappyPath() {
