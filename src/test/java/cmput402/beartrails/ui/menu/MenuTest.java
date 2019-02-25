@@ -12,6 +12,8 @@ import junit.framework.TestCase;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.anyInt;
+
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -99,25 +101,37 @@ public class MenuTest extends TestCase {
 		when(mockAddUserMenuAction.toString())
 			.thenReturn(out);
 		
+		when(mockIntegerPrompter.promptUser(anyString(), anyInt(), anyInt()))
+			.thenReturn("");
+		
+		when(mockIntegerPrompter.inputWasGoBack())
+			.thenReturn(true);
+		
 		menu.go();
 		
 		String output = getOutput();
 		
 		assert(output.contains(out));
 		assert(output.contains("1"));
-		assert(output.toLowerCase().contains("select"));
+		verify(mockIntegerPrompter).promptUser(anyString(), eq(1), eq(1));
 	}
 	
 	public void testSelectAction() {
 		menu.addMenuAction(mockAddUserMenuAction);
 		menu.addMenuAction(mockCreateCourseMenuAction);
 
-		when(mockIntegerPrompter.promptUser(anyString()))
-				.thenReturn("1");
+		when(mockIntegerPrompter.promptUser(anyString(), anyInt(), anyInt()))
+				.thenReturn("1")
+				.thenReturn("");
+		
+		when(mockIntegerPrompter.inputWasGoBack())
+			.thenReturn(false)
+			.thenReturn(true);
 		
 		menu.go();
 		
 		verify(mockAddUserMenuAction).execute();
+		verify(mockIntegerPrompter, times(2)).promptUser(anyString(), eq(1), eq(2));
 	}
 
 }
