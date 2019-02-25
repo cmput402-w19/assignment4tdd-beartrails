@@ -363,7 +363,7 @@ public class AssignTeacherMenuActionTest extends TestCase {
     		.thenReturn(false)
     		.thenReturn(false);
     	
-    	when(mockScheduleManager.addCourse(anyString(), anyString()))
+    	when(mockCourseManager.assignTeacher(anyString(), anyString(), anyString()))
 			.thenReturn(true);
 
     	assignTeacherMenuAction.execute();
@@ -410,7 +410,7 @@ public class AssignTeacherMenuActionTest extends TestCase {
     		.thenReturn(true)
     		.thenReturn(false);
     	
-    	when(mockScheduleManager.addCourse(anyString(), anyString()))
+    	when(mockCourseManager.assignTeacher(anyString(), anyString(), anyString()))
 			.thenReturn(true);
 
     	assignTeacherMenuAction.execute();
