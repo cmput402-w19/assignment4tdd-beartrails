@@ -118,6 +118,10 @@ public class AssignTeacherMenuActionTest extends TestCase {
         return testOut.toString();
     }
     
+    public void testToString() {
+    	assert(assignTeacherMenuAction.toString().contains("assign");
+    }
+    
     /*
      * No courses to register in
      */

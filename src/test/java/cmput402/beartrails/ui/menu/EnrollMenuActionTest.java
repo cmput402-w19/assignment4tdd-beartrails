@@ -106,6 +106,10 @@ public class EnrollMenuActionTest extends TestCase {
         return testOut.toString();
     }
     
+    public void testToString() {
+    	assert(enrollMenuAction.toString().contains("enroll");
+    }
+    
     /*
      * No courses to register in
      */

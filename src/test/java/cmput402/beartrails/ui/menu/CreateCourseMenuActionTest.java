@@ -80,6 +80,10 @@ public class CreateCourseMenuActionTest extends TestCase {
 	private String getOutput() {
 		return testOut.toString();
 	}
+	
+    public void testToString() {
+    	assert(createCourseMenuAction.toString().contains("new course");
+    }
 
 	public void testHappyPath() {
 		when(mockStringPrompter.promptUser(anyString()))

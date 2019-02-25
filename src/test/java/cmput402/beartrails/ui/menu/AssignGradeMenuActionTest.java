@@ -134,6 +134,10 @@ public class AssignGradeMenuActionTest extends TestCase {
         return testOut.toString();
     }
     
+    public void testToString() {
+    	assert(assignGradeMenuAction.toString().contains("grade");
+    }
+    
     /*
      * Teacher is assigned to no courses
      */

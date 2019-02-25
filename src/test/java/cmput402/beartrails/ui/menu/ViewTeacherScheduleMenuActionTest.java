@@ -99,6 +99,9 @@ public class ViewTeacherScheduleMenuActionTest extends TestCase {
         return testOut.toString();
     }
     
+    public void testToString() {
+    	assert(viewTeacherScheduleMenuAction.toString().contains("schedule");
+    }    
     
     /*
      * Test output when Teacher is not assigned to courses

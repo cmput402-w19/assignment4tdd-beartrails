@@ -76,6 +76,10 @@ public class AddUserMenuActionTest extends TestCase {
         return testOut.toString();
     }
     
+    public void testToString() {
+    	assert(addUserMenuAction.toString().contains("new user");
+    }
+    
     public void testHappyPath() {
     	
     	when(mockStringPrompter.promptUser(anyString()))

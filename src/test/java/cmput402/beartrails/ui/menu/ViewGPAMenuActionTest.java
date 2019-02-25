@@ -79,6 +79,10 @@ public class ViewGPAMenuActionTest extends TestCase {
         return testOut.toString();
     }	
     
+    public void testToString() {
+    	assert(viewGPAMenuAction.toString().contains("GPA");
+    }
+    
     
     public void testGetGPA() {
     	when(mockGradeManager.getStudentGPA(anyString()))

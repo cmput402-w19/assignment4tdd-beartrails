@@ -87,6 +87,10 @@ public class ListCoursesMenuActionTest extends TestCase {
         return testOut.toString();
     }
     
+    public void testToString() {
+    	assert(listCoursesMenuAction.toString().contains("courses");
+    }
+    
     /*
      * Test output when there are no courses in the system
      */
