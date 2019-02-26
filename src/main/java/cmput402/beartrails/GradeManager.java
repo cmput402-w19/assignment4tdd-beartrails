@@ -57,7 +57,11 @@ public class GradeManager {
         // Get grade from response
         if(grade != null)
         {
-            courseMark = (Double)queryResult.get(0).get(0);
+            List<Object> gradeList = (List<Object>) grade;
+            if(gradeList.size() == 1)
+            {
+                courseMark = (Double)gradeList.get(0);
+            }
         }
 
         return courseMark;
@@ -152,6 +156,11 @@ public class GradeManager {
         }
 
         // Calculate average and round to 2 decimal places.
+        if(courseGradeAssigned == 0)
+        {
+            return 0.0d;
+        }
+
         Double studentGPA = totalGPA / courseGradeAssigned;
         BigDecimal bd = new BigDecimal(studentGPA);
         bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
@@ -234,6 +243,10 @@ public class GradeManager {
         }
 
         // Calculate course average and round to 2 decimal places.
+        if(courseGradeAssigned == 0)
+        {
+            return 0.0d;
+        }
         Double courseAverage = totalGPA / courseGradeAssigned;
         BigDecimal bd = new BigDecimal(courseAverage);
         bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
