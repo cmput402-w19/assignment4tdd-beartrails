@@ -51,7 +51,8 @@ public class CourseManager {
 
         // Get list of students from DB
         String sqlQuery = "SELECT user_name, first_name, last_name, type" +
-                " FROM enrollments NATURAL JOIN users" +
+                " FROM enrollments INNER JOIN users" +
+        		" ON enrollments.student = users.user_name" +
                 " WHERE subject = \"" + subject + "\"" +
                 " AND number = \"" + number + "\";";
         List<List<Object>> queryResult = connectionManager.query(sqlQuery);
