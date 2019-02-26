@@ -25,8 +25,8 @@ public class GradeManager {
 
         String sqlQuery = "UPDATE enrollments SET grade = " + grade +
                           " WHERE student = \"" + studentUsername + "\"" +
-                          " AND course_subject = \"" + subject + "\"" +
-                          " AND course_number = \"" + number + "\";";
+                          " AND subject = \"" + subject + "\"" +
+                          " AND number = \"" + number + "\";";
 
         return connectionManager.execute(sqlQuery);
     }
@@ -38,12 +38,27 @@ public class GradeManager {
         // Get grade from DB
         String sqlQuery = "SELECT grade FROM enrollments" +
                 " WHERE student = \"" + studentUsername + "\"" +
-                " AND course_subject = \"" + subject + "\"" +
-                " AND course_number = \"" + number + "\";";
+                " AND subject = \"" + subject + "\"" +
+                " AND number = \"" + number + "\";";
         List<List<Object>> queryResult = connectionManager.query(sqlQuery);
 
+        if(queryResult == null)
+        {
+            return null;
+        }
+
+        if(queryResult.size() == 0)
+        {
+            return null;
+        }
+
+        Object grade = queryResult.get(0);
+
         // Get grade from response
-        courseMark = (Double)queryResult.get(0).get(0);
+        if(grade != null)
+        {
+            courseMark = (Double)queryResult.get(0).get(0);
+        }
 
         return courseMark;
     }
@@ -55,30 +70,41 @@ public class GradeManager {
         // Get list of courses and grades from DB
         String sqlQuery = "SELECT subject, number, days, time, duration, location, professor, grade" +
                           " FROM enrollments NATURAL JOIN courses" +
-                          " WHERE student=\"" + studentUsername + "\";";
+                          " WHERE student= \"" + studentUsername + "\";";
         List<List<Object>> queryResult = connectionManager.query(sqlQuery);
+
+        if(queryResult == null)
+        {
+            return studentGrades;
+        }
 
         // Get course and grade list from response
         Iterator<List<Object>> courseGradeIterator = queryResult.iterator();
 
-        // Add all courses and grades to hashmap
+        // Add all courses and grades to list
         while(courseGradeIterator.hasNext())
         {
             List<Object> currentCourseGrade = courseGradeIterator.next();
-            String subject = currentCourseGrade.get(0).toString();
-            String number = currentCourseGrade.get(1).toString();
-            Course.DaysOfWeek days =  Course.DaysOfWeek.valueOf(currentCourseGrade.get(2).toString());
-            Integer startTime = (Integer) currentCourseGrade.get(3);
-            Integer duration = (Integer) currentCourseGrade.get(4);
-            String location = currentCourseGrade.get(5).toString();
-            Course currentCourse = new Course(subject, number, days, startTime, duration, location);
-            currentCourse.professor = currentCourseGrade.get(6).toString();
+            if(currentCourseGrade == null)
+            {
+                continue;
+            }
+            if(currentCourseGrade.size() == 8) {
+                String subject = currentCourseGrade.get(0).toString();
+                String number = currentCourseGrade.get(1).toString();
+                Course.DaysOfWeek days = Course.DaysOfWeek.valueOf(currentCourseGrade.get(2).toString());
+                Integer startTime = (Integer) currentCourseGrade.get(3);
+                Integer duration = (Integer) currentCourseGrade.get(4);
+                String location = currentCourseGrade.get(5).toString();
+                Course currentCourse = new Course(subject, number, days, startTime, duration, location);
+                currentCourse.professor = currentCourseGrade.get(6).toString();
 
-            CourseGrade courseGrade = new CourseGrade();
-            courseGrade.course = currentCourse;
-            courseGrade.grade = (Double)currentCourseGrade.get(7);
+                CourseGrade courseGrade = new CourseGrade();
+                courseGrade.course = currentCourse;
+                courseGrade.grade = (Double) currentCourseGrade.get(7);
 
-            studentGrades.add(courseGrade);
+                studentGrades.add(courseGrade);
+            }
         }
 
         return studentGrades;
@@ -93,21 +119,40 @@ public class GradeManager {
                           "WHERE student = \"" + studentUsername + "\";";
         List<List<Object>> queryResult = connectionManager.query(sqlQuery);
 
+        if(queryResult == null)
+        {
+            return null;
+        }
+
         if(queryResult.size() == 0) {
-        	return 0d;
+        	return totalGPA;
         }
         
         // Get grade list from response
         Iterator<List<Object>> gradeIterator = queryResult.iterator();
+        Integer courseGradeAssigned = 0;
 
         // Add up all grades
         while(gradeIterator.hasNext())
         {
-            totalGPA += (Double)gradeIterator.next().get(0);
+            List<Object> grade = gradeIterator.next();
+            if(grade == null)
+            {
+                continue;
+            }
+            if(grade.size() == 1)
+            {
+                Object courseGrade = grade.get(0);
+                if(courseGrade != null)
+                {
+                    totalGPA += (Double)courseGrade;
+                    courseGradeAssigned += 1;
+                }
+            }
         }
 
         // Calculate average and round to 2 decimal places.
-        Double studentGPA = totalGPA / queryResult.size();
+        Double studentGPA = totalGPA / courseGradeAssigned;
         BigDecimal bd = new BigDecimal(studentGPA);
         bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
         return bd.doubleValue();
@@ -123,6 +168,11 @@ public class GradeManager {
                 " AND number = \"" + number + "\";";
         List<List<Object>> queryResult = connectionManager.query(sqlQuery);
 
+        if(queryResult == null)
+        {
+            return courseMarks;
+        }
+
         // Get grade list and student list from response
         Iterator<List<Object>> userGradeIterator = queryResult.iterator();
 
@@ -130,7 +180,14 @@ public class GradeManager {
         while(userGradeIterator.hasNext())
         {
             List<Object> currentStudent = userGradeIterator.next();
-            courseMarks.put(currentStudent.get(0).toString(), (Double)currentStudent.get(1));
+            if(currentStudent == null)
+            {
+                continue;
+            }
+            if(currentStudent.size() == 2)
+            {
+                courseMarks.put(currentStudent.get(0).toString(), (Double)currentStudent.get(1));
+            }
         }
 
         return courseMarks;
@@ -146,16 +203,38 @@ public class GradeManager {
                 " AND number = \"" + number + "\";";
         List<List<Object>> queryResult = connectionManager.query(sqlQuery);
 
+        if(queryResult == null)
+        {
+            return null;
+        }
+
+        if(queryResult.size() == 0)
+        {
+            return totalGPA;
+        }
+
+        Integer courseGradeAssigned = 0;
+
         // Get grade list from response
         Iterator<List<Object>> gradeIterator = queryResult.iterator();
 
         // Add up all grades in the course
         while (gradeIterator.hasNext()) {
-            totalGPA += (Double)gradeIterator.next().get(0);
+            List<Object> grade = gradeIterator.next();
+
+            if(grade == null)
+            {
+                continue;
+            }
+            if(grade.size() == 1)
+            {
+                totalGPA += (Double)grade.get(0);
+                courseGradeAssigned += 1;
+            }
         }
 
         // Calculate course average and round to 2 decimal places.
-        Double courseAverage = totalGPA / queryResult.size();
+        Double courseAverage = totalGPA / courseGradeAssigned;
         BigDecimal bd = new BigDecimal(courseAverage);
         bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
         return bd.doubleValue();
