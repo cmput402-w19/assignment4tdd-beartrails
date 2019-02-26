@@ -42,6 +42,16 @@ public class UserTest extends TestCase {
 	}
 	
 	/*
+	 * Test equality when no fields are the same
+	 */
+	public void testNotEqual() {
+		User user1 = new User(username1, fname1, lname1, type1);
+		User user2 = new User(username2, fname2, lname2, type2);
+		
+		assertFalse(user1.equals(user2));
+	}
+	
+	/*
 	 * Test equality when only username is same
 	 */
 	public void testUpToUsername() {
