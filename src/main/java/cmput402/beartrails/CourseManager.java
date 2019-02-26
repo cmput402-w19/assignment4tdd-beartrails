@@ -51,7 +51,8 @@ public class CourseManager {
 
         // Get list of students from DB
         String sqlQuery = "SELECT user_name, first_name, last_name, type" +
-                " FROM enrollments NATURAL JOIN users" +
+                " FROM enrollments INNER JOIN users" +
+        		" ON enrollments.student = users.user_name" +
                 " WHERE subject = \"" + subject + "\"" +
                 " AND number = \"" + number + "\";";
         List<List<Object>> queryResult = connectionManager.query(sqlQuery);
@@ -98,7 +99,7 @@ public class CourseManager {
             String location = currentCourse.get(5).toString();
 
             Course course = new Course(subject, number, days, startTime, duration, location);
-            course.professor = currentCourse.get(6).toString();
+            course.professor = String.valueOf(currentCourse.get(6));
 
             courseList.add(course);
         }
@@ -142,8 +143,8 @@ public class CourseManager {
         }
 
         String sqlQuery = "UPDATE courses SET professor = " + prof +
-                " WHERE course_subject = \"" + sub + "\"" +
-                " AND course_number = \"" + num + "\";";
+                " WHERE subject = " + sub +
+                " AND number = " + num + ";";
         return connectionManager.execute(sqlQuery);
     }
 

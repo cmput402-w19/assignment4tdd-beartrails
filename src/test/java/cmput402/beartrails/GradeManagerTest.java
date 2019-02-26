@@ -28,13 +28,49 @@ public class GradeManagerTest extends TestCase {
         fakeGradesList.add(3.7d);
         fakeGrades.add(fakeGradesList);
 
-        when(mockConnectionManager.query(anyString())).thenReturn(fakeGrades);
+        List<List<Object>> fakeGrades2 = new ArrayList<List<Object>>();
+        List<List<Object>> fakeGrades3 = new ArrayList<List<Object>>();
+        fakeGrades3.add(null);
+        List<List<Object>> fakeGrades4 = new ArrayList<List<Object>>();
+        fakeGrades4.add(new ArrayList<Object>());
+
+        List<List<Object>> fakeGrades5 = new ArrayList<List<Object>>();
+        fakeGradesList = new ArrayList<Object>();
+        fakeGradesList.add(3.0d);
+        fakeGradesList.add(null);
+        fakeGrades5.add(fakeGradesList);
+
+        List<List<Object>> fakeGrades6 = new ArrayList<List<Object>>();
+        fakeGradesList = new ArrayList<Object>();
+        fakeGradesList.add(null);
+        fakeGrades6.add(fakeGradesList);
+
+        when(mockConnectionManager.query(anyString())).thenReturn(fakeGrades).thenReturn(null).thenReturn(fakeGrades2).thenReturn(fakeGrades3)
+                .thenReturn(fakeGrades4).thenReturn(fakeGrades5).thenReturn(fakeGrades6);
 
         GradeManager gradeManager = new GradeManager(mockConnectionManager);
 
         Double result = gradeManager.getStudentGPA("repka");
-        verify(mockConnectionManager, times(1)).query(anyString());
         Assert.assertEquals(result, 3.40d);
+
+        result = gradeManager.getStudentGPA("repka");
+        assertNull(result);
+
+        result = gradeManager.getStudentGPA("repka");
+        Assert.assertEquals(result, 0.0d);
+
+        result = gradeManager.getStudentGPA("repka");
+        Assert.assertEquals(result, 0.0d);
+
+        result = gradeManager.getStudentGPA("repka");
+        Assert.assertEquals(result, 0.0d);
+
+        result = gradeManager.getStudentGPA("repka");
+        Assert.assertEquals(result, 0.0d);
+
+        result = gradeManager.getStudentGPA("repka");
+        Assert.assertEquals(result, 0.0d);
+        verify(mockConnectionManager, times(7)).query(anyString());
     }
 
     public void testgetCourseAverage()
@@ -59,11 +95,32 @@ public class GradeManagerTest extends TestCase {
         fakeUserGrade.add(2.0d);
         fakeGrades.add(fakeUserGrade);
 
-        when(mockConnectionManager.query(anyString())).thenReturn(fakeGrades);
+        List<List<Object>> fakeGrades2 = new ArrayList<List<Object>>();
+        List<List<Object>> fakeGrades3 = new ArrayList<List<Object>>();
+        fakeGrades3.add(null);
+        List<List<Object>> fakeGrades4 = new ArrayList<List<Object>>();
+        fakeGrades4.add(new ArrayList<Object>());
+
+        when(mockConnectionManager.query(anyString())).thenReturn(fakeGrades).thenReturn(null).thenReturn(fakeGrades2)
+                .thenReturn(fakeGrades3).thenReturn(fakeGrades4);
 
         GradeManager gradeManager = new GradeManager(mockConnectionManager);
         Double result = gradeManager.getCourseAverage("CMPUT", "402");
         Assert.assertEquals(result, 3.10d);
+
+        result = gradeManager.getCourseAverage("CMPUT", "402");
+        assertNull(result);
+
+        result = gradeManager.getCourseAverage("CMPUT", "402");
+        Assert.assertEquals(result, 0.0d);
+
+        result = gradeManager.getCourseAverage("CMPUT", "402");
+        Assert.assertEquals(result, 0.0d);
+
+        result = gradeManager.getCourseAverage("CMPUT", "402");
+        Assert.assertEquals(result, 0.0d);
+
+        verify(mockConnectionManager, times(5)).query(anyString());
     }
 
     public void testgetCourseMarks()
@@ -92,7 +149,13 @@ public class GradeManagerTest extends TestCase {
         fakeUserGrade.add(2.0d);
         fakeGrades.add(fakeUserGrade);
 
-        when(mockConnectionManager.query(anyString())).thenReturn(fakeGrades);
+        List<List<Object>> fakeGrades2 = new ArrayList<List<Object>>();
+        fakeGrades2.add(null);
+        List<List<Object>> fakeGrades3 = new ArrayList<List<Object>>();
+        fakeGrades3.add(new ArrayList<Object>());
+
+        when(mockConnectionManager.query(anyString())).thenReturn(fakeGrades).thenReturn(null)
+                .thenReturn(fakeGrades2).thenReturn(fakeGrades3);
 
         GradeManager gradeManager = new GradeManager(mockConnectionManager);
         HashMap<String, Double> result = gradeManager.getCourseMarks("CMPUT", "402");
@@ -103,6 +166,19 @@ public class GradeManagerTest extends TestCase {
         Assert.assertEquals(result.get("smith"), 2.7d);
         Assert.assertEquals(result.get("molly"), 3.7d);
         Assert.assertEquals(result.get("james"), 2.0d);
+
+        result = gradeManager.getCourseMarks("CMPUT", "402");
+        assertNotNull(result);
+        assertTrue(result.size() == 0);
+
+        result = gradeManager.getCourseMarks("CMPUT", "402");
+        assertNotNull(result);
+        assertTrue(result.size() == 0);
+
+        result = gradeManager.getCourseMarks("CMPUT", "402");
+        assertNotNull(result);
+        assertTrue(result.size() == 0);
+        verify(mockConnectionManager, times(4)).query(anyString());
     }
 
     public void testgetStudentGrades()
@@ -145,7 +221,13 @@ public class GradeManagerTest extends TestCase {
         fakeCourseGrade.add(4.0d);
         fakeGrades.add(fakeCourseGrade);
 
-        when(mockConnectionManager.query(anyString())).thenReturn(fakeGrades);
+        List<List<Object>> fakeGrades2 = new ArrayList<List<Object>>();
+        fakeGrades2.add(null);
+        List<List<Object>> fakeGrades3 = new ArrayList<List<Object>>();
+        fakeGrades3.add(new ArrayList<Object>());
+
+        when(mockConnectionManager.query(anyString())).thenReturn(fakeGrades).thenReturn(null)
+                .thenReturn(fakeGrades2).thenReturn(fakeGrades3);
 
         GradeManager gradeManager = new GradeManager(mockConnectionManager);
         ArrayList<CourseGrade> result = gradeManager.getStudentGrades("repka");
@@ -165,6 +247,22 @@ public class GradeManagerTest extends TestCase {
         Assert.assertTrue(firstCourse.location.equals(course.location));
         Assert.assertTrue(firstCourse.professor.equals(course.professor));
 
+        result = gradeManager.getStudentGrades("repka");
+
+        assertNotNull(result);
+        assertTrue(result.size() == 0);
+
+        result = gradeManager.getStudentGrades("repka");
+
+        assertNotNull(result);
+        assertTrue(result.size() == 0);
+
+        result = gradeManager.getStudentGrades("repka");
+
+        assertNotNull(result);
+        assertTrue(result.size() == 0);
+
+        verify(mockConnectionManager, times(4)).query(anyString());
     }
 
     public void testassignGrade()
@@ -195,10 +293,40 @@ public class GradeManagerTest extends TestCase {
         List<Object> fakeUserGrade = new ArrayList<Object>();
         fakeUserGrade.add(3.5d);
         fakeGrade.add(fakeUserGrade);
-        when(mockConnectionManager.query(anyString())).thenReturn(fakeGrade);
+
+        List<List<Object>> fakeGrades2 = new ArrayList<List<Object>>();
+        List<List<Object>> fakeGrades3 = new ArrayList<List<Object>>();
+        fakeGrades3.add(null);
+        List<List<Object>> fakeGrades4 = new ArrayList<List<Object>>();
+        fakeGrades4.add(new ArrayList<Object>());
+        List<List<Object>> fakeGrades5 = new ArrayList<List<Object>>();
+        fakeUserGrade = new ArrayList<Object>();
+        fakeGrades5.add(fakeUserGrade);
+
+        when(mockConnectionManager.query(anyString())).thenReturn(fakeGrade).thenReturn(null)
+                .thenReturn(fakeGrades2).thenReturn(fakeGrades3).thenReturn(fakeGrades4).thenReturn(fakeGrades5);
 
         GradeManager gradeManager = new GradeManager(mockConnectionManager);
         Double result = gradeManager.getStudentGrade("repka", "CMPUT", "402");
         Assert.assertEquals(result, 3.5d);
+
+        result = gradeManager.getStudentGrade("repka", "CMPUT", "402");
+        assertNull(result);
+
+        result = gradeManager.getStudentGrade("repka", "CMPUT", "402");
+        assertNull(result);
+
+        result = gradeManager.getStudentGrade("repka", "CMPUT", "402");
+        Assert.assertEquals(result, 0.0d);
+
+        result = gradeManager.getStudentGrade("repka", "CMPUT", "402");
+        assertNotNull(result);
+        Assert.assertEquals(result, 0.0d);
+
+        result = gradeManager.getStudentGrade("repka", "CMPUT", "402");
+        assertNotNull(result);
+        Assert.assertEquals(result, 0.0d);
+
+        verify(mockConnectionManager, times(6)).query(anyString());
     }
 }

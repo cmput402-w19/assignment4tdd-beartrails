@@ -19,20 +19,23 @@ public class ScheduleManager {
     public List<Course> getStudentSchedule(String studentUsername) {
 
         Object[] params = new Object[]{studentUsername};
-        String query = MessageFormat.format("SELECT subject, number, days, time, duration, location" +
-                " FROM enrollments NATURAL JOIN courses ORDER BY days, time;" +
-                " WHERE student=\"{0}\";", params);
+        String query = MessageFormat.format("SELECT subject, number, days, time, duration, location, professor" +
+                " FROM enrollments NATURAL JOIN courses" +
+                " WHERE student=\"{0}\"" +
+                "ORDER BY days, time;", params);
         List<List<Object>> rs = connectionManager.query(query);
 
         List<Course> courseList = new ArrayList<Course>();
         for (List<Object> row : rs) {
             String courseSubject = (String) row.get(0);
             String courseNumber = (String) row.get(1);
-            Course.DaysOfWeek courseDays = (Course.DaysOfWeek) row.get(2);
+            Course.DaysOfWeek courseDays = Course.DaysOfWeek.valueOf(row.get(2).toString());
             Integer startTime = (Integer) row.get(3);
             Integer duration = (Integer) row.get(4);
             String location = (String) row.get(5);
-            courseList.add(new Course(courseSubject, courseNumber, courseDays, startTime, duration, location));
+            Course newCourse = new Course(courseSubject, courseNumber, courseDays, startTime, duration, location);
+            newCourse.professor = (String) row.get(6);
+            courseList.add(newCourse);
         }
 
         return courseList;
@@ -42,14 +45,14 @@ public class ScheduleManager {
 
         Object[] params = new Object[]{teacherUsername};
         String query = MessageFormat.format("SELECT subject, number, days, time, duration, location" +
-                " FROM courses WHERE professor = {0}", params);
+                " FROM courses WHERE professor = \"{0}\"", params);
         List<List<Object>> rs = connectionManager.query(query);
 
         List<Course> courseList = new ArrayList<Course>();
         for (List<Object> row : rs) {
             String courseSubject = (String) row.get(0);
             String courseNumber = (String) row.get(1);
-            Course.DaysOfWeek courseDays = (Course.DaysOfWeek) row.get(2);
+            Course.DaysOfWeek courseDays = Course.DaysOfWeek.valueOf(row.get(2).toString());
             Integer startTime = (Integer) row.get(3);
             Integer duration = (Integer) row.get(4);
             String location = (String) row.get(5);
@@ -63,7 +66,7 @@ public class ScheduleManager {
 
         Object[] selectParams = new Object[]{courseSubject, courseNumber};
         String selectQuery = MessageFormat.format(
-                "SELECT days, time  FROM courses WHERE subject = {0} AND number = {1};", selectParams);
+                "SELECT days, time, duration FROM courses WHERE subject = \"{0}\" AND number = \"{1}\";", selectParams);
         List<List<Object>> courseList = connectionManager.query(selectQuery);
 
         // The course in question did not even exist
@@ -71,8 +74,9 @@ public class ScheduleManager {
             return false;
         }
 
-        Course.DaysOfWeek day = (Course.DaysOfWeek) courseList.get(0).get(0);
+        Course.DaysOfWeek day = Course.DaysOfWeek.valueOf(courseList.get(0).get(0).toString());
         Integer time = (Integer) courseList.get(0).get(1);
+        Integer duration = (Integer) courseList.get(0).get(2);
 
         // Get the users current schedule
         List<Course> userSchedule;
@@ -85,6 +89,14 @@ public class ScheduleManager {
         // If there is a conflict with the existing schedule, the new course cannot be added
         for (Course course : userSchedule) {
             if (course.courseDays.equals(day) && course.startTime.equals(time)) {
+                return false;
+            }
+            Integer courseStart = course.startTime;
+            Integer courseEnd = courseStart + course.duration;
+            if (course.courseDays.equals(day) &&
+                    ((time > courseStart && time < courseEnd) ||
+                    (time < courseStart && (time + duration) > courseStart)))
+            {
                 return false;
             }
         }

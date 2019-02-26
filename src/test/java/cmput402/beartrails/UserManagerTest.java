@@ -21,7 +21,7 @@ public class UserManagerTest extends TestCase {
         row.add("zred");
         row.add("Zach");
         row.add("Redfern");
-        row.add(User.Type.Student);
+        row.add(User.Type.Student.ordinal());
         queryList.add(row);
 
         when(mockConnectionManager.query(Mockito.anyString())).thenReturn(queryList);
@@ -48,7 +48,7 @@ public class UserManagerTest extends TestCase {
         row.add("zred");
         row.add("Zach");
         row.add("Redfern");
-        row.add(User.Type.Professor);
+        row.add(User.Type.Professor.ordinal());
         queryList.add(row);
 
         when(mockConnectionManager.query(Mockito.anyString())).thenReturn(queryList);
@@ -75,7 +75,7 @@ public class UserManagerTest extends TestCase {
         row.add("zred");
         row.add("Zach");
         row.add("Redfern");
-        row.add(User.Type.Admin);
+        row.add(User.Type.Admin.ordinal());
         queryList.add(row);
 
         when(mockConnectionManager.query(Mockito.anyString())).thenReturn(queryList);
@@ -131,17 +131,17 @@ public class UserManagerTest extends TestCase {
         row1.add(student1.username);
         row1.add(student1.firstName);
         row1.add(student1.lastName);
-        row1.add(student1.userType);
+        row1.add(student1.userType.ordinal());
 
         row2.add(student2.username);
         row2.add(student2.firstName);
         row2.add(student2.lastName);
-        row2.add(student2.userType);
+        row2.add(student2.userType.ordinal());
 
         row3.add(student3.username);
         row3.add(student3.firstName);
         row3.add(student3.lastName);
-        row3.add(student3.userType);
+        row3.add(student3.userType.ordinal());
 
         queryList.add(row1);
         queryList.add(row2);
@@ -152,9 +152,6 @@ public class UserManagerTest extends TestCase {
         List<User> studentList = userManager.getStudents();
 
         assert(studentList.size() == 3);
-
-        System.out.print(student1.lastName);
-        System.out.print(studentList.get(0).lastName);
 
         assert(studentList.get(0).username.equals(student1.username));
         assert(studentList.get(0).lastName.equals(student1.lastName));
@@ -188,17 +185,17 @@ public class UserManagerTest extends TestCase {
         row1.add(professor1.username);
         row1.add(professor1.firstName);
         row1.add(professor1.lastName);
-        row1.add(professor1.userType);
+        row1.add(professor1.userType.ordinal());
 
         row2.add(professor2.username);
         row2.add(professor2.firstName);
         row2.add(professor2.lastName);
-        row2.add(professor2.userType);
+        row2.add(professor2.userType.ordinal());
 
         row3.add(professor3.username);
         row3.add(professor3.firstName);
         row3.add(professor3.lastName);
-        row3.add(professor3.userType);
+        row3.add(professor3.userType.ordinal());
 
         queryList.add(row1);
         queryList.add(row2);
@@ -209,9 +206,6 @@ public class UserManagerTest extends TestCase {
         List<User> professorList = userManager.getTeachers();
 
         assert(professorList.size() == 3);
-
-        System.out.print(professor1.lastName);
-        System.out.print(professorList.get(0).lastName);
 
         assert(professorList.get(0).username.equals(professor1.username));
         assert(professorList.get(0).lastName.equals(professor1.lastName));

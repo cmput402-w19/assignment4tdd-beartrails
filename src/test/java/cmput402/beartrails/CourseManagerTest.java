@@ -15,7 +15,7 @@ public class CourseManagerTest extends TestCase {
     public void testcreateCourse()
     {
         ConnectionManager mockConnectionManager = mock(ConnectionManager.class);
-        when(mockConnectionManager.execute(anyString())).thenReturn(true).thenReturn(false);
+        when(mockConnectionManager.execute(anyString())).thenReturn(true);
 
         CourseManager courseManager = new CourseManager(mockConnectionManager);
         Course newCourse = new Course("CMPUT", "402", Course.DaysOfWeek.TueThu,
@@ -28,6 +28,20 @@ public class CourseManagerTest extends TestCase {
         Assert.assertTrue(result);
 
         newCourse = new Course(null, null, null, null, null, null);
+        newCourse.professor = null;
+
+        result = courseManager.createCourse(newCourse);
+        assertNotNull(result);
+        Assert.assertFalse(result);
+
+        newCourse = new Course("cmput", null, null, null, null, null);
+        newCourse.professor = null;
+
+        result = courseManager.createCourse(newCourse);
+        assertNotNull(result);
+        Assert.assertFalse(result);
+
+        newCourse = new Course(null, "402", null, null, null, null);
         newCourse.professor = null;
 
         result = courseManager.createCourse(newCourse);
@@ -124,7 +138,7 @@ public class CourseManagerTest extends TestCase {
     public void testremoveCourse()
     {
         ConnectionManager mockConnectionManager = mock(ConnectionManager.class);
-        when(mockConnectionManager.execute(anyString())).thenReturn(true).thenReturn(false);
+        when(mockConnectionManager.execute(anyString())).thenReturn(true);
 
         CourseManager courseManager = new CourseManager(mockConnectionManager);
 
@@ -136,6 +150,14 @@ public class CourseManagerTest extends TestCase {
         assertNotNull(result);
         Assert.assertFalse(result);
 
+        result = courseManager.removeCourse("cmput", null);
+        assertNotNull(result);
+        Assert.assertFalse(result);
+
+        result = courseManager.removeCourse(null, "402");
+        assertNotNull(result);
+        Assert.assertFalse(result);
+
         // Execute should only be called once, since removeCourse will reject empty or null subject/number
         verify(mockConnectionManager, times(1)).execute(anyString());
     }
@@ -143,7 +165,7 @@ public class CourseManagerTest extends TestCase {
     public void testassignTeacher()
     {
         ConnectionManager mockConnectionManager = mock(ConnectionManager.class);
-        when(mockConnectionManager.execute(anyString())).thenReturn(true).thenReturn(false);
+        when(mockConnectionManager.execute(anyString())).thenReturn(true);
 
         CourseManager courseManager = new CourseManager(mockConnectionManager);
 
@@ -152,6 +174,30 @@ public class CourseManagerTest extends TestCase {
         Assert.assertTrue(result);
 
         result = courseManager.assignTeacher(null, null, null);
+        assertNotNull(result);
+        Assert.assertFalse(result);
+
+        result = courseManager.assignTeacher("snadi", null, null);
+        assertNotNull(result);
+        Assert.assertFalse(result);
+
+        result = courseManager.assignTeacher(null, "cmput", null);
+        assertNotNull(result);
+        Assert.assertFalse(result);
+
+        result = courseManager.assignTeacher(null, null, "402");
+        assertNotNull(result);
+        Assert.assertFalse(result);
+
+        result = courseManager.assignTeacher("snadi", "cmput", null);
+        assertNotNull(result);
+        Assert.assertFalse(result);
+
+        result = courseManager.assignTeacher("snadi", null, "402");
+        assertNotNull(result);
+        Assert.assertFalse(result);
+
+        result = courseManager.assignTeacher(null, "cmput", "402");
         assertNotNull(result);
         Assert.assertFalse(result);
 
@@ -171,6 +217,14 @@ public class CourseManagerTest extends TestCase {
         Assert.assertTrue(result);
 
         result = courseManager.unassignTeacher(null, null);
+        assertNotNull(result);
+        Assert.assertFalse(result);
+
+        result = courseManager.unassignTeacher("cmput", null);
+        assertNotNull(result);
+        Assert.assertFalse(result);
+
+        result = courseManager.unassignTeacher(null, "402");
         assertNotNull(result);
         Assert.assertFalse(result);
 

@@ -17,7 +17,7 @@ public class UserManager {
     public User login(String username) {
 
         Object[] params = new Object[]{username};
-        String query = MessageFormat.format("SELECT * FROM users WHERE user_name = {0} ORDER BY last_name;", params);
+        String query = MessageFormat.format("SELECT * FROM users WHERE user_name = \"{0}\" ORDER BY last_name;", params);
         List<List<Object>> rs = connectionManager.query(query);
 
         // Return null if there was no valid user
@@ -29,14 +29,14 @@ public class UserManager {
         String userName = (String) rs.get(0).get(0);
         String firstName = (String) rs.get(0).get(1);
         String lastName = (String) rs.get(0).get(2);
-        User.Type userType = (User.Type)rs.get(0).get(3);
+        User.Type userType = User.Type.values()[(Integer) rs.get(0).get(3)];
 
         return new User(userName, firstName, lastName, userType);
     }
 
     public boolean registerUser(User user) {
 
-        Object[] params = new Object[]{user.username, user.firstName, user.lastName, user.userType};
+        Object[] params = new Object[]{user.username, user.firstName, user.lastName, user.userType.ordinal()};
         String query = MessageFormat.format( "INSERT INTO users VALUES (\"{0}\", \"{1}\", \"{2}\", {3});", params);
 
         return(connectionManager.execute(query));
@@ -44,7 +44,7 @@ public class UserManager {
 
     public List<User> getStudents() {
 
-        Object[] params = new Object[]{User.Type.Student};
+        Object[] params = new Object[]{User.Type.Student.ordinal()};
         String query = MessageFormat.format("SELECT * FROM users WHERE type = {0} ORDER BY last_name;", params);
         List<List<Object>> rs = connectionManager.query(query);
 
@@ -54,7 +54,7 @@ public class UserManager {
             String userName = (String) row.get(0);
             String firstName = (String) row.get(1);
             String lastName = (String) row.get(2);
-            User.Type userType = (User.Type) row.get(3);
+            User.Type userType = User.Type.values()[(Integer) row.get(3)];
             studentList.add(new User(userName, firstName, lastName, userType));
         }
 
@@ -63,7 +63,7 @@ public class UserManager {
 
     public List<User> getTeachers() {
 
-        Object[] params = new Object[]{User.Type.Professor};
+        Object[] params = new Object[]{User.Type.Professor.ordinal()};
         String query = MessageFormat.format("SELECT * FROM users WHERE type = {0} ORDER BY last_name;", params);
         List<List<Object>> rs = connectionManager.query(query);
 
@@ -73,7 +73,7 @@ public class UserManager {
             String userName = (String) row.get(0);
             String firstName = (String) row.get(1);
             String lastName = (String) row.get(2);
-            User.Type userType = (User.Type) row.get(3);
+            User.Type userType = User.Type.values()[(Integer) row.get(3)];
             professorList.add(new User(userName, firstName, lastName, userType));
         }
 

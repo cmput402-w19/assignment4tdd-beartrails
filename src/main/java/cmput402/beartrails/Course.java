@@ -20,4 +20,24 @@ public class Course {
     public Integer duration;
     public String location;
     public String professor;
+    
+    public boolean equals(Object o) {
+    	if(o == this) {
+    		return true;
+    	}
+    	
+    	if(!(o instanceof Course)) {
+    		return false;
+    	}
+    	
+    	Course c = (Course) o;
+    	
+    	return ((this.courseSubject == c.courseSubject &&
+    			 this.courseNumber == c.courseNumber &&
+    			 this.courseDays == c.courseDays &&
+    			 this.startTime == c.startTime &&
+    			 this.duration == c.duration &&
+    			 this.location == c.location &&
+    			 this.professor == c.professor));
+    }
 }
