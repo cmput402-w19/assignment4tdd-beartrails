@@ -14,7 +14,7 @@ public class ViewGPAMenuAction extends AbstractMenuAction {
 		
 		Double gpa = gradeManager.getStudentGPA(loggedInUser.username);
 		
-		System.out.println("Your GPA is currently: " + gpa.toString());
+		System.out.println("\nYour GPA is currently: " + gpa.toString());
 		
 		return true;
 	}
