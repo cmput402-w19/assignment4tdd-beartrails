@@ -19,6 +19,7 @@ public class ScheduleManagerTest extends TestCase {
                 8, 1, "CSC");
         Course course2 = new Course("stat", "252", Course.DaysOfWeek.MonWedFri,
                 9, 1, "ETLC");
+        course2.professor = "snadi";
         Course course3 = new Course("cmput", "402", Course.DaysOfWeek.TueThu,
                 11, 1, "CSC");
 
@@ -35,6 +36,7 @@ public class ScheduleManagerTest extends TestCase {
         row1.add(course1.startTime);
         row1.add(course1.duration);
         row1.add(course1.location);
+        row1.add(null);
 
         row2.add(course2.courseSubject);
         row2.add(course2.courseNumber);
@@ -42,6 +44,7 @@ public class ScheduleManagerTest extends TestCase {
         row2.add(course2.startTime);
         row2.add(course2.duration);
         row2.add(course2.location);
+        row2.add(course2.professor);
 
         row3.add(course3.courseSubject);
         row3.add(course3.courseNumber);
@@ -49,6 +52,7 @@ public class ScheduleManagerTest extends TestCase {
         row3.add(course3.startTime);
         row3.add(course3.duration);
         row3.add(course3.location);
+        row3.add(null);
 
         queryList.add(row1);
         queryList.add(row2);
@@ -66,6 +70,7 @@ public class ScheduleManagerTest extends TestCase {
         assert(courseList.get(0).startTime.equals(course1.startTime));
         assert(courseList.get(0).duration.equals(course1.duration));
         assert(courseList.get(0).location.equals(course1.location));
+        assertNull(courseList.get(0).professor);
 
         assert(courseList.get(1).courseSubject.equals(course2.courseSubject));
         assert(courseList.get(1).courseNumber.equals(course2.courseNumber));
@@ -73,6 +78,7 @@ public class ScheduleManagerTest extends TestCase {
         assert(courseList.get(1).startTime.equals(course2.startTime));
         assert(courseList.get(1).duration.equals(course2.duration));
         assert(courseList.get(1).location.equals(course2.location));
+        assert(courseList.get(1).professor.equals(course2.professor));
 
         assert(courseList.get(2).courseSubject.equals(course3.courseSubject));
         assert(courseList.get(2).courseNumber.equals(course3.courseNumber));
@@ -80,6 +86,7 @@ public class ScheduleManagerTest extends TestCase {
         assert(courseList.get(2).startTime.equals(course3.startTime));
         assert(courseList.get(2).duration.equals(course3.duration));
         assert(courseList.get(2).location.equals(course3.location));
+        assertNull(courseList.get(2).professor);
     }
 
     public void testGetTeacherSchedule() {
@@ -175,6 +182,7 @@ public class ScheduleManagerTest extends TestCase {
         List<Object> row = new ArrayList<Object>();
         row.add(newCourse.courseDays);
         row.add(newCourse.startTime);
+        row.add(newCourse.duration);
         courseList.add(row);
 
         List<List<Object>> scheduleList = new ArrayList<List<Object>>();
@@ -188,6 +196,7 @@ public class ScheduleManagerTest extends TestCase {
         row1.add(course1.startTime);
         row1.add(course1.duration);
         row1.add(course1.location);
+        row1.add(null);
 
         row2.add(course2.courseSubject);
         row2.add(course2.courseNumber);
@@ -195,6 +204,7 @@ public class ScheduleManagerTest extends TestCase {
         row2.add(course2.startTime);
         row2.add(course2.duration);
         row2.add(course2.location);
+        row2.add("snadi");
 
         row3.add(course3.courseSubject);
         row3.add(course3.courseNumber);
@@ -202,6 +212,7 @@ public class ScheduleManagerTest extends TestCase {
         row3.add(course3.startTime);
         row3.add(course3.duration);
         row3.add(course3.location);
+        row3.add(null);
 
         scheduleList.add(row1);
         scheduleList.add(row2);
@@ -255,6 +266,7 @@ public class ScheduleManagerTest extends TestCase {
         List<Object> row = new ArrayList<Object>();
         row.add(newCourse.courseDays.name());
         row.add(newCourse.startTime);
+        row.add(newCourse.duration);
         courseList.add(row);
 
         List<List<Object>> scheduleList = new ArrayList<List<Object>>();
@@ -268,6 +280,7 @@ public class ScheduleManagerTest extends TestCase {
         row1.add(course1.startTime);
         row1.add(course1.duration);
         row1.add(course1.location);
+        row1.add(null);
 
         row2.add(course2.courseSubject);
         row2.add(course2.courseNumber);
@@ -275,6 +288,7 @@ public class ScheduleManagerTest extends TestCase {
         row2.add(course2.startTime);
         row2.add(course2.duration);
         row2.add(course2.location);
+        row2.add("snadi");
 
         row3.add(course3.courseSubject);
         row3.add(course3.courseNumber);
@@ -282,6 +296,7 @@ public class ScheduleManagerTest extends TestCase {
         row3.add(course3.startTime);
         row3.add(course3.duration);
         row3.add(course3.location);
+        row3.add(null);
 
         scheduleList.add(row1);
         scheduleList.add(row2);
