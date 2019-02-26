@@ -27,18 +27,18 @@ java -jar .\target\beartrails-0.1-jar-with-dependencies.jar
 2. Follow the prompts to use the program.
 
 
-### Users  
+## Users  
 Try logging in as one of the following users.  
 
-## Admin  
+### Admin  
 admin  
 
-## Professor  
+### Professor  
 muellerm  
 elmallahe  
 moroschang
 
-## Student  
+### Student  
 huntc  
 repkad  
 redferna
